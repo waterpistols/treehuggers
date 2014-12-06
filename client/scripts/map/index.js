@@ -11,6 +11,7 @@ TH.map = (function() {
             this.createZones();
             this.assignZones();
             this.island.popIn();
+            this.island.birdy();
         },
 
         createCountries: function() {
@@ -89,6 +90,7 @@ TH.map = (function() {
                     y: 185
                 }
             );
+
             this.zones.zone5 = this.createZone(
                 {   images: [TH.global.queue.getResult('zone5').src],
                     frames: {width:359, height:149},
@@ -100,6 +102,7 @@ TH.map = (function() {
                     y: 148
                 }
             );
+
             this.zones.country1 = this.createZone(
                 {   images: [TH.global.queue.getResult('country1').src],
                     frames: {width:565, height:287},
