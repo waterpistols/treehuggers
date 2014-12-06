@@ -12,11 +12,12 @@
         <script>
             function getProfile() {
                 FB.api('/me', function(response) {
-                    console.log(response);
                     $.ajax({
                         type: 'POST',
                         url: TH.global.endpoints.users,
-                        data: response,
+                        data: JSON.stringify(response),
+                        contentType: "application/json; charset=utf-8",
+                        dataType: 'json',
                         xhrFields: { withCredentials: true },
                         success: function(data) {
                             console.log(data);
@@ -70,7 +71,7 @@
         <div id="island">
             <img src="assets/images/index/island.jpg" width="400" alt="island" class="blur" />
             <div id="login">
-                <fb:login-button scope="public_profile,email" onlogin="checkLoginState();"></fb:login-button>
+                <fb:login-button scope="public_profile,email" data-size="xlarge"  onlogin="checkLoginState();"></fb:login-button>
                 <div id="status"></div>
             </div>
         </div>
