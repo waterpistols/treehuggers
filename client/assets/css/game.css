@@ -1,0 +1,10 @@
+body {
+    background: url('../images/index/ocean.png');
+    background-repeat: repeat;
+}
+
+    #world {
+        width: 960px;
+        margin: 100px auto;
+        display: block;
+    }

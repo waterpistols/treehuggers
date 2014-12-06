@@ -2,6 +2,7 @@ var TH = TH || {};
 
 TH.world = (function() {
     var stage,
+        properties = {},
         queue;
 
 
@@ -10,6 +11,10 @@ TH.world = (function() {
             this._installPlugins();
             this._createStage();
             this._loadFiles(this._postInit);
+
+            // Set properties
+            properties.canvasWidth = 960;
+            properties.canvasHeight = 533;
 
         },
         _installPlugins: function() {
@@ -26,7 +31,8 @@ TH.world = (function() {
             queue.addEventListener('complete', callback.bind(this));
             queue.loadManifest([
                 /* IMAGES */
-                {id: 'flower', src: 'assets/images/ocean.png'},
+                {id: 'ocean',   src: 'assets/images/index/ocean.png'},
+                {id: 'island',   src: 'assets/images/index/island.jpg'},
                 {id: 'diamond', src: 'assets/images/test.png'},
 
                 /* SOUNDS */
@@ -35,24 +41,34 @@ TH.world = (function() {
         },
 
         _postInit: function() {
-            this._createTestShape();
+            this._setupUI();
+            this._createIsland();
         },
 
-        _createTestShape: function() {
-            var shape = new createjs.Bitmap(queue.getResult('diamond'));
-            shape.x = 100;
-            shape.y = 100;
+        _setupUI: function() {
+            var ocean = queue.getResult('ocean');
+            var background = new createjs.Shape();
 
-            shape.addEventListener('click', function() {
-                console.log('clicked');
-            });
+            // Repeat background pattern
+            background.graphics.beginBitmapFill(ocean, "repeat").rect(0, 0, 960, 533);
 
-            var tw = createjs.Tween.get(shape).to({transform: 'scale(0.3)'}, 3000);
-            stage.addChild(shape);
+            stage.addChild(background);
             stage.update();
         },
+
+        _createIsland: function(firstLogin) {
+            var island = new createjs.Bitmap(queue.getResult('island'));
+
+            // Position island center
+            island.x = properties.canvasWidth / 2 - island.image.width / 2;
+            island.y = properties.canvasHeight / 2 - island.image.height / 2;
+
+            stage.addChild(island);
+            stage.update();
+        },
+
         tick: function() {
-            stage.update();
+            // stage.update();
         }
 
     }
