@@ -68,8 +68,8 @@ $app->post('/login', function() use ($app, $db) {
 		}
 
 		// Create a token for the session
-		$salt = time();
-		$token = crypt($requestBody['fields']['email'], $salt);
+		$salt = microtime();
+		$token = crypt($requestBody['fields']['email'] + microtime(), $salt);
 
 		$now = date("Y-m-d H:i:s");
 		$expires = date("Y-m-d H:i:s", strtotime($now) + 3600);
