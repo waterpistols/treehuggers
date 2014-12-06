@@ -28,7 +28,7 @@ TH.Player = (function() {
 
     Player.prototype.fallDown = function(callback) {
         return createjs.Tween.get(this.shape)
-            .to({y: this.shape.y + 400}, 300, createjs.Ease.bounceOut);
+            .to({y: this.shape.y + 600}, 300, createjs.Ease.bounceOut);
     };
 
     Player.prototype.updateZones = function() {

@@ -11,26 +11,26 @@ TH.players = (function() {
 
             this.players.red = new TH.MainPlayer(
                 TH.global.queue.getResult('flag'),
-                {   x : TH.global.properties.canvasWidth / 2 + 25,
-                    y : -100
+                {   x : 650,
+                    y : -50
                 }
             );
             this.players.green = new TH.Player(
                 TH.global.queue.getResult('avatar'),
-                {   x : TH.global.properties.canvasWidth / 2 + 25,
-                    y : -250
+                {   x : 200,
+                    y : -350
                 }
             );
             this.players.yellow = new TH.Player(
                 TH.global.queue.getResult('avatar'),
-                {   x : TH.global.properties.canvasWidth / 2 - 200,
-                    y : -200
+                {   x : 650,
+                    y : -450
                 }
             );
             this.players.blue = new TH.Player(
                 TH.global.queue.getResult('avatar'),
-                {   x : TH.global.properties.canvasWidth / 2 + 200,
-                    y : -200
+                {   x : 980,
+                    y : -320
                 }
             );
 

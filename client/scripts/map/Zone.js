@@ -1,6 +1,6 @@
 TH = TH || {};
 TH.Zone = (function() {
-    var maxHealth = 2;
+    var maxHealth = 3;
 
 
     function Zone(shape, params) {

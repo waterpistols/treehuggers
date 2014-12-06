@@ -33,21 +33,22 @@ TH.map = (function() {
         },
 
         assignZones: function() {
+            this.zones.country1.addToCountry(this.countries.green);
+            this.zones.country2.addToCountry(this.countries.yellow);
+            this.zones.country3.addToCountry(this.countries.blue);
             this.zones.zone1.addToCountry(this.countries.red);
             this.zones.zone2.addToCountry(this.countries.red);
             this.zones.zone3.addToCountry(this.countries.red);
             this.zones.zone4.addToCountry(this.countries.red);
             this.zones.zone5.addToCountry(this.countries.red);
-            this.zones.country1.addToCountry(this.countries.green);
-            this.zones.country2.addToCountry(this.countries.yellow);
-            this.zones.country3.addToCountry(this.countries.blue);
+
         },
         createZones: function() {
             this.zones.zone1 = this.createZone(
                 {   images: [TH.global.queue.getResult('zone1').src],
                     frames: {width:414, height:210},
                     animations: {
-                        be: [0, 2, true]
+                        be: [0, 3, true]
                     }
                 },
                 {   x: 0,
@@ -59,7 +60,7 @@ TH.map = (function() {
                 {   images: [TH.global.queue.getResult('zone2').src],
                     frames: {width:519, height:235},
                     animations: {
-                        be: [0, 2, true]
+                        be: [0, 3, true]
                     }
                 },
                 {   x: 305,
@@ -71,7 +72,7 @@ TH.map = (function() {
                 {   images: [TH.global.queue.getResult('zone3').src],
                     frames: {width:355, height:179},
                     animations: {
-                        be: [0, 2, true]
+                        be: [0, 3, true]
                     }
                 },
                 {   x: 675,
@@ -83,7 +84,7 @@ TH.map = (function() {
                 {   images: [TH.global.queue.getResult('zone4').src],
                     frames: {width:189, height:115},
                     animations: {
-                        be: [0, 12, true]
+                        be: [0, 3, true]
                     }
                 },
                 {   x: 554,
@@ -95,7 +96,7 @@ TH.map = (function() {
                 {   images: [TH.global.queue.getResult('zone5').src],
                     frames: {width:359, height:149},
                     animations: {
-                        be: [0, 12, true]
+                        be: [0, 3, true]
                     }
                 },
                 {   x: 295,
