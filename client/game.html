@@ -10,6 +10,7 @@
 
         <!-- Questions template -->
         <script type="text/html" id="question-Dropdown-Html">
+            <div><button id="close">x</button></div>
             <% if ( question.info ){ %>
                 <%= question.info %>
                 <button id="next">Got It!</button>
@@ -26,6 +27,7 @@
         </script>
 
         <script type="text/html" id="question-Radio-Html">
+            <div><button id="close">x</button></div>
             <% if ( question.info ){ %>
                 <%= question.info %>
                 <button id="next">Got It!</button>
@@ -40,6 +42,7 @@
         </script>
 
         <script type="text/html" id="question-Input-Html">
+            <div><button id="close">x</button></div>
             <% if ( question.info ){ %>
                 <%= question.info %>
                 <button id="next">Got It!</button>

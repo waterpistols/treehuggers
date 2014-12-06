@@ -17,9 +17,12 @@ TH.Question = (function() {
 
     function _attachEvents() {
         var self = this;
+        $('body').on('click', '#close', function() {
+            self.hide();
+        });
+
         $('body').on('click', '#next', function() {
             dbQuestion['info'] = false;
-
             self.content = self.template({question: dbQuestion});
             TH.Component.prototype.show.call(self);
         });
@@ -40,7 +43,6 @@ TH.Question = (function() {
         dbQuestion = {
             'text': 'Are you ok?',
             'info': 'http://www.createjs.com/Docs/PreloadJS/assets/docs-icon-PreloadJS.png',
-            'info': 'text',
             'type': 'Input',
             'answers': [
                 {
