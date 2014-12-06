@@ -7,17 +7,50 @@
     </head>
     <body>
         <canvas id="world" width="960" height="533"></canvas>
-        <script type="text/html" id="questionHtml">
+
+        <!-- Questions template -->
+        <script type="text/html" id="infograph-Html">
+            <%= info %>
+            <button id="next">Got It!</button>
+        </script>
+
+        <script type="text/html" id="question-Dropdown-Html">
+            <% if ( info ){ %>
+                <div id="infograph">
+                    <%= info %>
+                    <button id="next">Got It!</button>
+                </div>
+            <% } else { %>
+                <div id="question">
+                    <h1><%= question %></h1>
+                    <button id="questionYes">Dropdown</button>
+                    <button id="questionNo">No</button>
+                </div>
+            <% } %>
+
+
+        </script>
+
+        <script type="text/html" id="question-Radio-Html">
             <h1><%= question %></h1>
 
-            <button id="questionYes">Yes</button>
+            <button id="questionYes">Radio</button>
             <button id="questionNo">No</button>
         </script>
 
+        <script type="text/html" id="question-Input-Html">
+            <h1><%= question %></h1>
+
+            <button id="questionYes">Input</button>
+            <button id="questionNo">No</button>
+        </script>
+
+        <!-- Win dialog -->
         <script type="text/html" id="winDialogHtml">
             <h1>You have won!!</h1>
             <button id="winDialogOK">Collect Prize</button>
         </script>
+
         <script src="scripts/libs/jquery-2.1.1.js"></script>
         <script src="scripts/libs/underscore.js"></script>
         <script src="scripts/libs/preloadjs/preloadjs-0.4.1.min.js"></script>

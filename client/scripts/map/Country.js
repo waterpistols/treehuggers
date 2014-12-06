@@ -8,6 +8,7 @@ TH.Country = (function() {
         this.zones     = [];
         this.player    = null;
     }
+
     function _setupNotifier() {
         var bounds = this.container.getBounds() || {},
             posX = Math.floor(this.container.x + ( bounds.width || 0) / 2),
@@ -15,17 +16,21 @@ TH.Country = (function() {
 
         this.notifier =  new TH.Notifier(posX, posY);
     }
+
     Country.prototype.addZone = function(zone) {
         this.zones.push(zone);
         this.container.addChild(zone.shape);
         _setupNotifier.call(this);
     };
+
     Country.prototype.assignPlayer = function(player) {
         this.player = player;
     };
+
     Country.prototype.addToIsland = function(island) {
         island.addCountry(this);
     };
+
     Country.prototype.decrementZoneHealth = function() {
         var i;
         for (i = 0; i < this.zones.length; i++) {

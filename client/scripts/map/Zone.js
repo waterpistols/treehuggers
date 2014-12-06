@@ -19,9 +19,11 @@ TH.Zone = (function() {
             }
 
             player = self.country.player;
-            if (player.zoneClickAction()) {
-                self.setFullHealth();
-                player.checkHasWon();
+            if(player) {
+                if (player.zoneClickAction()) {
+                    self.setFullHealth();
+                    player.checkHasWon();
+                }
             }
         });
     }

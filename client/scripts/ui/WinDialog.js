@@ -9,8 +9,10 @@ TH.WinDialog = (function() {
 
         _attachEvents.call(this);
     }
+
     WinDialog.prototype = Object.create(TH.Component.prototype);
     WinDialog.prototype.constructor = WinDialog;
+    
     function _attachEvents() {
         var self = this;
         $('body').on('click', '#winDialogOK', function() {

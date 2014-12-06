@@ -4,12 +4,13 @@ TH.Island = (function() {
         TH.global.extend.call(container, params);
         this.container = new createjs.Container();
         this.countries = [];
-
     }
+
     Island.prototype.addCountry = function(country) {
         this.countries.push(country);
         this.container.addChild(country.container);
     };
+
     Island.prototype.popIn = function() {
 
         var containerBounds = this.container.getBounds();
@@ -28,7 +29,7 @@ TH.Island = (function() {
                 .to({x:-40, y: -40, scaleX: 1.5, scaleY: 1.5}, 500, createjs.Ease.linear)
                 .to({x: centerX, y: centerY, scaleX: 1, scaleY: 1}, 800, createjs.Ease.bounceOut).call(TH.players.placePlayers.bind(TH.players));
 
-            // Regular user
+        // Regular user
         } else {
             this.container.x = centerX;
             this.container.y = centerY;
@@ -38,7 +39,6 @@ TH.Island = (function() {
                 .to({x: centerX, scaleX: 1, scaleY: 1}, 100, createjs.Ease.linear).call(TH.players.placePlayers.bind(TH.players));
         }
     };
-
 
     return Island;
 }());
