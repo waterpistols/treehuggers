@@ -15,8 +15,8 @@ TH.global = (function() {
         },
         properties: {},
         init : function() {
-            this.properties.canvasWidth = $('#world').width();
-            this.properties.canvasHeight = $('#world').height();
+            this.properties.canvasWidth = 1330;
+            this.properties.canvasHeight = 827;
 
         },
         extend: function(params) {
