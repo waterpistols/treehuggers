@@ -1,0 +1,23 @@
+body {
+    background: url('../images/index/ocean.png');
+    background-repeat: repeat;
+}
+
+#island {
+    width: 400px;
+    margin: 150px auto;
+    position: relative;
+}
+
+    #island img {
+    }
+
+    #login {
+        position: absolute;
+        top: 25px;
+        left: 40%;
+    }
+
+.blur {
+    -webkit-filter: blur(7px); -moz-filter: blur(7px); -o-filter: blur(7px); -ms-filter: blur(7px); filter: blur(7px);
+}
