@@ -5,6 +5,9 @@ TH.Zone = (function() {
         this.shape = shape;
     }
 
+    Zone.prototype.addToCountry = function(country) {
+        country.addZone(this);
+    };
     function _extend(params) {
         var key;
 
