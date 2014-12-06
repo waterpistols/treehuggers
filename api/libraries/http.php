@@ -27,5 +27,3 @@ if (strstr($_SERVER['REQUEST_URI'], 'login') && $_SERVER['REQUEST_METHOD'] === '
 		die('TOKEN2');
 	}
 }
-
-

@@ -166,26 +166,3 @@ class DB {
   	return $result->fetch(PDO::FETCH_ASSOC);
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -29,6 +29,7 @@ $app->post('/login', function() use ($app, $db) {
 	$island = $db->getAssignableIsland();
 
 	if (!array_key_exists('errorMessage', $result)) {
+
 		// No island created yet OR no free island
 		if (!$island) {
 
@@ -63,41 +64,40 @@ $app->post('/login', function() use ($app, $db) {
 			$params['fields'] = $island;
 			$params['table'] = 'islands';
 			
-			$db->update($params);
-
-			// Create a token for the session
-			$salt = time();
-			$token = crypt($requestBody['fields']['email'], $salt);
-
-			$now = date("Y-m-d H:i:s");
-			$expires = date("Y-m-d H:i:s", strtotime($now) + 3600);
-
-
-			$params['table'] = 'sessions';
-			$params['fields'] = array(
-				'token'     => $token,
-				'user_id'   => $result['id'],
-				'last_used' => date("Y-m-d H:i:s"),
-				'expires'   => $expires
-			);
-
-			$db->create($params);
-
+			$db->update($params);			
 		}
-	} else {
+
+		// Create a token for the session
+		$salt = time();
+		$token = crypt($requestBody['fields']['email'], $salt);
+
+		$now = date("Y-m-d H:i:s");
+		$expires = date("Y-m-d H:i:s", strtotime($now) + 3600);
+
+
+		$params['table'] = 'sessions';
+		$params['fields'] = array(
+			'token'     => $token,
+			'user_id'   => $result['id'],
+			'last_used' => date("Y-m-d H:i:s"),
+			'expires'   => $expires
+		);
+
+		$db->create($params);
+	} else {		
 		$result = $db->getById('users', $requestBody['fields']['id']);
 		$session = $db->getSessionByUserId($result['id']);
 
+		// Create a token for the session
+		$salt = time();
+		$token = crypt($requestBody['fields']['email'], $salt);
+
+		$now = date("Y-m-d H:i:s");
+		$expires = date("Y-m-d H:i:s", strtotime($now) + 3600);
+
+		$params['table'] = 'sessions';
 		if ($session) {
-			// Create a token for the session
-			$salt = time();
-			$token = crypt($requestBody['fields']['email'], $salt);
-
-			$now = date("Y-m-d H:i:s");
-			$expires = date("Y-m-d H:i:s", strtotime($now) + 3600);
-
-
-			$params['table'] = 'sessions';
+					
 			$params['fields'] = array(
 				'id'        => $session['id'],
 				'token'     => $token,
@@ -107,16 +107,8 @@ $app->post('/login', function() use ($app, $db) {
 			);
 
 			$db->update($params);
-		}	else {
-			// Create a token for the session
-			$salt = time();
-			$token = crypt($requestBody['fields']['email'], $salt);
-
-			$now = date("Y-m-d H:i:s");
-			$expires = date("Y-m-d H:i:s", strtotime($now) + 3600);
-
-
-			$params['table'] = 'sessions';
+		}	else {			
+	
 			$params['fields'] = array(
 				'token'     => $token,
 				'user_id'   => $result['id'],
@@ -128,8 +120,7 @@ $app->post('/login', function() use ($app, $db) {
 		}	
 
 	}
-
-	
+		
 	$app->response->setBody(json_encode($result));
 
 });
