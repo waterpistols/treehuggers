@@ -8,7 +8,7 @@
     </head>
     <body>
         <script>
-            function redirect() {
+            function getProfile() {
                 FB.api('/me', function(response) {
                     console.log(response);
                     document.getElementById('status').innerHTML =
@@ -18,7 +18,7 @@
 
             function statusChangeCallback(response) {
                 if (response.status === 'connected') {
-                    testAPI();
+                    getProfile();
                 } else if (response.status === 'not_authorized') {
                     document.getElementById('status').innerHTML = 'Please log ' +
                     'into this app.';
