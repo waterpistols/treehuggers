@@ -15,5 +15,6 @@ $app = new \Slim\Slim(array(
 $db = new DB();
 
 require 'users.php';
+require 'islands.php';
 
 $app->run();

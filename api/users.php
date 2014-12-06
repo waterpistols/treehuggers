@@ -29,43 +29,44 @@ $app->post('/users', function() use ($app, $db) {
 	// Assign user to island
 	$island = $db->getAssignableIsland();
 
-	// No island created yet OR no free island
-	if (!$island) {
+	if (!array_key_exists('errorMessage', $result)) {
+		// No island created yet OR no free island
+		if (!$island) {
 
-		$params['fields'] = array(
-			'name'    => 'Serenity',
-			'players' => 1
-		);
-		$params['table'] = 'islands';
+			$params['fields'] = array(
+				'name'    => 'Serenity',
+				'players' => 1
+			);
+			$params['table'] = 'islands';
 
-		$createdIsland = $db->create($params);
+			$createdIsland = $db->create($params);
 
-		$params['fields'] = array(
-			'user_id' => $result['id'],
-			'island_id' => $createdIsland['id']
-		);
-		$params['table'] = 'islands_users';
+			$params['fields'] = array(
+				'user_id' => $result['id'],
+				'island_id' => $createdIsland['id']
+			);
+			$params['table'] = 'islands_users';
 
-		$db->create($params);
+			$db->create($params);
 
-	} else {
+		} else {
+			// There is a free island. Assign the new user to it
+			$params['fields'] = array(
+				'user_id' => $result['id'],
+				'island_id' => $island['id']
+			);
+			$params['table'] = 'islands_users';
 
-		$params['fields'] = array(
-			'user_id' => $result['id'],
-			'island_id' => $island['id']
-		);
-		$params['table'] = 'islands_users';
+			$db->create($params);
 
-		$db->create($params);
-
-		$island['players']++;
-		
-		$params['fields'] = $island;
-		$params['table'] = 'islands';
-		
-		$db->update($params);
+			$island['players']++;
+			
+			$params['fields'] = $island;
+			$params['table'] = 'islands';
+			
+			$db->update($params);
+		}
 	}
-
 
 	$app->response->setBody(json_encode($result));
 
