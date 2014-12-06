@@ -12,6 +12,9 @@ TH.world = (function() {
         },
 
         _createStage: function() {
+
+
+
             TH.global.stage = new createjs.Stage('world');
             createjs.Ticker.addEventListener('tick', this.tick);
         },

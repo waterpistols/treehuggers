@@ -20,20 +20,22 @@ TH.Island = (function() {
     Island.prototype.popIn = function() {
 
         var containerBounds = this.container.getBounds();
-        var centerX = TH.global.properties.canvasWidth / 2 - containerBounds.width / 2; // 0.02 scale = 10px
-        var centerY = TH.global.properties.canvasHeight / 2 - containerBounds.height / 2; // 0.02 scale = 10px
+        var centerX = containerBounds.width / 2; // 0.02 scale = 10px
+        var centerY = containerBounds.height / 2; // 0.02 scale = 10px
 
         var firstLogin = true;
         if(typeof firstLogin !== 'undefined') {
-            this.container.x = TH.global.properties.canvasWidth / 2.2;
-            this.container.y = TH.global.properties.canvasHeight / 2.2;
+            this.container.x = TH.global.properties.canvasWidth / 2;
+            this.container.y = TH.global.properties.canvasHeight / 2;
+            this.container.regX = centerX;
+            this.container.regY = centerY;
 
             this.container.scaleX = .1;
             this.container.scaleY = .1;
 
             createjs.Tween.get(this.container)
-                .to({x:-40, y: -40, scaleX: 1.5, scaleY: 1.5}, 500, createjs.Ease.linear)
-                .to({x: centerX, y: centerY, scaleX: 1, scaleY: 1}, 800, createjs.Ease.bounceOut).call(TH.players.placePlayers.bind(TH.players));
+                .to({scaleX: 1.2, scaleY: 1.2}, 500, createjs.Ease.linear)
+                .to({scaleX: 1, scaleY: 1}, 800, createjs.Ease.bounceOut).call(TH.players.placePlayers.bind(TH.players));
 
             // Regular user
         } else {

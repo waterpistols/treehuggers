@@ -3,8 +3,9 @@ body {
 }
 
     #world {
-        width: 960px;
-        margin: 100px auto;
+        max-width: 1330px;
+        width: 100%;
+        margin: 0 auto;
         display: block;
     }
 
