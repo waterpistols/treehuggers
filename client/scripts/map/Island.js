@@ -26,7 +26,7 @@ TH.Island = (function() {
 
             createjs.Tween.get(this.container)
                 .to({x:-40, y: -40, scaleX: 1.5, scaleY: 1.5}, 500, createjs.Ease.linear)
-                .to({x: centerX, y: centerY, scaleX: 1, scaleY: 1}, 800, createjs.Ease.bounceOut);
+                .to({x: centerX, y: centerY, scaleX: 1, scaleY: 1}, 800, createjs.Ease.bounceOut).call(TH.world.placePlayers);
 
             // Regular user
         } else {
@@ -35,7 +35,7 @@ TH.Island = (function() {
 
             createjs.Tween.get(this.container)
                 .to({x: centerX + 10, scaleX: 0.98, scaleY: 0.98}, 100, createjs.Ease.linear)
-                .to({x: centerX, scaleX: 1, scaleY: 1}, 100, createjs.Ease.linear);
+                .to({x: centerX, scaleX: 1, scaleY: 1}, 100, createjs.Ease.linear).call(TH.world.placePlayers);
         }
     };
     function _extend(params) {

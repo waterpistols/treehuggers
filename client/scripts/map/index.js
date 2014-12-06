@@ -15,7 +15,7 @@ TH.map = (function() {
             this.createZones();
 
             this.assignZones();
-
+            
             this.island.popIn();
 
         },
