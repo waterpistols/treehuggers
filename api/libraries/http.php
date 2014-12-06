@@ -1,8 +1,11 @@
 <?php
 
 if (!(strstr($_SERVER['REQUEST_URI'], 'login') || $_SERVER['REQUEST_METHOD'] === 'POST')) {
-	if (isset($_COOKIE['TH-Token'])) {		
+	
+	if (isset($_COOKIE['TH-Token'])) {
+
 		$cookieValue = $_COOKIE['TH-Token'];		
+
 		if ($cookieValue) {
 			$result = $db->getSessionByToken($cookieValue);	
 
@@ -18,12 +21,7 @@ if (!(strstr($_SERVER['REQUEST_URI'], 'login') || $_SERVER['REQUEST_METHOD'] ===
 
 			setcookie('TH-Token', $cookieValue);
 		}
-	}	
-} else {
-	
-	$response = array(
-		'errorMessage' => 'Please login first',
-		'status'       => 666
-	);
-	$app->response->setBody(json_encode($response));
-}
+	}	else {
+		
+	}
+} 

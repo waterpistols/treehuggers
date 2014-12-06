@@ -19,6 +19,25 @@ $app->get('/users/:id', function ($id) use ($app, $db) {
 
 });
 
+$app->post('/logout', function() use ($app, $db) {
+	
+	if(isset($_COOKIE['TH-Token'])) {
+		$cookieValue = $_COOKIE['TH-Token'];
+  	$result = $db->getSessionByToken($cookieValue);
+
+  	if ($result) {
+  		$params['fields'] = $result;
+  		$params['table']  = 'sessions';
+  				
+  		$db->remove($params);
+  		unset($_COOKIE['TH-Token']);
+  		$app->response->setBody('success');
+  	}
+
+	} else {
+		$app->response->setBody('failed logout');
+	}	
+});
 // Create
 $app->post('/login', function() use ($app, $db) {	
 

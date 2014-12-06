@@ -23,8 +23,16 @@ $app->get('/questions', function () use ($app, $db) {
 	}
 
 	if ($payload && isset($payload['random'])) {
-		$questionId = array_rand($questionIds);		
-		$result     = $db->getById('questions', $questionIds[$questionId]);
+		$questionId = array_rand($questionIds);
+		$questionId = $questionIds[$questionId];
+		
+		foreach ($result as $key => $question) {
+			if ($questionId == $question['id']) {
+				$idKey = $key;
+			}
+		}
+
+		$result = $result[$idKey];
 	}
 
 	$app->response->setBody(json_encode($result));
@@ -51,18 +59,30 @@ $app->get('/questions/:id', function ($id) use ($app, $db) {
 // Create
 $app->post('/questions', function() use ($app, $db) {	
 	$payload = json_decode($app->request->getBody(), TRUE);
-
+  
 	// determine userId
 	$cookieValue = $_COOKIE['TH-Token'];
 
 	$result = $db->getSessionByToken($cookieValue);	
 
+	if (isset($payload['answerText'])) {
+		$answerText = $payload['answerText'];
+		$answerId   = 0;
+	} else {
+		$answerText = '';
+		$answerId = $payload['answerId'];
+	}
+
+	$correct = $payload['correct'] ? true : false;
+	
 	$requestBody           = array();
 	$requestBody['table']  = 'users_answers';
 	$requestBody['fields'] = array(
 		'question_id' => $payload['questionId'],
-		'answer_id'   => $payload['answerId'],
-		'user_id'     => $result['user_id']
+		'answer_id'   => $answerId,
+		'answer_text' => $answerText,
+		'user_id'     => $result['user_id'],
+		'correct'     => $correct
 	);
 	
 	$result = $db->create($requestBody);
