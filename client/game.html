@@ -16,13 +16,13 @@
                 <button id="next">Got It!</button>
             <% } else { %>
                 <h1><%= question.text %></h1>
-                <select name="response">
+                <select name="response" id="response">
                     <% _.each( question.answers, function( answer ){ %>
-                        <option value="<%- answer.id %>"><%- answer.text %></value>
+                        <option value="<%= answer.id %>"><%= answer.text %></value>
                     <% }); %>
                 </select>
 
-                <button id="response">Send</button>
+                <button id="sendResponse">Send</button>
             <% } %>
         </script>
 
@@ -34,10 +34,10 @@
             <% } else { %>
                 <h1><%= question.text %></h1>
                 <% _.each( question.answers, function( answer ){ %>
-                    <input type="radio" value="<%- answer.id %>" /> <%- answer.text %>
+                    <input type="radio" value="<%= answer.id %>" name="response" /> <%= answer.text %>
                 <% }); %>
 
-                <button id="response">Send</button>
+                <button id="sendResponse">Send</button>
             <% } %>
         </script>
 
@@ -48,8 +48,8 @@
                 <button id="next">Got It!</button>
             <% } else { %>
                 <h1><%= question.text %></h1>
-                <input type="text" />
-                <button id="response">Send</button>
+                <input type="text" name="response"/>
+                <button id="sendResponse">Send</button>
             <% } %>
         </script>
 

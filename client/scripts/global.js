@@ -8,7 +8,9 @@ TH.global = (function() {
     return {
         clientUrl: baseUrl + 'client/',
         endpoints: {
+            questions: api + 'questions',
             login: api + 'login',
+            logout: api + 'logout',
             users: api + 'users'
         },
         properties: {},
