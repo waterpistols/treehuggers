@@ -29,7 +29,7 @@ class DB {
 	public function getAll($table = '') {
 		$this->query = "SELECT * FROM " . $table;
 
-		return $this->dbHandler->query($this->query)->fetchAll();
+		return $this->dbHandler->query($this->query)->fetchAll(PDO::FETCH_ASSOC);
 
 	}
 
@@ -164,5 +164,13 @@ class DB {
   	$result = $this->dbHandler->query($this->query);
 
   	return $result->fetch(PDO::FETCH_ASSOC);
+  }
+
+  // get answer by questionId
+  public function getAnswersByQuestionId($questionId) {
+  	$this->query = "SELECT * FROM `answers` WHERE `question_id` = '" . $questionId . "'";  	
+  	$result = $this->dbHandler->query($this->query);
+
+  	return $result->fetchAll(PDO::FETCH_ASSOC);
   }
 }
