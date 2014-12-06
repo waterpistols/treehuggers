@@ -18,12 +18,9 @@ TH.Question = (function() {
     function _attachEvents() {
         var self = this;
         $('body').on('click', '#next', function() {
-            dbQuestion['info'] = '';
+            dbQuestion['info'] = false;
 
-            self.content = self.template({
-                question: dbQuestion.text,
-                info: false
-            });
+            self.content = self.template({question: dbQuestion});
             TH.Component.prototype.show.call(self);
         });
 
@@ -40,10 +37,11 @@ TH.Question = (function() {
     }
 
     Question.prototype.getQuestion = function() {
-        return {
+        dbQuestion = {
             'text': 'Are you ok?',
             'info': 'http://www.createjs.com/Docs/PreloadJS/assets/docs-icon-PreloadJS.png',
-            'type': 'Dropdown',
+            'info': 'text',
+            'type': 'Input',
             'answers': [
                 {
                     'id': 1,
@@ -57,6 +55,9 @@ TH.Question = (function() {
                 }
             ]
         };
+
+        dbQuestion['info'] = this.parseInfografic(dbQuestion['info']);
+        return dbQuestion;
     };
 
     Question.prototype.parseInfografic = function(info) {
@@ -72,11 +73,7 @@ TH.Question = (function() {
     Question.prototype.changeQuestion = function() {
         dbQuestion = this.getQuestion();
         this.template = _.template($('#question-' + dbQuestion['type'] + '-Html').html());
-
-        this.content = this.template({
-            question: dbQuestion.text,
-            info: this.parseInfografic(dbQuestion.info)
-        });
+        this.content = this.template({ question: dbQuestion});
     };
 
     Question.prototype.show = function() {

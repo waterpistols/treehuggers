@@ -9,40 +9,45 @@
         <canvas id="world" width="960" height="533"></canvas>
 
         <!-- Questions template -->
-        <script type="text/html" id="infograph-Html">
-            <%= info %>
-            <button id="next">Got It!</button>
-        </script>
-
         <script type="text/html" id="question-Dropdown-Html">
-            <% if ( info ){ %>
-                <div id="infograph">
-                    <%= info %>
-                    <button id="next">Got It!</button>
-                </div>
+            <% if ( question.info ){ %>
+                <%= question.info %>
+                <button id="next">Got It!</button>
             <% } else { %>
-                <div id="question">
-                    <h1><%= question %></h1>
-                    <button id="questionYes">Dropdown</button>
-                    <button id="questionNo">No</button>
-                </div>
+                <h1><%= question.text %></h1>
+                <select name="response">
+                    <% _.each( question.answers, function( answer ){ %>
+                        <option value="<%- answer.id %>"><%- answer.text %></value>
+                    <% }); %>
+                </select>
+
+                <button id="response">Send</button>
             <% } %>
-
-
         </script>
 
         <script type="text/html" id="question-Radio-Html">
-            <h1><%= question %></h1>
+            <% if ( question.info ){ %>
+                <%= question.info %>
+                <button id="next">Got It!</button>
+            <% } else { %>
+                <h1><%= question.text %></h1>
+                <% _.each( question.answers, function( answer ){ %>
+                    <input type="radio" value="<%- answer.id %>" /> <%- answer.text %>
+                <% }); %>
 
-            <button id="questionYes">Radio</button>
-            <button id="questionNo">No</button>
+                <button id="response">Send</button>
+            <% } %>
         </script>
 
         <script type="text/html" id="question-Input-Html">
-            <h1><%= question %></h1>
-
-            <button id="questionYes">Input</button>
-            <button id="questionNo">No</button>
+            <% if ( question.info ){ %>
+                <%= question.info %>
+                <button id="next">Got It!</button>
+            <% } else { %>
+                <h1><%= question.text %></h1>
+                <input type="text" />
+                <button id="response">Send</button>
+            <% } %>
         </script>
 
         <!-- Win dialog -->

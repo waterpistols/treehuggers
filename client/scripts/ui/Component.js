@@ -1,6 +1,6 @@
 TH = TH || {};
 TH.Component = (function() {
-    
+
     function Component(params) {
         this.$element = $('<div class="' + params.cls + '"></div>');
         this.content = '';
