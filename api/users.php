@@ -4,7 +4,8 @@
 $app->get('/users', function () use ($app, $db) {
 	
 	$result = $db->getAll('users');	
-
+	echo "<html><head><title>Slim Application Error</title><style>body{margin:0;padding:30px;font:12px/1.5 Helvetica,Arial,Verdana,sans-serif;}h1{margin:0;font-size:48px;font-weight:normal;line-height:48px;}strong{display:inline-block;width:65px;}</style></head><body><h1>Slim Application Error</h1><p>The application could not run because of the following error:</p><h2>Details</h2><div><strong>Type:</strong> ErrorException</div><div><strong>Code:</strong> 8</div><div><strong>Message:</strong> Undefined index: email</div><div><strong>File:</strong> /vagrant/public/local.dev/api/users.php</div><div><strong>Line:</strong> 94</div><h2>Trace</h2><pre><div>#0 /vagrant/public/local.dev/api/users.php(94): Slim\Slim::handleErrors(8, 'Undefined index...', '/vagrant/public...', 94, Array)
+<div>#1 [internal function]: {closure}()";
 	$app->response->setBody(json_encode($result));
 
 });
@@ -18,6 +19,26 @@ $app->get('/users/:id', function ($id) use ($app, $db) {
 
 });
 
+$app->post('/logout', function() use ($app, $db) {
+
+	if(isset($_COOKIE['TH-Token'])) {
+		$cookieValue = $_COOKIE['TH-Token'];
+  	$result = $db->getSessionByToken($cookieValue);
+
+  	if ($result) {
+  		$params['fields'] = $result;
+  		$params['table']  = 'sessions';
+  				
+  		$db->remove($params);
+  		unset($_COOKIE['TH-Token']);
+  		setcookie('TH-Token', '', time() - 3600);
+  		$app->response->setBody('success');
+  	}
+
+	} else {
+		$app->response->setBody('failed logout');
+	}	
+});
 // Create
 $app->post('/login', function() use ($app, $db) {	
 

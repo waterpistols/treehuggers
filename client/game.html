@@ -6,14 +6,54 @@
         <link rel="stylesheet" type="text/css" href="assets/css/game.css">
     </head>
     <body>
-        <canvas id="world" width="1130" height="533"></canvas>
-        <script type="text/html" id="questionHtml">
-            <h1><%= question %></h1>
+        <canvas id="world" width="960" height="533"></canvas>
 
-            <button id="questionYes">Yes</button>
-            <button id="questionNo">No</button>
+        <!-- Questions template -->
+        <script type="text/html" id="question-Dropdown-Html">
+            <div><button id="close">x</button></div>
+            <% if ( question.info ){ %>
+                <%= question.info %>
+                <button id="next">Got It!</button>
+            <% } else { %>
+                <h1><%= question.text %></h1>
+                <select name="response" id="response">
+                    <% _.each( question.answers, function( answer ){ %>
+                        <option value="<%= answer.id %>"><%= answer.text %></value>
+                    <% }); %>
+                </select>
+
+                <button id="sendResponse">Send</button>
+            <% } %>
         </script>
 
+        <script type="text/html" id="question-Radio-Html">
+            <div><button id="close">x</button></div>
+            <% if ( question.info ){ %>
+                <%= question.info %>
+                <button id="next">Got It!</button>
+            <% } else { %>
+                <h1><%= question.text %></h1>
+                <% _.each( question.answers, function( answer ){ %>
+                    <input type="radio" value="<%= answer.id %>" name="response" /> <%= answer.text %>
+                <% }); %>
+
+                <button id="sendResponse">Send</button>
+            <% } %>
+        </script>
+
+        <script type="text/html" id="question-Input-Html">
+            <div><button id="close">x</button></div>
+            <% if ( question.info ){ %>
+                <%= question.info %>
+                <button id="next">Got It!</button>
+            <% } else { %>
+                <h1><%= question.text %></h1>
+                <input type="text" name="response"/>
+                <button id="sendResponse">Send</button>
+            <% } %>
+        </script>
+
+        <!-- Win dialog -->
         <script type="text/html" id="winDialogHtml">
             <h1>You have won!!</h1>
             <button id="winDialogOK">Collect Prize</button>

@@ -14,13 +14,13 @@
                 FB.api('/me', function(response) {
                     $.ajax({
                         type: 'POST',
-                        url: TH.global.endpoints.users,
-                        data: JSON.stringify(response),
+                        url: TH.global.endpoints.login,
+                        data: response,
                         contentType: "application/json; charset=utf-8",
                         dataType: 'json',
                         xhrFields: { withCredentials: true },
                         success: function(data) {
-                            console.log(data);
+                            window.location.href = TH.global.clientUrl + 'game.html';
                         }
                     });
                 });

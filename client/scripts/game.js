@@ -5,8 +5,8 @@ TH.world = (function() {
             this._installPlugins();
             this._createStage();
             this._loadFiles(this._postInit);
-
         },
+        
         _installPlugins: function() {
             createjs.CSSPlugin.install();
         },
@@ -15,6 +15,7 @@ TH.world = (function() {
             TH.global.stage = new createjs.Stage('world');
             createjs.Ticker.addEventListener('tick', this.tick);
         },
+
         _loadFiles: function(callback) {
             TH.global.queue = new createjs.LoadQueue(false);
             TH.global.queue.installPlugin(createjs.Sound);
@@ -39,7 +40,6 @@ TH.world = (function() {
                 {id: 'flag', src: 'assets/images/flag.png'},
                 {id: 'island', src: 'assets/images/index/island.jpg'},
 
-
                 /* SOUNDS */
                 {id: 'sound', src: 'assets/sounds/snd_0160.mp3'}
             ]);
@@ -62,8 +62,6 @@ TH.world = (function() {
             TH.global.stage.addChild(background);
             TH.global.stage.update();
         },
-
-
 
         tick: function() {
             TH.global.stage.update();

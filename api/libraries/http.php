@@ -1,10 +1,10 @@
 <?php
 
-if (!strstr($_SERVER['REQUEST_URI'], 'login') && $_SERVER['REQUEST_METHOD'] === 'POST') {
+if (!(strstr($_SERVER['REQUEST_URI'], 'login') && $_SERVER['REQUEST_METHOD'] === 'POST')) {
 	
-} else {
 	if (isset($_COOKIE['TH-Token'])) {
-		$cookieValue = $_COOKIE['TH-Token'];
+
+		$cookieValue = $_COOKIE['TH-Token'];		
 
 		if ($cookieValue) {
 			$result = $db->getSessionByToken($cookieValue);	
@@ -21,5 +21,7 @@ if (!strstr($_SERVER['REQUEST_URI'], 'login') && $_SERVER['REQUEST_METHOD'] === 
 
 			setcookie('TH-Token', $cookieValue);
 		}
-	}	
-}
+	}	else {
+		die('FAIL! You need to login!');
+	}
+} 

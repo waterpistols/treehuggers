@@ -6,9 +6,10 @@ TH.MainPlayer = (function() {
         this.shape = new createjs.Bitmap(image.src);
         TH.global.extend.call(this.shape, params);
 
-        this.trees = 2;
+        this.trees = 1;
         this.country = null;
     }
+
     MainPlayer.prototype = Object.create(TH.Player.prototype);
     MainPlayer.prototype.constructor = MainPlayer;
 
@@ -21,6 +22,7 @@ TH.MainPlayer = (function() {
         }
         return false;
     };
+
     MainPlayer.prototype.zoneClickAction = function() {
         if (!this.trees) {
             TH.ui.components.question.show();
@@ -29,9 +31,11 @@ TH.MainPlayer = (function() {
         this.decrementTrees();
         return true;
     };
+
     MainPlayer.prototype.decrementTrees = function() {
         this.trees--;
     };
+
     MainPlayer.prototype.incrementTrees = function() {
         this.trees++;
     };

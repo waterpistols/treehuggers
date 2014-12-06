@@ -1,26 +1,19 @@
 var TH = TH || {};
 
 TH.map = (function() {
-
-
-
     return {
         countries: {},
         zones: {},
         island: null,
         init : function() {
-
             this.createIsland();
             this.createCountries();
             this.createZones();
-
             this.assignZones();
-            
             this.island.popIn();
-
         },
-        createCountries: function() {
 
+        createCountries: function() {
             this.countries.red = new TH.Country();
             this.countries.green = new TH.Country();
             this.countries.yellow = new TH.Country();
@@ -37,6 +30,7 @@ TH.map = (function() {
             TH.global.stage.addChild(this.island.container);
 
         },
+
         assignZones: function() {
             this.zones.zone1.addToCountry(this.countries.red);
             this.zones.zone2.addToCountry(this.countries.red);

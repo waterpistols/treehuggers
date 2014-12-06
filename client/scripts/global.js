@@ -2,11 +2,16 @@ var TH = TH || {};
 
 TH.global = (function() {
 
-    var api = 'http://local.dev/api/index.php/';
+    var baseUrl = 'http://local.dev/';
+    var api = baseUrl + 'api/';
 
     return {
+        clientUrl: baseUrl + 'client/',
         endpoints: {
-            users: api + 'login'
+            questions: api + 'questions',
+            login: api + 'login',
+            logout: api + 'logout',
+            users: api + 'users'
         },
         properties: {},
         init : function() {

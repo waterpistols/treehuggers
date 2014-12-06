@@ -152,7 +152,8 @@ class DB {
 
   // get session entry for token
   public function getSessionByToken($token) {
-  	$this->query = "SELECT * FROM `sessions` WHERE `token` = '" . $token . "' AND `expires` > NOW() ";  	
+  	$this->query = "SELECT * FROM `sessions` WHERE `token` = '" . $token . "' AND `expires` > NOW() ";
+  	
   	$result = $this->dbHandler->query($this->query);
 
   	return $result->fetch(PDO::FETCH_ASSOC);

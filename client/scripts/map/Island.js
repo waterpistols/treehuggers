@@ -11,10 +11,12 @@ TH.Island = (function() {
         }, 1000);
 
     }
+
     Island.prototype.addCountry = function(country) {
         this.countries.push(country);
         this.container.addChild(country.container);
     };
+
     Island.prototype.popIn = function() {
 
         var containerBounds = this.container.getBounds();

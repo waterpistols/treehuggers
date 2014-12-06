@@ -1,15 +1,10 @@
 var TH = TH || {};
 
 TH.players = (function() {
-
-
-
     return {
         players: {},
 
         init : function() {
-
-
 
         },
         createPlayers: function() {
@@ -39,7 +34,6 @@ TH.players = (function() {
                 }
             );
 
-
             TH.global.stage.addChild(this.players.red.shape);
             TH.global.stage.addChild(this.players.green.shape);
             TH.global.stage.addChild(this.players.yellow.shape);
@@ -50,7 +44,6 @@ TH.players = (function() {
             this.players.yellow.assignCountry(TH.map.countries.yellow);
             this.players.blue.assignCountry(TH.map.countries.blue);
         },
-
 
         placePlayers: function() {
             this.createPlayers();
@@ -69,9 +62,5 @@ TH.players = (function() {
 
             TH.global.stage.update();
         }
-
-
-
-
     }
 }());
