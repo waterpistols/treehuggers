@@ -18,6 +18,28 @@ TH.Country = (function() {
     Country.prototype.addToIsland = function(island) {
         island.addCountry(this);
     };
+    Country.prototype.decrementZoneHealth = function() {
+        var i;
+        for (i = 0; i < this.zones.length; i++) {
+            if (this.zones[i].decrementHealth()) {
+                return true;
+            }
+        }
+        return false;
+    };
+
+    Country.prototype.getNoHealthZones = function() {
+        var results = [], i;
+
+        for(i = 0; i < this.zones.length; i++) {
+            if (this.zones[i].hasNoHealth()) {
+                results.push(this.zones[i]);
+            }
+
+        }
+        return results;
+
+    };
 
     return Country;
 }());

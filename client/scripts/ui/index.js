@@ -8,10 +8,12 @@ TH.ui = (function() {
         components: {},
 
         init : function() {
-            this.createQuestionComponent();
+            this.createComponents();
+
         },
-        createQuestionComponent: function() {
+        createComponents: function() {
             this.components.question = new TH.Question();
+            this.components.winDialog = new TH.WinDialog();
         }
     }
 }());

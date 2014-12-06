@@ -21,6 +21,7 @@ TH.Player = (function() {
     Player.prototype.zoneClickAction = function() {
         return false;
     };
+
     Player.prototype.fallDown = function(callback) {
 
         return createjs.Tween.get(this.shape)

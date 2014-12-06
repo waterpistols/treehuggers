@@ -50,7 +50,7 @@ TH.map = (function() {
                 {   images: [TH.global.queue.getResult('island1').src],
                     frames: {width:345, height:192},
                     animations: {
-                        be: [0, 1, true]
+                        be: [0, 2, true]
                     }
                 },
                 {   x: 0,
@@ -62,7 +62,7 @@ TH.map = (function() {
                 {   images: [TH.global.queue.getResult('island2').src],
                     frames: {width:375, height:195},
                     animations: {
-                        be: [0, 1, true]
+                        be: [0, 2, true]
                     }
                 },
                 {   x: 345,
@@ -74,7 +74,7 @@ TH.map = (function() {
                 {   images: [TH.global.queue.getResult('island3').src],
                     frames: {width:345, height:195},
                     animations: {
-                        be: [0, 1, true]
+                        be: [0, 2, true]
                     }
                 },
                 {   x: 0,
@@ -86,7 +86,7 @@ TH.map = (function() {
                 {   images: [TH.global.queue.getResult('island4').src],
                     frames: {width:375, height:195},
                     animations: {
-                        be: [0, 1, true]
+                        be: [0, 2, true]
                     }
                 },
                 {   x: 345,

@@ -12,7 +12,14 @@ TH.MainPlayer = (function() {
     MainPlayer.prototype = Object.create(TH.Player.prototype);
     MainPlayer.prototype.constructor = MainPlayer;
 
-
+    MainPlayer.prototype.checkHasWon = function() {
+        var zones = this.country.getNoHealthZones();
+        if (!zones.length) {
+            TH.ui.components.winDialog.show();
+            return true;
+        }
+        return false;
+    };
     MainPlayer.prototype.zoneClickAction = function() {
         if (!this.trees) {
             TH.ui.components.question.show();
