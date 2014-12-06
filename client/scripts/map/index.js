@@ -86,7 +86,7 @@ TH.map = (function() {
                 {   images: [TH.global.queue.getResult('island4').src],
                     frames: {width:375, height:195},
                     animations: {
-                        be: [0, 2, true]
+                        be: [0, 12, true]
                     }
                 },
                 {   x: 345,

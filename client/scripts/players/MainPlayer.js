@@ -14,6 +14,7 @@ TH.MainPlayer = (function() {
 
     MainPlayer.prototype.checkHasWon = function() {
         var zones = this.country.getNoHealthZones();
+
         if (!zones.length) {
             TH.ui.components.winDialog.show();
             return true;

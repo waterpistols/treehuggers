@@ -1,20 +1,7 @@
 TH = TH || {};
 TH.Zone = (function() {
     var maxHealth = 2;
-    function Notifier(posX, posY) {
-        this.posX = posX;
-        this.posY = posY;
-    }
-    Notifier.prototype.setText = function(text, font, color) {
-        var font = font || 'Arial 14px bold';
-        this.label = new createjs.Text(text, font, color);
-    };
 
-    Notifier.prototype.incrementedHealth = function(health) {
-        this.setText('+' + health, null, '#33ff88');
-        debugger;
-        var tw = createjs.Tween.get(this.label);
-    };
 
     function Zone(shape, params) {
         var self = this;
@@ -22,7 +9,7 @@ TH.Zone = (function() {
         this.shape = shape;
         this.health = 0;
 
-//        this.notifier =  new Notifier(this.shape.x, this.shape.y);
+        _setupNotifier.call(this);
 
         this.shape.addEventListener('click', function() {
             var player;
@@ -38,6 +25,13 @@ TH.Zone = (function() {
             }
         });
     }
+    function _setupNotifier() {
+        var bounds = this.shape.getBounds(),
+            posX = Math.floor(this.shape.x + bounds.width / 2),
+            posY = Math.floor(this.shape.y + bounds.height / 2);
+
+        this.notifier =  new TH.Notifier(posX, posY);
+    }
 
     Zone.prototype.addToCountry = function(country) {
         this.country = country;
@@ -48,7 +42,7 @@ TH.Zone = (function() {
     };
     Zone.prototype.setFullHealth = function() {
         this.health = maxHealth;
-//        this.notifier.incrementedHealth(this.health);
+        this.notifier.incrementedHealth(this.health);
         this.update();
     };
     Zone.prototype.hasFullHealth = function() {
@@ -67,7 +61,7 @@ TH.Zone = (function() {
         if (this.health < maxHealth) {
             this.health++;
             this.update();
-//            this.notifier.incrementedHealth(this.health);
+            this.notifier.incrementedHealth(1);
             return true;
         }
         return false;
@@ -75,6 +69,7 @@ TH.Zone = (function() {
     Zone.prototype.decrementHealth = function() {
         if (this.health) {
             this.health--;
+            this.notifier.decrementedHealth(1);
             this.update();
             return true;
         }

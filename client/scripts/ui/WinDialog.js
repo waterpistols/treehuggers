@@ -3,8 +3,9 @@ TH.WinDialog = (function() {
     function WinDialog(params) {
         params = params || {};
         params.cls = 'win-dialog hidden';
-        params.content = $('#winDialogHtml').html();
+        
         TH.Component.call(this, params);
+        this.content = $('#winDialogHtml').html();
 
         _attachEvents.call(this);
     }

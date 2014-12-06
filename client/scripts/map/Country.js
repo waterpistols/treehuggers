@@ -4,13 +4,21 @@ TH.Country = (function() {
 
         this.container = new createjs.Container();
         TH.global.extend.call(this.container, params);
-
+        _setupNotifier.call(this);
         this.zones     = [];
         this.player    = null;
+    }
+    function _setupNotifier() {
+        var bounds = this.container.getBounds() || {},
+            posX = Math.floor(this.container.x + ( bounds.width || 0) / 2),
+            posY = Math.floor(this.container.y + ( bounds.height || 0) / 2);
+
+        this.notifier =  new TH.Notifier(posX, posY);
     }
     Country.prototype.addZone = function(zone) {
         this.zones.push(zone);
         this.container.addChild(zone.shape);
+        _setupNotifier.call(this);
     };
     Country.prototype.assignPlayer = function(player) {
         this.player = player;
