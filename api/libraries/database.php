@@ -47,6 +47,20 @@ class DB {
 
 		$keys = array_keys($fields);
 
+		$this->query = 'SHOW COLUMNS FROM `' . $table . '` ';
+		$result = $this->dbHandler->query($this->query)->fetchAll();
+
+		foreach ($result as $field) {
+			$dbFields[] = $field['Field'];
+		}
+
+		foreach ($keys as $key => $field) {
+			if (!in_array($field, $dbFields)) {
+				unset($keys[$key]);
+				unset($fields[$field]);
+			}
+		}		
+
 		$this->query = 'INSERT INTO `' . $table . '` '
      . '(' . implode(', ', $keys) . ') '
      . "VALUES ('".implode("', '", $fields)."')";    
@@ -131,6 +145,22 @@ class DB {
   public function getAssignableIsland() {
 
   	$this->query = "SELECT * FROM `islands` WHERE `players` < " . DB::MAXPLAYERS . " ORDER BY players ASC LIMIT 1";
+  	$result = $this->dbHandler->query($this->query);
+
+  	return $result->fetch(PDO::FETCH_ASSOC);
+  }
+
+  // get session entry for token
+  public function getSessionByToken($token) {
+  	$this->query = "SELECT * FROM `sessions` WHERE `token` = '" . $token . "' AND `expires` > NOW() ";  	
+  	$result = $this->dbHandler->query($this->query);
+
+  	return $result->fetch(PDO::FETCH_ASSOC);
+  }
+
+  // get session by userId 
+  public function getSessionByUserId($userId) {
+  	$this->query = "SELECT * FROM `sessions` WHERE `user_id` = '" . $userId . "' AND `expires` > NOW() ";  	
   	$result = $this->dbHandler->query($this->query);
 
   	return $result->fetch(PDO::FETCH_ASSOC);
