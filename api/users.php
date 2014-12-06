@@ -3,8 +3,7 @@
 // Get All
 $app->get('/users', function () use ($app, $db) {
 	
-	$result = $db->getAll('users');
-	echo "<html><head><title>Slim Application Error</title><style>body{margin:0;padding:30px;font:12px/1.5 Helvetica,Arial,Verdana,sans-serif;}h1{margin:0;font-size:48px;font-weight:normal;line-height:48px;}strong{display:inline-block;width:65px;}</style></head><body><h1>Slim Application Error</h1><p>The application could not run because of the following error:</p><h2>Details</h2><div><strong>Type:</strong> ErrorException</div><div><strong>Code:</strong> 8</div><div><strong>Message:</strong> Undefined index: id</div><div><strong>File:</strong> /vagrant/public/local.dev/api/users.php</div><div><strong>Line:</strong> 55</div><h2>Trace</h2><pre><div>#0 /vagrant/public/local.dev/api/users.php(55): Slim\Slim::handleErrors(8, 'Undefined index...', '/vagrant/public...', 55, Array)"; 
+	$result = $db->getAll('users');	
 
 	$app->response->setBody(json_encode($result));
 
@@ -20,7 +19,7 @@ $app->get('/users/:id', function ($id) use ($app, $db) {
 });
 
 // Create
-$app->post('/users', function() use ($app, $db) {	
+$app->post('/login', function() use ($app, $db) {	
 	$requestBody['fields'] = json_decode($app->request->getBody(), TRUE);
 	$requestBody['table'] = 'users';
 	
@@ -30,6 +29,7 @@ $app->post('/users', function() use ($app, $db) {
 	$island = $db->getAssignableIsland();
 
 	if (!array_key_exists('errorMessage', $result)) {
+
 		// No island created yet OR no free island
 		if (!$island) {
 
@@ -64,10 +64,63 @@ $app->post('/users', function() use ($app, $db) {
 			$params['fields'] = $island;
 			$params['table'] = 'islands';
 			
-			$db->update($params);
+			$db->update($params);			
 		}
-	}
 
+		// Create a token for the session
+		$salt = microtime();
+		$token = crypt($requestBody['fields']['email'] + microtime(), $salt);
+
+		$now = date("Y-m-d H:i:s");
+		$expires = date("Y-m-d H:i:s", strtotime($now) + 3600);
+
+
+		$params['table'] = 'sessions';
+		$params['fields'] = array(
+			'token'     => $token,
+			'user_id'   => $result['id'],
+			'last_used' => date("Y-m-d H:i:s"),
+			'expires'   => $expires
+		);
+
+		$db->create($params);
+	} else {		
+		$result = $db->getById('users', $requestBody['fields']['id']);
+		$session = $db->getSessionByUserId($result['id']);
+
+		// Create a token for the session
+		$salt = time();
+		$token = crypt($requestBody['fields']['email'], $salt);
+
+		$now = date("Y-m-d H:i:s");
+		$expires = date("Y-m-d H:i:s", strtotime($now) + 3600);
+
+		$params['table'] = 'sessions';
+		if ($session) {
+					
+			$params['fields'] = array(
+				'id'        => $session['id'],
+				'token'     => $token,
+				'user_id'   => $result['id'],
+				'last_used' => date("Y-m-d H:i:s"),
+				'expires'   => $expires
+			);
+
+			$db->update($params);
+		}	else {			
+	
+			$params['fields'] = array(
+				'token'     => $token,
+				'user_id'   => $result['id'],
+				'last_used' => date("Y-m-d H:i:s"),
+				'expires'   => $expires
+			);
+
+			$db->create($params);
+		}	
+
+	}
+		
 	$app->response->setBody(json_encode($result));
 
 });
