@@ -16,6 +16,7 @@ $db = new DB();
 require 'libraries/http.php';
 
 require 'users.php';
+require 'questions.php';
 require 'islands.php';
 
 $app->run();

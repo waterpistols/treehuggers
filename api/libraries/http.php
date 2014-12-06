@@ -1,6 +1,6 @@
 <?php
 
-if (strstr($_SERVER['REQUEST_URI'], 'login') && $_SERVER['REQUEST_METHOD'] === 'POST') {
+if (!strstr($_SERVER['REQUEST_URI'], 'login') && $_SERVER['REQUEST_METHOD'] === 'POST') {
 	
 } else {
 	if (isset($_COOKIE['TH-Token'])) {
