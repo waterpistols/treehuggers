@@ -5,14 +5,23 @@
         <meta charset="UTF-8">
 
         <link rel="stylesheet" type="text/css" href="assets/css/index.css">
+        <script src="scripts/global.js"></script>
+        <script src="scripts/libs/jquery-2.1.1.js"></script>
     </head>
     <body>
         <script>
             function getProfile() {
                 FB.api('/me', function(response) {
                     console.log(response);
-                    document.getElementById('status').innerHTML =
-                    'Thanks for logging in, ' + response.name + '!';
+                    $.ajax({
+                        type: 'POST',
+                        url: TH.global.endpoints.users,
+                        data: response,
+                        xhrFields: { withCredentials: true },
+                        success: function(data) {
+                            console.log(data);
+                        }
+                    });
                 });
             }
 
