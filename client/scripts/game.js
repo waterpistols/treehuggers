@@ -32,7 +32,7 @@ TH.world = (function() {
             queue.loadManifest([
                 /* IMAGES */
                 {id: 'ocean',   src: 'assets/images/index/ocean.png'},
-                {id: 'island',   src: 'assets/images/index/island.jpg'},
+                {id: 'island',  src: 'assets/images/index/island.jpg'},
                 {id: 'diamond', src: 'assets/images/test.png'},
 
                 /* SOUNDS */
@@ -57,34 +57,40 @@ TH.world = (function() {
         },
 
         _createIsland: function(firstLogin) {
+            var container = new createjs.Container();
+            var diamond = new createjs.Bitmap(queue.getResult('diamond'));
             var island = new createjs.Bitmap(queue.getResult('island'));
-            var centerX = properties.canvasWidth / 2 - island.image.width / 2; // 0.02 scale = 10px
-            var centerY = properties.canvasHeight / 2 - island.image.height / 2; // 0.02 scale = 10px
+
+            container.addChild(island, diamond);
+
+            var containerBounds = container.getBounds();
+            var centerX = properties.canvasWidth / 2 - containerBounds.width / 2; // 0.02 scale = 10px
+            var centerY = properties.canvasHeight / 2 - containerBounds.height / 2; // 0.02 scale = 10px
 
             // First Login - Zoom In
             // firstLogin = true;
             if(typeof firstLogin !== 'undefined') {
-                island.scaleX = .1;
-                island.scaleY = .1;
+                container.x = properties.canvasWidth / 2.2;
+                container.y = properties.canvasHeight / 2.2;
 
-                island.x = properties.canvasWidth / 2.2;
-                island.y = properties.canvasHeight / 2.2;
+                container.scaleX = .1;
+                container.scaleY = .1;
 
-                createjs.Tween.get(island)
+                createjs.Tween.get(container)
                     .to({x:-40, y: -40, scaleX: 1.5, scaleY: 1.5}, 500, createjs.Ease.linear)
                     .to({x: centerX, y: centerY, scaleX: 1, scaleY: 1}, 800, createjs.Ease.bounceOut);
 
             // Regular user
             } else {
-                island.x = centerX;
-                island.y = centerY;
+                container.x = centerX;
+                container.y = centerY;
 
-                createjs.Tween.get(island)
+                createjs.Tween.get(container)
                     .to({x: centerX + 10, scaleX: 0.98, scaleY: 0.98}, 100, createjs.Ease.linear)
                     .to({x: centerX, scaleX: 1, scaleY: 1}, 100, createjs.Ease.linear);
             }
 
-            stage.addChild(island);
+            stage.addChild(container);
             stage.update();
         },
 
