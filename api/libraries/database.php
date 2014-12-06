@@ -174,4 +174,22 @@ class DB {
 
   	return $result->fetchAll(PDO::FETCH_ASSOC);
   }
+
+  // get all questions filtered by unanswered correctly
+  public function getAllQuestions() {
+  	$this->query = "SELECT GROUP_CONCAT( `questions`.`id` ) as ids
+			FROM `questions`
+			LEFT JOIN `users_answers` ON `questions`.`id` = `users_answers`.`question_id`
+			WHERE `users_answers`.`correct` = 1
+			GROUP BY `users_answers`.`correct`";
+
+  	$result = $this->dbHandler->query($this->query)->fetch(PDO::FETCH_ASSOC);
+
+  	$this->query = "SELECT * FROM `questions` WHERE id NOT IN (" . $result['ids'] . ")";
+
+  	$result = $this->dbHandler->query($this->query);
+
+  	return $result->fetchAll(PDO::FETCH_ASSOC);
+  	
+  }
 }

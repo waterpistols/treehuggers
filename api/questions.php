@@ -5,7 +5,7 @@ $app->get('/questions', function () use ($app, $db) {
 		
 	$payload = $app->request->params();
 
-	$result = $db->getAll('questions');	
+	$result = $db->getAllQuestions();
 
 	foreach($result as $key => $question) {
 
