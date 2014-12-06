@@ -38,10 +38,10 @@ TH.map = (function() {
 
         },
         assignZones: function() {
-            this.zones.zone1.addToCountry(this.countries.red);
+            this.zones.zone1.addToCountry(this.countries.blue);
             this.zones.zone2.addToCountry(this.countries.red);
             this.zones.zone3.addToCountry(this.countries.red);
-            this.zones.zone4.addToCountry(this.countries.blue);
+            this.zones.zone4.addToCountry(this.countries.red);
 
 
         },

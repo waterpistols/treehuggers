@@ -8,3 +8,6 @@ body {
         margin: 100px auto;
         display: block;
     }
+    .hidden {
+        display: none;
+    }

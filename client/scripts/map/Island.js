@@ -1,7 +1,7 @@
 TH = TH || {};
 TH.Island = (function() {
     function Island(container, params) {
-        _extend.call(container, params);
+        TH.global.extend.call(container, params);
         this.container = new createjs.Container();
         this.countries = [];
 
@@ -26,7 +26,7 @@ TH.Island = (function() {
 
             createjs.Tween.get(this.container)
                 .to({x:-40, y: -40, scaleX: 1.5, scaleY: 1.5}, 500, createjs.Ease.linear)
-                .to({x: centerX, y: centerY, scaleX: 1, scaleY: 1}, 800, createjs.Ease.bounceOut).call(TH.world.placePlayers);
+                .to({x: centerX, y: centerY, scaleX: 1, scaleY: 1}, 800, createjs.Ease.bounceOut).call(TH.players.placePlayers.bind(TH.players));
 
             // Regular user
         } else {
@@ -35,18 +35,10 @@ TH.Island = (function() {
 
             createjs.Tween.get(this.container)
                 .to({x: centerX + 10, scaleX: 0.98, scaleY: 0.98}, 100, createjs.Ease.linear)
-                .to({x: centerX, scaleX: 1, scaleY: 1}, 100, createjs.Ease.linear).call(TH.world.placePlayers);
+                .to({x: centerX, scaleX: 1, scaleY: 1}, 100, createjs.Ease.linear).call(TH.players.placePlayers.bind(TH.players));
         }
     };
-    function _extend(params) {
-        var key;
 
-        for(key in params) {
-            if (params.hasOwnProperty(key) === true) {
-                this[key] = params[key];
-            }
-        }
-    }
 
     return Island;
 }());

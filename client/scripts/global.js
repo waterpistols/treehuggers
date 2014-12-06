@@ -7,6 +7,17 @@ TH.global = (function() {
         init : function() {
             this.properties.canvasWidth = 960;
             this.properties.canvasHeight = 533;
+        },
+        extend: function(params) {
+
+            var key;
+
+            for(key in params) {
+                if (params.hasOwnProperty(key) === true) {
+                    this[key] = params[key];
+                }
+            }
+
         }
     }
 }());
