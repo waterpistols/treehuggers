@@ -38,7 +38,7 @@ $app->get('/questions/:id', function ($id) use ($app, $db) {
 
 // Create
 $app->post('/questions', function() use ($app, $db) {	
-	$payload               = json_decode($app->request->getBody(), TRUE);
+	$payload = json_decode($app->request->getBody(), TRUE);
 
 	// determine userId
 	$cookieValue = $_COOKIE['TH-Token'];
