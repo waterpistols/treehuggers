@@ -20,7 +20,7 @@ $app->get('/users/:id', function ($id) use ($app, $db) {
 });
 
 $app->post('/logout', function() use ($app, $db) {
-	
+
 	if(isset($_COOKIE['TH-Token'])) {
 		$cookieValue = $_COOKIE['TH-Token'];
   	$result = $db->getSessionByToken($cookieValue);
@@ -31,6 +31,7 @@ $app->post('/logout', function() use ($app, $db) {
   				
   		$db->remove($params);
   		unset($_COOKIE['TH-Token']);
+  		setcookie('TH-Token', '', time() - 3600);
   		$app->response->setBody('success');
   	}
 

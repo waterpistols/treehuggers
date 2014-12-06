@@ -1,6 +1,6 @@
 <?php
 
-if (!(strstr($_SERVER['REQUEST_URI'], 'login') || $_SERVER['REQUEST_METHOD'] === 'POST')) {
+if (!(strstr($_SERVER['REQUEST_URI'], 'login') && $_SERVER['REQUEST_METHOD'] === 'POST')) {
 	
 	if (isset($_COOKIE['TH-Token'])) {
 
@@ -22,6 +22,6 @@ if (!(strstr($_SERVER['REQUEST_URI'], 'login') || $_SERVER['REQUEST_METHOD'] ===
 			setcookie('TH-Token', $cookieValue);
 		}
 	}	else {
-		
+		die('FAIL! You need to login!');
 	}
 } 
