@@ -24,6 +24,10 @@ TH.world = (function() {
                 {id: 'diamonds', src: 'assets/images/test-sprite.png'},
                 {id: 'ocean',   src: 'assets/images/index/ocean.png'},
                 {id: 'island',  src: 'assets/images/index/island.jpg'},
+                {id: 'island1',  src: 'assets/images/index/island/island_01.png'},
+                {id: 'island2',  src: 'assets/images/index/island/island_02.png'},
+                {id: 'island3',  src: 'assets/images/index/island/island_03.png'},
+                {id: 'island4',  src: 'assets/images/index/island/island_04.png'},
                 {id: 'diamond', src: 'assets/images/test.png'},
                 {id: 'thief', src: 'assets/images/thief.png'},
 
