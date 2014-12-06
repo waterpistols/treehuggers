@@ -38,7 +38,6 @@ TH.Country = (function() {
 
         }
         return results;
-
     };
 
     return Country;

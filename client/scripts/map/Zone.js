@@ -1,11 +1,28 @@
 TH = TH || {};
 TH.Zone = (function() {
     var maxHealth = 2;
+    function Notifier(posX, posY) {
+        this.posX = posX;
+        this.posY = posY;
+    }
+    Notifier.prototype.setText = function(text, font, color) {
+        var font = font || 'Arial 14px bold';
+        this.label = new createjs.Text(text, font, color);
+    };
+
+    Notifier.prototype.incrementedHealth = function(health) {
+        this.setText('+' + health, null, '#33ff88');
+        debugger;
+        var tw = createjs.Tween.get(this.label);
+    };
+
     function Zone(shape, params) {
         var self = this;
         TH.global.extend.call(shape, params);
         this.shape = shape;
         this.health = 0;
+
+//        this.notifier =  new Notifier(this.shape.x, this.shape.y);
 
         this.shape.addEventListener('click', function() {
             var player;
@@ -16,7 +33,7 @@ TH.Zone = (function() {
 
             player = self.country.player;
             if (player.zoneClickAction()) {
-                self.fullHealth();
+                self.setFullHealth();
                 player.checkHasWon();
             }
         });
@@ -29,8 +46,9 @@ TH.Zone = (function() {
     Zone.prototype.update = function() {
         this.shape.gotoAndStop(this.health);
     };
-    Zone.prototype.fullHealth = function() {
+    Zone.prototype.setFullHealth = function() {
         this.health = maxHealth;
+//        this.notifier.incrementedHealth(this.health);
         this.update();
     };
     Zone.prototype.hasFullHealth = function() {
@@ -49,6 +67,7 @@ TH.Zone = (function() {
         if (this.health < maxHealth) {
             this.health++;
             this.update();
+//            this.notifier.incrementedHealth(this.health);
             return true;
         }
         return false;
