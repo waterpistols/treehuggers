@@ -4,14 +4,14 @@ TH.Question = (function() {
         params = params || {};
         params.cls = 'question hidden';
 
-        dbQuestion = this.getQuestion();
+        self = this;
+        dbQuestion = this.getQuestion(function(dbQuestion) {
+            self.template = _.template($('#question-' + dbQuestion['type'] + '-Html').html());
+            TH.Component.call(self, params);
 
-        this.template = _.template($('#question-' + dbQuestion['type'] + '-Html').html());
-        TH.Component.call(this, params);
-
-        _attachEvents.call(this);
+            _attachEvents.call(self);
+        });
     }
-
     Question.prototype = Object.create(TH.Component.prototype);
     Question.prototype.constructor = Question;
 
@@ -27,39 +27,78 @@ TH.Question = (function() {
             TH.Component.prototype.show.call(self);
         });
 
-        $('body').on('click', '#questionYes', function() {
-            TH.players.players.red.incrementTrees();
-            self.hide();
-        });
+        $('body').on('click', '#sendResponse', function() {
+            var value = $('#response').val();
+            var payload = {
+                'questionId': dbQuestion['id'],
+                'correct': false
+            };
 
-        $('body').on('click', '#questionNo', function() {
-            TH.players.players.red.country.decrementZoneHealth();
-            self.hide();
-            self.show();
+            // Validate Answer
+            switch(dbQuestion['type']) {
+                case 'Dropdown': case 'Radio':
+                    data['answerId'] = value;
+                    _.each(dbQuestion['answers'], function(answer) {
+                        if(answer.id === value) {
+                            payload['correct'] = true;
+                        }
+                    });
+                    break;
+
+                case 'Input':
+                    data['answerText'] = value;
+                    _.each(dbQuestion['answers'], function(answer) {
+                        value = parseInt(value);
+                        if((parseInt(answer.text) <= value + (value / 10)) || (parseInt(answer.text) >= value - (value / 10))) {
+                            payload['correct'] = true;
+                        }
+                    });
+                    break;
+            }
+
+            if(payload['correct']) {
+                TH.players.players.red.incrementTrees();
+                self.hide();
+            } else {
+                TH.players.players.red.country.decrementZoneHealth();
+                self.hide();
+                self.show();
+            }
+
+            $.ajax({
+                type: 'POST',
+                url: TH.global.endpoints.questions,
+                contentType: "application/json; charset=utf-8",
+                data: payload,
+                dataType: 'json',
+                xhrFields: { withCredentials: true },
+                success: function(data) { },
+                error: function(error) {
+                    alert('Well ..' + error);
+                }
+            });
         });
     }
 
-    Question.prototype.getQuestion = function() {
-        dbQuestion = {
-            'text': 'Are you ok?',
-            'info': 'http://www.createjs.com/Docs/PreloadJS/assets/docs-icon-PreloadJS.png',
-            'type': 'Input',
-            'answers': [
-                {
-                    'id': 1,
-                    'text': 'Yes',
-                    'correct': false
-                },
-                {
-                    'id': 2,
-                    'text': 'No',
-                    'correct': true
+    Question.prototype.getQuestion = function(callback) {
+        var self = this;
+        $.ajax({
+            type: 'GET',
+            url: TH.global.endpoints.questions + '?random=true',
+            contentType: "application/json; charset=utf-8",
+            dataType: 'json',
+            xhrFields: { withCredentials: true },
+            success: function(data) {
+                dbQuestion = data;
+                dbQuestion['info'] = self.parseInfografic(dbQuestion['info']);
+                if(callback) {
+                    callback(dbQuestion);
                 }
-            ]
-        };
-
-        dbQuestion['info'] = this.parseInfografic(dbQuestion['info']);
-        return dbQuestion;
+            },
+            error: function(error) {
+                alert('Well ..' + error);
+            }
+        });
     };
 
     Question.prototype.parseInfografic = function(info) {
@@ -72,15 +111,21 @@ TH.Question = (function() {
         }
     };
 
-    Question.prototype.changeQuestion = function() {
-        dbQuestion = this.getQuestion();
-        this.template = _.template($('#question-' + dbQuestion['type'] + '-Html').html());
-        this.content = this.template({ question: dbQuestion});
+    Question.prototype.changeQuestion = function(callback) {
+        var self = this;
+        dbQuestion = this.getQuestion(function(dbQuestion) {
+            self.template = _.template($('#question-' + dbQuestion['type'] + '-Html').html());
+            self.content = self.template({ question: dbQuestion});
+            callback();
+        });
     };
 
     Question.prototype.show = function() {
-        this.changeQuestion();
-        TH.Component.prototype.show.call(this);
+        self = this;
+        this.changeQuestion(function(){
+            TH.Component.prototype.show.call(self);
+        });
+
     };
     return Question;
-}());
+}())
