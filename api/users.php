@@ -20,6 +20,7 @@ $app->get('/users/:id', function ($id) use ($app, $db) {
 
 // Create
 $app->post('/login', function() use ($app, $db) {	
+
 	$requestBody['fields'] = json_decode($app->request->getBody(), TRUE);
 	$requestBody['table'] = 'users';
 	
@@ -89,8 +90,8 @@ $app->post('/login', function() use ($app, $db) {
 		$session = $db->getSessionByUserId($result['id']);
 
 		// Create a token for the session
-		$salt = time();
-		$token = crypt($requestBody['fields']['email'], $salt);
+		$salt = microtime();
+		$token = crypt($requestBody['fields']['email'] + microtime(), $salt);
 
 		$now = date("Y-m-d H:i:s");
 		$expires = date("Y-m-d H:i:s", strtotime($now) + 3600);
@@ -120,7 +121,9 @@ $app->post('/login', function() use ($app, $db) {
 		}	
 
 	}
-		
+
+	$result['token'] = $token;
+	setcookie('TH-Token', $token);
 	$app->response->setBody(json_encode($result));
 
 });
