@@ -15,7 +15,7 @@
                     $.ajax({
                         type: 'POST',
                         url: TH.global.endpoints.login,
-                        data: response,
+                        data: JSON.stringify(response),
                         contentType: "application/json; charset=utf-8",
                         dataType: 'json',
                         xhrFields: { withCredentials: true },

@@ -28,51 +28,48 @@ TH.Question = (function() {
         });
 
         $('body').on('click', '#sendResponse', function() {
-            var value = $('#response').val();
             var payload = {
-                'questionId': dbQuestion['id'],
-                'correct': false
+                'questionId': dbQuestion['id']
             };
 
             // Validate Answer
             switch(dbQuestion['type']) {
-                case 'Dropdown': case 'Radio':
-                    data['answerId'] = value;
-                    _.each(dbQuestion['answers'], function(answer) {
-                        if(answer.id === value) {
-                            payload['correct'] = true;
-                        }
-                    });
+                case 'Dropdown':
+                    var value = $('#response').val();
+                    payload['answerId'] = value;
+                    break;
+
+                case 'Radio':
+                    var value = $('.response:checked').val();
+                    payload['answerId'] = value;
                     break;
 
                 case 'Input':
-                    data['answerText'] = value;
-                    _.each(dbQuestion['answers'], function(answer) {
-                        value = parseInt(value);
-                        if((parseInt(answer.text) <= value + (value / 10)) || (parseInt(answer.text) >= value - (value / 10))) {
-                            payload['correct'] = true;
-                        }
-                    });
+                    var value = $('#response').val();
+                    payload['answerId'] = 0;
+                    payload['answerText'] = value;
                     break;
             }
 
-            if(payload['correct']) {
-                TH.players.players.red.incrementTrees();
-                self.hide();
-            } else {
-                TH.players.players.red.country.decrementZoneHealth();
-                self.hide();
-                self.show();
-            }
+
 
             $.ajax({
                 type: 'POST',
                 url: TH.global.endpoints.questions,
                 contentType: "application/json; charset=utf-8",
-                data: payload,
+                data: JSON.stringify(payload),
                 dataType: 'json',
                 xhrFields: { withCredentials: true },
-                success: function(data) { },
+                success: function(data) {
+                    if(data['correct']) {
+                        TH.players.players.red.incrementTrees();
+                        self.hide();
+                    } else {
+                        TH.players.players.red.country.decrementZoneHealth();
+                        self.hide();
+                        self.show();
+                    }
+                },
                 error: function(error) {
                     alert('Well ..' + error);
                 }

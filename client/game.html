@@ -34,7 +34,7 @@
             <% } else { %>
                 <h1><%= question.text %></h1>
                 <% _.each( question.answers, function( answer ){ %>
-                    <input type="radio" value="<%= answer.id %>" name="response" /> <%= answer.text %>
+                    <input type="radio" value="<%= answer.id %>" name="response" class="response" /> <%= answer.text %>
                 <% }); %>
 
                 <button id="sendResponse">Send</button>
@@ -48,7 +48,7 @@
                 <button id="next">Got It!</button>
             <% } else { %>
                 <h1><%= question.text %></h1>
-                <input type="text" name="response"/>
+                <input type="text" name="response" id="response"/>
                 <button id="sendResponse">Send</button>
             <% } %>
         </script>
