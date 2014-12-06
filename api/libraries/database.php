@@ -11,6 +11,8 @@ class DB {
 	const DBNAME = 'treehuggers';
 	const DBHOST = 'localhost';
 
+	const MAXPLAYERS = 4;
+
 	// Construct 
 	public function __construct() {
 		try {
@@ -19,7 +21,9 @@ class DB {
     	print "Error!: " . $e->getMessage() . "<br/>";
     	die();
 		}
-	}
+	}	
+
+	############## GENERAL METHODS ##############
 
 	// get all items from table method
 	public function getAll($table = '') {
@@ -35,7 +39,7 @@ class DB {
 		
 		return $this->dbHandler->query($this->query)->fetch(PDO::FETCH_ASSOC);
 		
-	}
+	}	
 
 	// insert method
 	public function create($params = array()) {
@@ -59,6 +63,12 @@ class DB {
   		);
     }
 
+    $lastInsert = $this->dbHandler->lastInsertId();
+
+    if ($lastInsert) {
+    	$fields['id'] = $lastInsert;	
+    }
+    
     return $fields;
 	}
 
@@ -114,4 +124,38 @@ class DB {
     	'status' =>'200'
     );
   }
+
+  ############## INTERNAL METHODS ##############
+
+  // get islands that are not filled
+  public function getAssignableIsland() {
+
+  	$this->query = "SELECT * FROM `islands` WHERE `players` < " . DB::MAXPLAYERS . " ORDER BY players ASC LIMIT 1";
+  	$result = $this->dbHandler->query($this->query);
+
+  	return $result->fetch(PDO::FETCH_ASSOC);
+  }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
