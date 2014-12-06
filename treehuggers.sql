@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Dec 06, 2014 at 05:55 PM
+-- Generation Time: Dec 06, 2014 at 06:26 PM
 -- Server version: 5.5.40
 -- PHP Version: 5.3.10-1ubuntu3.15
 
@@ -169,9 +169,22 @@ CREATE TABLE IF NOT EXISTS `users_answers` (
   `id` int(8) NOT NULL AUTO_INCREMENT,
   `question_id` int(8) NOT NULL,
   `answer_id` int(8) NOT NULL,
-  `user_id` int(8) NOT NULL,
+  `user_id` varchar(32) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
+
+--
+-- Dumping data for table `users_answers`
+--
+
+INSERT INTO `users_answers` (`id`, `question_id`, `answer_id`, `user_id`) VALUES
+(1, 1, 1, '9484136185215072'),
+(3, 1, 1, '9484136185215072'),
+(4, 1, 1, '9484136185215072'),
+(5, 1, 1, '9484136185215072'),
+(6, 1, 1, '9484136185215072'),
+(7, 1, 2, '9484136185215072'),
+(8, 1, 2, '9484136185215072');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
