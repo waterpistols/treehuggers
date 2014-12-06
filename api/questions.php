@@ -2,10 +2,17 @@
 
 // Get All
 $app->get('/questions', function () use ($app, $db) {
-	
-	$result = $db->getAll('questions');
-	
+		
+	$payload = $app->request->params();
+
+	$result = $db->getAll('questions');	
+
 	foreach($result as $key => $question) {
+
+		if ($payload && isset($payload['random'])) {
+			$questionIds[] = $question['id'];
+		}
+
 		$answers = $db->getAnswersByQuestionId($question['id']);
 
 		foreach ($answers as $answerKey => $answer) {			
@@ -13,6 +20,11 @@ $app->get('/questions', function () use ($app, $db) {
 		}		 
 
 		$result[$key]['answers'] = $answers;
+	}
+
+	if ($payload && isset($payload['random'])) {
+		$questionId = array_rand($questionIds);		
+		$result     = $db->getById('questions', $questionIds[$questionId]);
 	}
 
 	$app->response->setBody(json_encode($result));
@@ -26,7 +38,7 @@ $app->get('/questions/:id', function ($id) use ($app, $db) {
 	
 	$answers = $db->getAnswersByQuestionId($result['id']);
 
-	foreach ($answers as $answerKey => $answer) {			
+	foreach ($answers as $answerKey => $answer) {
 		$answers[$answerKey]['correct'] = (boolean) $answer['correct'];
 	}		 
 
