@@ -6,7 +6,7 @@ TH.world = (function() {
             this._createStage();
             this._loadFiles(this._postInit);
         },
-        
+
         _installPlugins: function() {
             createjs.CSSPlugin.install();
         },
@@ -42,6 +42,7 @@ TH.world = (function() {
                 {id: 'ocean', src: 'assets/images/index/ocean.png'},
                 {id: 'flag', src: 'assets/images/flag.png'},
                 {id: 'island', src: 'assets/images/index/island.jpg'},
+                {id: 'bird', src: 'assets/images/bird.png'},
 
                 /* SOUNDS */
                 {id: 'sound', src: 'assets/sounds/snd_0160.mp3'}
@@ -49,21 +50,9 @@ TH.world = (function() {
         },
 
         _postInit: function() {
-//            this._setupUI();
             TH.ui.init();
             TH.map.init();
             TH.players.init();
-        },
-
-        _setupUI: function() {
-            var ocean = TH.global.queue.getResult('ocean');
-            var background = new createjs.Shape();
-
-            // Repeat background pattern
-            background.graphics.beginBitmapFill(ocean, "repeat").rect(0, 0, 960, 533);
-
-            TH.global.stage.addChild(background);
-            TH.global.stage.update();
         },
 
         tick: function() {

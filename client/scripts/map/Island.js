@@ -18,7 +18,6 @@ TH.Island = (function() {
     };
 
     Island.prototype.popIn = function() {
-
         var containerBounds = this.container.getBounds();
         var centerX = containerBounds.width / 2; // 0.02 scale = 10px
         var centerY = containerBounds.height / 2; // 0.02 scale = 10px
@@ -37,7 +36,7 @@ TH.Island = (function() {
                 .to({scaleX: 1.2, scaleY: 1.2}, 500, createjs.Ease.linear)
                 .to({scaleX: 1, scaleY: 1}, 800, createjs.Ease.bounceOut).call(TH.players.placePlayers.bind(TH.players));
 
-            // Regular user
+        // Regular user
         } else {
             this.container.x = centerX;
             this.container.y = centerY;
@@ -47,6 +46,29 @@ TH.Island = (function() {
                 .to({x: centerX, scaleX: 1, scaleY: 1}, 100, createjs.Ease.linear).call(TH.players.placePlayers.bind(TH.players));
         }
     };
+
+    Island.prototype.birdy = function() {
+        var sheetOptions = {
+            images: [TH.global.queue.getResult('bird').src],
+            frames: {width:40, height:41},
+            animations: {
+                flap: [0, 1]
+            }
+        };
+        var sheet = new createjs.SpriteSheet(sheetOptions),
+            sprite = new createjs.Sprite(sheet);
+
+        sprite.gotoAndPlay('flap');
+
+        TH.global.extend.call(sprite, { x: -10, y: -10});
+        TH.global.stage.addChild(sprite);
+
+        createjs.Tween.get(sprite, { loop: true})
+            .to({x: 1000}, 3000, createjs.Ease.linear);
+
+
+    };
+
     Island.prototype.updateCountries = function() {
         var i;
 
@@ -55,7 +77,6 @@ TH.Island = (function() {
 
         }
     };
-
 
     return Island;
 }());
