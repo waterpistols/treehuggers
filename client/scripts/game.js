@@ -58,17 +58,38 @@ TH.world = (function() {
 
         _createIsland: function(firstLogin) {
             var island = new createjs.Bitmap(queue.getResult('island'));
+            var centerX = properties.canvasWidth / 2 - island.image.width / 2; // 0.02 scale = 10px
+            var centerY = properties.canvasHeight / 2 - island.image.height / 2; // 0.02 scale = 10px
 
-            // Position island center
-            island.x = properties.canvasWidth / 2 - island.image.width / 2;
-            island.y = properties.canvasHeight / 2 - island.image.height / 2;
+            // First Login - Zoom In
+            // firstLogin = true;
+            if(typeof firstLogin !== 'undefined') {
+                island.scaleX = .1;
+                island.scaleY = .1;
+
+                island.x = properties.canvasWidth / 2.2;
+                island.y = properties.canvasHeight / 2.2;
+
+                createjs.Tween.get(island)
+                    .to({x:-40, y: -40, scaleX: 1.5, scaleY: 1.5}, 500, createjs.Ease.linear)
+                    .to({x: centerX, y: centerY, scaleX: 1, scaleY: 1}, 800, createjs.Ease.bounceOut);
+
+            // Regular user
+            } else {
+                island.x = centerX;
+                island.y = centerY;
+
+                createjs.Tween.get(island)
+                    .to({x: centerX + 10, scaleX: 0.98, scaleY: 0.98}, 100, createjs.Ease.linear)
+                    .to({x: centerX, scaleX: 1, scaleY: 1}, 100, createjs.Ease.linear);
+            }
 
             stage.addChild(island);
             stage.update();
         },
 
         tick: function() {
-            // stage.update();
+            stage.update();
         }
 
     }
