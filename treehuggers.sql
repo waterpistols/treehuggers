@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Dec 06, 2014 at 06:26 PM
+-- Generation Time: Dec 06, 2014 at 08:20 PM
 -- Server version: 5.5.40
 -- PHP Version: 5.3.10-1ubuntu3.15
 
@@ -98,14 +98,16 @@ CREATE TABLE IF NOT EXISTS `questions` (
   `type` varchar(32) NOT NULL,
   `info` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 --
 -- Dumping data for table `questions`
 --
 
 INSERT INTO `questions` (`id`, `text`, `type`, `info`) VALUES
-(1, 'Did you sign him with a pen or his cock?', 'Dropdown', 'Entourage! Ari Gold to Lizzie Grant');
+(1, 'Did you sign him with a pen or his cock?', 'Dropdown', 'Entourage! Ari Gold to Lizzie Grant'),
+(2, 'huh?', 'Input', 'info'),
+(3, 'Wha?', 'Radio', 'no info');
 
 -- --------------------------------------------------------
 
@@ -128,7 +130,7 @@ CREATE TABLE IF NOT EXISTS `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `token`, `user_id`, `last_used`, `expires`) VALUES
-(1, '0.pZlK9oFNB/.', '9484136185215072', '2014-12-06 17:52:18', '2014-12-06 18:52:18');
+(1, '0.tVAeJhbf2j2', '9484136185215072', '2014-12-06 19:21:35', '2014-12-06 20:21:35');
 
 -- --------------------------------------------------------
 
