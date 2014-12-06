@@ -38,59 +38,107 @@ TH.map = (function() {
 
         },
         assignZones: function() {
-            this.zones.zone1.addToCountry(this.countries.blue);
+            this.zones.zone1.addToCountry(this.countries.red);
             this.zones.zone2.addToCountry(this.countries.red);
             this.zones.zone3.addToCountry(this.countries.red);
             this.zones.zone4.addToCountry(this.countries.red);
-
-
+            this.zones.zone5.addToCountry(this.countries.red);
+            this.zones.country1.addToCountry(this.countries.green);
+            this.zones.country2.addToCountry(this.countries.yellow);
+            this.zones.country3.addToCountry(this.countries.blue);
         },
         createZones: function() {
             this.zones.zone1 = this.createZone(
-                {   images: [TH.global.queue.getResult('island1').src],
-                    frames: {width:345, height:192},
+                {   images: [TH.global.queue.getResult('zone1').src],
+                    frames: {width:414, height:210},
                     animations: {
                         be: [0, 2, true]
                     }
                 },
                 {   x: 0,
-                    y: 0
+                    y: 252
                 }
             );
 
             this.zones.zone2 = this.createZone(
-                {   images: [TH.global.queue.getResult('island2').src],
-                    frames: {width:375, height:195},
+                {   images: [TH.global.queue.getResult('zone2').src],
+                    frames: {width:519, height:235},
                     animations: {
                         be: [0, 2, true]
                     }
                 },
-                {   x: 345,
-                    y: 0
+                {   x: 305,
+                    y: 265
                 }
             );
 
             this.zones.zone3 = this.createZone(
-                {   images: [TH.global.queue.getResult('island3').src],
-                    frames: {width:345, height:195},
+                {   images: [TH.global.queue.getResult('zone3').src],
+                    frames: {width:355, height:179},
                     animations: {
                         be: [0, 2, true]
                     }
                 },
-                {   x: 0,
-                    y: 195
+                {   x: 675,
+                    y: 219
                 }
             );
 
             this.zones.zone4 = this.createZone(
-                {   images: [TH.global.queue.getResult('island4').src],
-                    frames: {width:375, height:195},
+                {   images: [TH.global.queue.getResult('zone4').src],
+                    frames: {width:189, height:115},
                     animations: {
                         be: [0, 12, true]
                     }
                 },
-                {   x: 345,
-                    y: 195
+                {   x: 554,
+                    y: 185
+                }
+            );
+            this.zones.zone5 = this.createZone(
+                {   images: [TH.global.queue.getResult('zone5').src],
+                    frames: {width:359, height:149},
+                    animations: {
+                        be: [0, 12, true]
+                    }
+                },
+                {   x: 295,
+                    y: 148
+                }
+            );
+            this.zones.country1 = this.createZone(
+                {   images: [TH.global.queue.getResult('country1').src],
+                    frames: {width:565, height:287},
+                    animations: {
+                        be: [0, 3, true]
+                    }
+                },
+                {   x: 0,
+                    y: 2
+                }
+            );
+
+            this.zones.country2 = this.createZone(
+                {   images: [TH.global.queue.getResult('country2').src],
+                    frames: {width:421, height:152},
+                    animations: {
+                        be: [0, 3, true]
+                    }
+                },
+                {   x: 325,
+                    y: 0
+                }
+            );
+
+            this.zones.country3 = this.createZone(
+                {   images: [TH.global.queue.getResult('country3').src],
+                    frames: {width:542, height:303},
+                    animations: {
+                        be: [0, 3, true]
+                    }
+                },
+                {   x: 566,
+                    y: 55
                 }
             );
         },

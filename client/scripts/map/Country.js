@@ -48,5 +48,12 @@ TH.Country = (function() {
         return results;
     };
 
+    Country.prototype.updatePlayer = function() {
+        if (this.player) {
+            this.player.updateZones();
+            console.log('Country.prototype.updatePlayer');
+        }
+    };
+
     return Country;
 }());

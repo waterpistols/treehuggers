@@ -1,9 +1,14 @@
 TH = TH || {};
 TH.Island = (function() {
     function Island(container, params) {
+        var self = this;
         TH.global.extend.call(container, params);
         this.container = new createjs.Container();
         this.countries = [];
+
+        setInterval(function() {
+            self.updateCountries();
+        }, 1000);
 
     }
     Island.prototype.addCountry = function(country) {
@@ -36,6 +41,14 @@ TH.Island = (function() {
             createjs.Tween.get(this.container)
                 .to({x: centerX + 10, scaleX: 0.98, scaleY: 0.98}, 100, createjs.Ease.linear)
                 .to({x: centerX, scaleX: 1, scaleY: 1}, 100, createjs.Ease.linear).call(TH.players.placePlayers.bind(TH.players));
+        }
+    };
+    Island.prototype.updateCountries = function() {
+        var i;
+
+        for (i = 0; i < this.countries.length; i++) {
+            this.countries[i].updatePlayer();
+
         }
     };
 

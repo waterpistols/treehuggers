@@ -36,5 +36,9 @@ TH.MainPlayer = (function() {
         this.trees++;
     };
 
+    MainPlayer.prototype.updateZones = function() {
+        console.log('MainPlayer.prototype.updateZones');
+    };
+
     return MainPlayer;
 }());

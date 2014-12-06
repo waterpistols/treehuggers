@@ -10,7 +10,7 @@ TH.global = (function() {
         },
         properties: {},
         init : function() {
-            this.properties.canvasWidth = 960;
+            this.properties.canvasWidth = 1130;
             this.properties.canvasHeight = 533;
         },
         extend: function(params) {

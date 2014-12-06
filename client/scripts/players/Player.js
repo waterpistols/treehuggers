@@ -25,11 +25,16 @@ TH.Player = (function() {
     Player.prototype.zoneClickAction = function() {
         return false;
     };
+
     Player.prototype.fallDown = function(callback) {
 
         return createjs.Tween.get(this.shape)
             .to({y: this.shape.y + 400}, 300, createjs.Ease.bounceOut);
 
+    };
+
+    Player.prototype.updateZones = function() {
+        console.log('Player.prototype.updateZones');
     };
 
 
