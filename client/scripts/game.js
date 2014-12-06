@@ -31,9 +31,11 @@ TH.world = (function() {
             queue.addEventListener('complete', callback.bind(this));
             queue.loadManifest([
                 /* IMAGES */
+                {id: 'diamonds', src: 'assets/images/test-sprite.png'},
                 {id: 'ocean',   src: 'assets/images/index/ocean.png'},
                 {id: 'island',   src: 'assets/images/index/island.jpg'},
                 {id: 'diamond', src: 'assets/images/test.png'},
+                {id: 'thief', src: 'assets/images/thief.png'},
 
                 /* SOUNDS */
                 {id: 'sound', src: 'assets/sounds/snd_0160.mp3'}
@@ -43,6 +45,7 @@ TH.world = (function() {
         _postInit: function() {
             this._setupUI();
             this._createIsland();
+            TH.zones.init(stage, queue);
         },
 
         _setupUI: function() {
