@@ -77,6 +77,10 @@ body.enable-dynamic-cursor.tree-cursor {
                 padding-bottom: 30px;
             }
 
+                .actions.with-padding {
+                    padding-left: 40px;
+                }
+
                 .actions:after {
                     content: '';
                     display: block;
@@ -282,6 +286,25 @@ body.enable-dynamic-cursor.tree-cursor {
                     background-color: #C7715A;
                 }
 
+            .next-question {
+                display: block;
+                width: 150px;
+                height: 40px;
+                border-radius: 5px;
+                font-size: 12px;
+                background-color: #EF896D;
+                color: white;
+                text-align: center;
+                text-decoration: none;
+                font-weight: bold;
+                position: relative;
+                line-height: 37px;
+            }
+
+                .next-question:hover {
+                    background-color: #C7715A;
+                }
+
             .success-message {
                 display: none;
                 padding-top: 10px;
@@ -290,6 +313,7 @@ body.enable-dynamic-cursor.tree-cursor {
                 .success-message img {
                     float: left;
                     margin-right: 5px;
+                    margin-left: 0px;
                 }
 
             .error-message {
@@ -300,6 +324,7 @@ body.enable-dynamic-cursor.tree-cursor {
                 .error-message img {
                     float: left;
                     margin-right: 5px;
+                    margin-left: 0px;
                 }
 
             .error-input {
@@ -310,6 +335,7 @@ body.enable-dynamic-cursor.tree-cursor {
                 .error-input img {
                     float: left;
                     margin-right: 5px;
+                    margin-left: 0px;
                 }
 
             .info-text {
