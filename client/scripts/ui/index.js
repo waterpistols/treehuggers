@@ -17,6 +17,7 @@ TH.ui = (function() {
             this.components.airPollution = new TH.AirPollution();
             this.components.avatar = new TH.Avatar();
             this.components.youHave = new TH.YouHave();
+            this.components.preloader = new TH.Preloader();
         },
         updateComponents: function(data) {
 

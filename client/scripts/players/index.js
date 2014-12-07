@@ -5,7 +5,7 @@ TH.players = (function() {
         players: {},
 
         init : function() {
-
+            this.createPlayers();
         },
         createPlayers: function() {
 
@@ -43,13 +43,14 @@ TH.players = (function() {
             this.players.green.assignCountry(TH.map.countries.green);
             this.players.yellow.assignCountry(TH.map.countries.yellow);
             this.players.blue.assignCountry(TH.map.countries.blue);
+
+
         },
 
         placePlayers: function() {
-            this.createPlayers();
             var self = this;
 
-            var tw = self.players.red.fallDown();
+            var tw = createjs.Tween.get().wait(300);
             tw.call(function(){
                 var tw = self.players.green.fallDown();
                 tw.call(function(){

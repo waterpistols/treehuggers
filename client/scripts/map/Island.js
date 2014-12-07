@@ -6,7 +6,15 @@ TH.Island = (function() {
         this.container = new createjs.Container();
         this.countries = [];
 
+        this.container.x = TH.global.properties.canvasWidth / 2;
+        this.container.y = TH.global.properties.canvasHeight / 2;
+        this.container.alpha = 0;
+
+
+        TH.ui.components.preloader.setLoadedStep('otherPlayers');
+
         setInterval(function() {
+
             self.updateCountries();
         }, 1000);
 
@@ -18,33 +26,25 @@ TH.Island = (function() {
     };
 
     Island.prototype.popIn = function() {
+
+
         var containerBounds = this.container.getBounds();
         var centerX = containerBounds.width / 2; // 0.02 scale = 10px
         var centerY = containerBounds.height / 2; // 0.02 scale = 10px
+        this.container.regX = centerX;
+        this.container.regY = centerY;
 
-        var firstLogin = true;
-        if(typeof firstLogin !== 'undefined') {
-            this.container.x = TH.global.properties.canvasWidth / 2;
-            this.container.y = TH.global.properties.canvasHeight / 2;
-            this.container.regX = centerX;
-            this.container.regY = centerY;
+
+
 
             this.container.scaleX = .1;
             this.container.scaleY = .1;
 
             createjs.Tween.get(this.container)
+                .to({alpha: 1})
                 .to({scaleX: 1.03, scaleY: 1.03}, 500, createjs.Ease.linear)
-                .to({scaleX: 1, scaleY: 1}, 800, createjs.Ease.bounceOut).call(TH.players.placePlayers.bind(TH.players));
+                .to({scaleX: 1, scaleY: 1}, 800, createjs.Ease.bounceOut);
 
-        // Regular user
-        } else {
-            this.container.x = centerX;
-            this.container.y = centerY;
-
-            createjs.Tween.get(this.container)
-                .to({x: centerX + 10, scaleX: 0.98, scaleY: 0.98}, 100, createjs.Ease.linear)
-                .to({x: centerX, scaleX: 1, scaleY: 1}, 100, createjs.Ease.linear).call(TH.players.placePlayers.bind(TH.players));
-        }
     };
 
     Island.prototype.birdy = function() {

@@ -2,9 +2,21 @@ var TH = TH || {};
 TH.world = (function() {
     return {
         init : function() {
+            var self = this;
             this._installPlugins();
             createjs.Ticker.addEventListener('tick', this.tick);
-            this._loadFiles(this._postInit);
+            this._loadFiles();
+            TH.ui.init();
+            TH.ui.components.preloader.setCallbacks({
+                'assets': function() {
+                    TH.map.init();
+                    TH.players.init();
+                },
+                'all': function() {
+                    TH.map.placeMap();
+                    TH.players.placePlayers();
+                }
+            });
         },
 
         _installPlugins: function() {
@@ -12,7 +24,7 @@ TH.world = (function() {
         },
 
 
-        _loadFiles: function(callback) {
+        _loadFiles: function() {
             self = this;
             TH.global.queue = new createjs.LoadQueue(false);
             TH.global.queue.installPlugin(createjs.Sound);
@@ -20,9 +32,7 @@ TH.world = (function() {
                 $('.preloader').show();
             });
             TH.global.queue.addEventListener('complete', function() {
-                $('.preloader').hide();
-                $('body').css({'background-image': 'none'});
-                callback.call(self);
+                TH.ui.components.preloader.setLoadedStep('assets');
             });
             TH.global.queue.loadManifest([
                 /* IMAGES */
@@ -51,9 +61,8 @@ TH.world = (function() {
         },
 
         _postInit: function() {
-            TH.ui.init();
             TH.map.init();
-            TH.players.init();
+
         },
 
         tick: function() {

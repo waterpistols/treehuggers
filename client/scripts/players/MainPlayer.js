@@ -13,6 +13,7 @@ TH.MainPlayer = (function() {
         this.fetchData(function(response) {
 
             if (response) {
+                TH.ui.components.preloader.setLoadedStep('mainPlayer');
                 self.trees = response.trees;
                 TH.ui.updateComponents(response);
                 TH.map.updateZones(response);

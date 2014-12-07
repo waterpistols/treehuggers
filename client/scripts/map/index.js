@@ -10,9 +10,12 @@ TH.map = (function() {
             this.createCountries();
             this.createZones();
             this.assignZones();
-            this.island.popIn();
+
             this.island.birdy();
             this.island.smokey();
+        },
+        placeMap: function() {
+            this.island.popIn();
         },
 
         createCountries: function() {
