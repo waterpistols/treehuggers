@@ -30,6 +30,11 @@ TH.Question = (function() {
             TH.Component.prototype.show.call(self);
         });
 
+        $('body').on('click', '#nextQuestion', function() {
+            self.hide();
+            self.show();
+        });
+
         $('body').on('click', '#sendResponse', function() {
             var payload = {
                 'questionId': dbQuestion['id']
@@ -57,6 +62,7 @@ TH.Question = (function() {
             if(dbQuestion['type'] === 'Input' && !value) {
                 $('.error-input').show();
             } else {
+                $('.error-input').hide();
                 $.ajax({
                     type: 'POST',
                     url: TH.global.endpoints.questions,
@@ -65,13 +71,18 @@ TH.Question = (function() {
                     dataType: 'json',
                     xhrFields: { withCredentials: true },
                     success: function(data) {
-                        console.log(data['correct']);
                         if(data['correct']) {
+                            console.log('a');
                             TH.players.players.red.incrementTrees();
-                            $('.success-message', self).show();
+                            $('.success-message').show();
+                            $('#nextQuestion').show();
+                            $('#sendResponse').hide();
                         } else {
+                            console.log('b');
                             TH.players.players.red.country.decrementZoneHealth();
-                            $('.error-message', self).show();
+                            $('.error-message').show();
+                            $('#sendResponse').hide();
+                            $('#nextQuestion').show();
                         }
                     },
                     error: TH.global.errorHandler
@@ -106,7 +117,6 @@ TH.Question = (function() {
         } else if (info.indexOf('http://') === 0) {
             return '<img src="' + info + '" alt="info"/>';
         } else {
-            return '<img src="assets/images/tut1-1.jpg" alt="info"/>';
             return false;
             return info;
         }
@@ -127,6 +137,7 @@ TH.Question = (function() {
         this.changeQuestion(function() {
             TH.global.setState('QUIZ');
             TH.Component.prototype.show.call(self);
+            $('.next-question').hide();
         });
 
     };

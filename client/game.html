@@ -27,7 +27,7 @@
 
                 <h2><%= title%></h2>
                 <span class="info"><%= content %></span>
-                <ul class="actions">
+                <ul class="actions with-padding">
                     <% if ( first ){ %>
                         <li><a href="#" class="next-tip" data-id="<%= id %>" id="nextTip">TAKE THE TOUR</a></li>
                         <li><a href="#" class="green start-play" id="closeTutorial"> LET'S PLAY!</a></li>
@@ -125,7 +125,7 @@
                             <%= question.info %>
 
                             <span class="info-text">
-                                Please read carefully the information above. The correc answer for the next question will be tested on it.
+                                Please read carefully the information above. The correct answer for the next question will be tested on it.
                                 <% if(question.source){ %>
                                     <a href="<%= question.source%>" target="_blank"> source </a>
                                 <% } %>
@@ -155,6 +155,7 @@
 
                             <ul class="actions">
                                 <li><a href="#" class="send-response" id="sendResponse">CONFIRM ANSWER</a></li>
+                                <li><a href="#" class="next-question" id="nextQuestion">TAKE ANOTHER</a></li>
                                 <li><a href="#" class="close-tutorial" id="close">Cancel</a></li>
                             </ul>
                         <% } %>
@@ -204,6 +205,7 @@
 
                             <ul class="actions">
                                 <li><a href="#" class="send-response" id="sendResponse">CONFIRM ANSWER</a></li>
+                                <li><a href="#" class="next-question" id="nextQuestion">TAKE ANOTHER</a></li>
                                 <li><a href="#" class="close-tutorial" id="close">Cancel</a></li>
                             </ul>
                         <% } %>
@@ -254,6 +256,7 @@
 
                             <ul class="actions">
                                 <li><a href="#" class="send-response" id="sendResponse">CONFIRM ANSWER</a></li>
+                                <li><a href="#" class="next-question" id="nextQuestion">TAKE ANOTHER</a></li>
                                 <li><a href="#" class="close-tutorial" id="close">Cancel</a></li>
                             </ul>
                         <% } %>
