@@ -133,7 +133,7 @@ $app->get('/islands-polling', function() use ($app, $db) {
                 }
 
                 if ($relation['position'] == 'west' && !isset($neighbours[$key]['position'])) {
-        
+
                 $neighbours[$key]['position'] = 'east';
                 }
 

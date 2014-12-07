@@ -89,16 +89,16 @@ TH.players = (function() {
 
             var initData = {
                 'green' : {
-                    x : 120,
+                    x : 320,
                     y : 120
                 },
                 'yellow' : {
-                    x : 480,
-                    y : 50
+                    x : 550,
+                    y : 150
                 },
-                'green' : {
+                'blue' : {
                     x : 980,
-                    y : 100
+                    y : 300
                 }
             };
 

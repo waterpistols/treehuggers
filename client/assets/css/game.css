@@ -557,6 +557,25 @@ body.enable-dynamic-cursor.tree-cursor {
         margin: 5px;
         background: url('../images/small-logo.png') center center no-repeat;
     }
+    .pin-fix {
+        position: absolute;
+        background: url('../images/pin.png') center center no-repeat;
+        width: 37px;
+        height: 56px;
+    }
+    .pin-fix .image {
+        overflow: hidden;
+        -webkit-border-radius: 100%;
+        -moz-border-radius: 100%;
+        border-radius: 100%;
+        width: 26px;
+        height: 26px;
+        margin: 5px;
+    }
+    .pin-fix .image img {
+        max-width: 100%;
+        min-height: 100%;
+    }
 
 .preloader-gif-container {
     width: 60px;
