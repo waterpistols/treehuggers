@@ -76,10 +76,10 @@ $app->get('/islands-polling', function() use ($app, $db) {
   		$neighbours[$key]['degrading_sum'] = $db->calculateDegradingSum($neighbour['user_id']);  		
 
   		// calculating position
-  		
+
   		foreach ($relations as $relation) {
   			if ($relation['user_id'] == $result['user_id']) {
-  				if ($relation['neighbour_id'] == $neighbour['user_id']) {
+  				if ($relation['neighbour_id'] == $neighbour['user_id'] && !isset($neighbours[$key]['position'])) {
   					$neighbours[$key]['position'] = $relation['position'];  					
   				}
   			} else {
@@ -92,7 +92,7 @@ $app->get('/islands-polling', function() use ($app, $db) {
   		}
 
   		foreach ($relations as $relation) {  			
-  			if ($relation['user_id'] == $referenceId && $relation['neighbour_id'] == $neighbour['id']) {
+  			if ($relation['user_id'] == $referenceId && $relation['neighbour_id'] == $neighbour['id'] && !isset($neighbours[$key]['position'])) {
 
   				if ($relation['position'] === 'north' && $referencePosition == 'west') {
   					$neighbours[$key]['position'] = 'west';  					
@@ -121,9 +121,11 @@ $app->get('/islands-polling', function() use ($app, $db) {
   				}
   			}
 
-  			if ($relation['user_id'] == $referenceId && $relation['neighbour_id'] == $result['user_id']) {
+  			if ($relation['user_id'] == $referenceId && $relation['neighbour_id'] == $result['user_id'] && !isset($neighbours[$key]['position'])) {
+
   				if ($relation['position'] == 'north') {
   					$neighbours[$key]['position'] = 'north';
+
   				}
 
   				if ($relation['position'] == 'west') {
@@ -134,8 +136,8 @@ $app->get('/islands-polling', function() use ($app, $db) {
   					$neighbours[$key]['position'] = 'west';
   				}
   			}
-  		}
 
+  		}
   		
   		
   	}

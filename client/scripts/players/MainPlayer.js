@@ -2,14 +2,10 @@ TH = TH || {};
 TH.MainPlayer = (function() {
 
 
-    function MainPlayer(image, params) {
+    function MainPlayer(params) {
         var self = this;
 
-        this.shape = new createjs.Bitmap(image.src);
-        TH.global.extend.call(this.shape, params);
-
         this.country = null;
-
         this.fetchData(function(response) {
 
             if (response) {

@@ -13,7 +13,8 @@ TH.global = (function() {
             logout: api + 'logout',
             users: api + 'users',
             user: api + 'user',
-            plant: api + 'plant'
+            plant: api + 'plant',
+            islands: api + 'islands-polling'
         },
         _state: null,
         states: {

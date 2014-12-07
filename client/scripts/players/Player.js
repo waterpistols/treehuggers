@@ -4,21 +4,29 @@ TH.Player = (function() {
 
     function Player(image, params) {
         var self = this;
-
-        this.shape = new createjs.Bitmap(image.src);
-
-        TH.global.extend.call(this.shape, params);
+        this.properties = {};
+        TH.global.extend.call(this.properties, params);
 
         _createHelpShape.call(this);
+        _createPin.call(this, image);
         _attachEvents.call(this);
         this.country = null;
-        setInterval(function() {
-            if (self.country.zones[0]) {
-                self.country.zones[0].incrementHealth();
-            }
-        }, 5000);
+
     }
 
+    function _createPin(image) {
+        
+        var avatar = new createjs.Bitmap(img);
+        var pin = new createjs.Bitmap(TH.global.queue.getResult('pin'));
+
+
+        this.container = new createjs.Container();
+        this.container.x = this.properties.x;
+        this.container.y = this.properties.y;
+
+        this.container.addChild(pin);
+        this.container.addChild(avatar);
+    }
     Player.prototype.assignCountry = function(country) {
         var self = this;
         this.country = country;
@@ -38,8 +46,8 @@ TH.Player = (function() {
         var sheet = new createjs.SpriteSheet(sheetOptions);
         this.helpShape = new createjs.Sprite(sheet);
 
-        this.helpShape.x = this.shape.x - 45;
-        this.helpShape.y = this.shape.y + 600;
+        this.helpShape.x = this.properties.x - 45;
+        this.helpShape.y = this.properties.y + 600;
         this.helpShape.alpha = 0;
 
         this.helpShape.gotoAndStop(0);

@@ -10,9 +10,6 @@ TH.Island = (function() {
         this.container.y = TH.global.properties.canvasHeight / 2;
         this.container.alpha = 0;
 
-
-        TH.ui.components.preloader.setLoadedStep('otherPlayers');
-
         setInterval(function() {
 
             self.updateCountries();
