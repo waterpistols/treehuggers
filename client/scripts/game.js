@@ -14,7 +14,6 @@ TH.world = (function() {
                 },
                 'all': function() {
                     TH.map.placeMap();
-                    TH.players.placePlayers();
                     self._attachEvents();
                 }
             });

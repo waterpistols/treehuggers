@@ -91,7 +91,7 @@ TH.Island = (function() {
             TH.global.extend.call(sprite, { x: 543, y: 197});
             TH.global.stage.addChild(sprite);
         }, 600);
-    }
+    };
 
     Island.prototype.updateCountries = function() {
         var i;

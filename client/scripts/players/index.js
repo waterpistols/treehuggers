@@ -61,7 +61,7 @@ TH.players = (function() {
                         if(firstRequest) {
                             self.firstPollHandler(response);
                             firstRequest = false;
-                        } else if (successCallback) {
+                        } else {
                             self.pollHandler(response);
                         }
 
@@ -89,8 +89,8 @@ TH.players = (function() {
 
             var initData = {
                 'green' : {
-                    x : 320,
-                    y : 120
+                    x : 120,
+                    y : 280
                 },
                 'yellow' : {
                     x : 550,
@@ -111,29 +111,23 @@ TH.players = (function() {
                 );
                 TH.global.stage.addChild(this.players[pos].container);
                 this.players[pos].assignCountry(TH.map.countries[pos]);
+                this.players[pos].setTotalHealth(parseInt(data[i].degrading_sum));
+                if (data.askForHelp) {
+                    this.players[pos].showHelp();
+                }
             }
             TH.ui.components.preloader.setLoadedStep('otherPlayers');
 
         },
         pollHandler: function(data) {
-            console.log(data);
-        },
-        placePlayers: function() {
-            var self = this;
 
-
-//            var tw = createjs.Tween.get().wait(300);
-//            tw.call(function(){
-//                var tw = self.players.green.fallDown();
-//                tw.call(function(){
-//                    var tw = self.players.yellow.fallDown();
-//                    tw.call(function(){
-//                        var tw = self.players.blue.fallDown();
-//                    });
-//                });
-//            });
-
-            TH.global.stage.update();
+            for (var i = 0; i < data.length; i++) {
+                var pos = this.countryMap[data[i].position];
+                this.players[pos].setTotalHealth(parseInt(data[i].degrading_sum));
+                if (data.askForHelp) {
+                    this.players[pos].showHelp();
+                }
+            }
         }
     }
 }());
