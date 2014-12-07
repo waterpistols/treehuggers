@@ -60,17 +60,17 @@ TH.Island = (function() {
 
         sprite.gotoAndPlay('flap');
 
-        TH.global.extend.call(sprite, { x: -10, y: 500});
+        TH.global.extend.call(sprite, { x: -10, y: 300});
         TH.global.stage.addChild(sprite);
 
         createjs.Tween.get(sprite, { loop: true})
-            .to({x: 1330, y: 0}, 10000, createjs.Ease.linear)
+            .to({x: 1330, y: 100}, 10000, createjs.Ease.linear)
             .to({x: -400, y: 700}, 1, createjs.Ease.linear)
             .wait(10000)
-            .to({x: 1330, y: 100}, 15000, createjs.Ease.linear)
+            .to({x: 1330, y: 400}, 15000, createjs.Ease.linear)
             .to({x: -400, y: 700}, 1, createjs.Ease.linear)
             .wait(10000)
-            .to({x: 1330, y: 200}, 5000, createjs.Ease.linear)
+            .to({x: 1330, y: 300}, 5000, createjs.Ease.linear)
             .to({x: -400, y: 700}, 1, createjs.Ease.linear);
     };
 

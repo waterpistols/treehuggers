@@ -181,6 +181,7 @@ body.enable-dynamic-cursor.tree-cursor {
     .air-polution .goal {
         margin: 8px 0;
     }
+
     .game-description {
         position: absolute;
         top: 18px;
@@ -273,7 +274,7 @@ body.enable-dynamic-cursor.tree-cursor {
     }
     .bottom-block-container {
         width: auto;
-        margin-top: 700px;
+        margin-top: 650px;
         text-align: center;
     }
     .bottom-block {
@@ -334,6 +335,7 @@ body.enable-dynamic-cursor.tree-cursor {
         height: 20px;
         background: url('../images/industry.png') center center no-repeat;
         margin-right: 5px;
+        margin-top: -10px;
     }
     .plant-now {
         width: 235px;
