@@ -51,10 +51,6 @@
                         dataType: 'json',
                         success: function(plusData) {
 
-                            // Hide button
-                            document.getElementById('facebookButton').setAttribute('style', 'display: none');
-                            document.getElementById('gSignInWrapper').setAttribute('style', 'display: none');
-
                             // Login
                             var data = {
                                 'first_name': plusData['name']['givenName'],
@@ -93,14 +89,8 @@
             // FACEBOOK
             function fb_login() {
                 FB.login(function(response) {
-
                     if (response.authResponse) {
                         FB.api('/me', {fields: "id, first_name, last_name, email, picture"}, function(response) {
-
-                            // Hide button
-                            document.getElementById('facebookButton').setAttribute('style', 'display: none');
-                            document.getElementById('gSignInWrapper').setAttribute('style', 'display: none');
-
                             // Login
                             var data = {
                                 'first_name': response['first_name'],
@@ -125,7 +115,6 @@
 
                     } else {
                         $('.error').show();
-
                     }
                 }, {
                     scope: 'publish_stream,email'
