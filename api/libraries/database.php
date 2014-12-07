@@ -48,6 +48,7 @@ class DB {
 		$keys = array_keys($fields);
 
 		$this->query = 'SHOW COLUMNS FROM `' . $table . '` ';
+
 		$result = $this->dbHandler->query($this->query)->fetchAll();
 
 		foreach ($result as $field) {
@@ -199,5 +200,14 @@ class DB {
 
   	return array();
   	
+  }
+
+  public function getUserByApiId($apiId = 0) {
+    $this->query = "SELECT * FROM `users` WHERE `api_id` = '" . $apiId . "'";
+
+    $result = $this->dbHandler->query($this->query);
+
+    return $result->fetch(PDO::FETCH_ASSOC); 
+
   }
 }
