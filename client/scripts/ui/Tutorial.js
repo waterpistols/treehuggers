@@ -18,6 +18,7 @@ TH.Tutorial = (function() {
     function _attachEvents() {
         var self = this;
         $('body').on('click', '#nextTip', function() {
+            TH.global.firstLogin = 0;
             if(counter === 3) {
                 counter = 1;
             } else {
@@ -29,6 +30,7 @@ TH.Tutorial = (function() {
         });
 
         $('body').on('click', '#closeTutorial', function() {
+            TH.global.firstLogin = 0;
             $('.overlay').fadeOut(1000);
             $('#tutorial').fadeOut(1000).html('');
         });

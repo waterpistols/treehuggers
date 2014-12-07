@@ -89,7 +89,7 @@ TH.global = (function() {
             if(error.responseText === 'FAIL! You need to login!') {
                 window.location.href = TH.global.clientUrl + 'index.html';
             } else {
-                window.location.href = TH.global.clientUrl + 'index.html';
+                console.log(error);
             }
         }
     }
