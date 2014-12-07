@@ -3,9 +3,10 @@ TH.Zone = (function() {
     var maxHealth = 3;
 
 
-    function Zone(shape, params) {
+    function Zone(id, shape, params) {
         var self = this;
         TH.global.extend.call(shape, params);
+        this.id = id;
         this.shape = shape;
         this.health = 0;
 
@@ -13,17 +14,30 @@ TH.Zone = (function() {
 
         this.shape.addEventListener('click', function() {
             var player;
+            
+
+            player = self.country.player;
+
+            if (player && player.zoneClickAction()) {
+                self.setFullHealth();
+                player.checkHasWon();
+            }
+
+        });
+
+        this.shape.on('mouseover', function() {
+            var player;
 
             if (!self.hasNoHealth()) {
                 return;
             }
 
             player = self.country.player;
-            if(player) {
-                if (player.zoneClickAction()) {
-                    self.setFullHealth();
-                    player.checkHasWon();
-                }
+
+            if (player && player.zoneHoverAction()) {
+                $('body').addClass('tree-cursor');
+            } else {
+                $('body').removeClass('tree-cursor');
             }
         });
     }
@@ -44,7 +58,11 @@ TH.Zone = (function() {
     };
     Zone.prototype.setFullHealth = function() {
         this.health = maxHealth;
-        this.notifier.incrementedHealth(this.health);
+        this.notifier.incrementedHealth(this.health + 1);
+        this.update();
+    };
+    Zone.prototype.setHealth = function(value) {
+        this.health = value;
         this.update();
     };
     Zone.prototype.hasFullHealth = function() {

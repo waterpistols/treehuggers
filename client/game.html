@@ -12,76 +12,75 @@
 
         <canvas id="world" width="1130" height="827"></canvas>
 
-        <!-- Header -->
         <div class="container">
+            <!-- Header -->
             <a href="" class="logo"></a>
             <button class="button skeleton logout">Log Out</button>
             <hr class="header-line left"/>
-            <div class="air-polution">
-                <p class="label"><span class="industry-icon icon"></span>Air Polution</p>
-                <p class="value">100%</p>
+            <div class="air-polution" id="airPollution">
+                <p class="label"><span class="industry-icon icon"></span>Air Pollution</p>
+                <p class="value"><span class="update-target"></span>%</p>
                 <p class="goal uppercase">Goal is: <span class="bold">20%</span></p>
             </div>
             <p class="game-description half-opacity">Saving our planet. Tree by tree.</p>
             <div class="logout"></div>
             <hr class="header-line right"/>
-            <div class="user-stats">
+            <div class="user-stats" id="avatar">
                 <div class="left">
-                    <h2 class="name uppercase">Bogdan Negrescu</h2>
+                    <h2 class="name uppercase"><span class="update-target">Bogdan Negrescu</span></h2>
                     <div class="rank fill-3">
                         <p class="leaf-fill"></p>
 
                     </div>
-                    <p class="clear points">12312 points</p>
+                    <p class="clear points"><span class="update-target"></span> points</p>
                 </div>
-
                 <div class="right avatar">
                     <div class="image">
-                        <img src="assets/images/depe.jpg"/>
+                        <img class="update-target" src="assets/images/depe.jpg"/>
                     </div>
                 </div>
             </div>
 
             <!-- Footer -->
             <div class="bottom-block-container">
-                <div class="you-have bottom-block">
+                <div class="you-have bottom-block" id="youHave">
                     <div class="inline-block">
                         <p class="label uppercase bold">You have</p>
-                        <p class="number"><span>3</span>x</p>
+                        <p class="number"><span class="update-target"></span>x</p>
                     </div>
                     <div class="tree-icon icon "></div>
-                    <p class="info half-opacity light inline-block">You will receive a new tree <br/> in <b>2 hours</b></p>
+                    <p class="info half-opacity light inline-block">You will receive a new tree <br/><b>each day</b></p>
                 </div>
-                <div class="plant-now  bottom-block">
+                <div class="plant-now  bottom-block" id="plantNow">
                     <aside class="trees-icon icon"></aside>
                     <div class="inline-block cta-block">
-                        <button class="button green">Plant Now</button>
-                        <p class="text-center">You need 4 trees</p>
+                        <button class="button green" id="plantNowButton">Plant Now</button>
+                        <p class="text-center" >You need <span class="update-target"></span> tree(s)</p>
                     </div>
                 </div>
-                <div class="take-quiz bottom-block">
+                <div class="take-quiz bottom-block" id="takeQuiz">
                     <div class="quiz-image icon"></div>
                     <div class="inline-block cta-block">
                         <button class="button red">Take a Quiz</button>
                         <p class="text-center">Earn extra trees</p>
                     </div>
                 </div>
-                <div class="ask-help bottom-block">
+                <div class="ask-help bottom-block" id="askHelp">
                     <div class="ask-help-image icon"></div>
                     <div class="inline-block cta-block">
                         <button class="button blue">Ask for help</button>
-                        <p class="text-center">1 time a day</p>
+                        <p class="text-center"> <span class="update-target"></span> remaining</p>
                     </div>
                 </div>
+                <hr class="footer-line"/>
+                <footer>
+                    <span class="half-opacity">&copy; 2014 TreeHuggers.</span>
+                    <div class="small-logo inline-block"></div>
+                    <span class="half-opacity">All rights reserved.</span>
+                </footer>
             </div>
-            <hr class="footer-line"/>
-            <footer>
-                <span class="half-opacity">&copy; 2014 TreeHuggers.</span>
-                <div class="small-logo inline-block"></div>
-                <span class="half-opacity">All rights reserved.</span>
-            </footer>
         </div>
-        
+
         <!-- Questions template -->
         <script type="text/html" id="question-Dropdown-Html">
             <div><button id="close">x</button></div>
@@ -150,7 +149,13 @@
         <script src="scripts/players/MainPlayer.js"></script>
         <script src="scripts/players/index.js"></script>
         <script src="scripts/ui/Component.js"></script>
+        <script src="scripts/ui/AirPollution.js"></script>
+        <script src="scripts/ui/Avatar.js"></script>
         <script src="scripts/ui/Question.js"></script>
+        <script src="scripts/ui/PlantNow.js"></script>
+        <script src="scripts/ui/TakeQuiz.js"></script>
+        <script src="scripts/ui/AskHelp.js"></script>
+        <script src="scripts/ui/YouHave.js"></script>
         <script src="scripts/ui/WinDialog.js"></script>
         <script src="scripts/ui/index.js"></script>
         <script src="scripts/main.js"></script>

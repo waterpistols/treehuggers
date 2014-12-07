@@ -7,6 +7,7 @@ TH.Country = (function() {
         _setupNotifier.call(this);
         this.zones     = [];
         this.player    = null;
+
     }
 
     function _setupNotifier() {

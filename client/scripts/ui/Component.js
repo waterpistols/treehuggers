@@ -15,6 +15,8 @@ TH.Component = (function() {
     Component.prototype.hide = function() {
         this.$element.hide();
     };
+    Component.prototype.update = function() {
 
+    };
     return Component;
 }());
