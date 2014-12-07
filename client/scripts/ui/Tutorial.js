@@ -70,5 +70,13 @@ TH.Tutorial = (function() {
             content: '3'
         }
     };
+
+    Tutorial.prototype.update = function(data) {
+        if(TH.global.firstLogin) {
+            $('.overlay').show();
+            $('.tutorial').show();
+        }
+    }
+
     return Tutorial;
 }());

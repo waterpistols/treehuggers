@@ -13,6 +13,7 @@ TH.MainPlayer = (function() {
         this.fetchData(function(response) {
 
             if (response) {
+                TH.global.firstLogin = parseInt(response['first_login']);
                 TH.ui.components.preloader.setLoadedStep('mainPlayer');
                 self.trees = response.trees;
                 TH.ui.updateComponents(response);

@@ -102,9 +102,10 @@ TH.Question = (function() {
         if(!info) {
             return false;
         } else if (info.indexOf('http://') === 0) {
-            return '<img src="' + info + '" />';
+            return '<img src="' + info + '" alt="info"/>';
         } else {
-            return info;
+            return false;
+            // return info;
         }
     };
 
