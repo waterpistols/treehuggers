@@ -21,6 +21,7 @@ TH.Question = (function() {
         var self = this;
         $('body').on('click', '#close', function() {
             self.hide();
+            TH.global.setState('IDLE');
         });
 
         $('body').on('click', '#next', function() {
@@ -122,11 +123,13 @@ TH.Question = (function() {
 
     Question.prototype.show = function() {
         self = this;
-        this.changeQuestion(function(){
+        this.changeQuestion(function() {
+            TH.global.setState('QUIZ');
             TH.Component.prototype.show.call(self);
         });
 
     };
+
     Question.prototype.stateUpdateHandler = function() {
         if(TH.global.isState('QUIZ') === true) {
             this.show();

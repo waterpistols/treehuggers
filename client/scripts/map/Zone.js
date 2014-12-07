@@ -14,7 +14,6 @@ TH.Zone = (function() {
 
         this.shape.addEventListener('click', function() {
             var player;
-            
 
             player = self.country.player;
 

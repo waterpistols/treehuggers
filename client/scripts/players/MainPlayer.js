@@ -34,7 +34,7 @@ TH.MainPlayer = (function() {
             TH.ui.components.winDialog.show();
             return true;
         }
-        TH.global.stateSubscribe(this.stateUpdateHandler, this);
+
         return false;
     };
 

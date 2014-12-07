@@ -54,6 +54,9 @@ TH.PlantNow = (function() {
     };
     PlantNow.prototype.flashButton = function() {
         var self = this;
+        if (this.$button.hasClass('disabled')) {
+            return;
+        }
         this.$button.addClass('flash');
         setTimeout(function(){
             self.$button.removeClass('flash');
