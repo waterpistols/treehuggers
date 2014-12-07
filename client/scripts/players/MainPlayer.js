@@ -41,7 +41,6 @@ TH.MainPlayer = (function() {
     };
 
     MainPlayer.prototype.updateZones = function() {
-        console.log('MainPlayer.prototype.updateZones');
     };
 
     return MainPlayer;

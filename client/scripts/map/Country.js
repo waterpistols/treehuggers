@@ -56,7 +56,6 @@ TH.Country = (function() {
     Country.prototype.updatePlayer = function() {
         if (this.player) {
             this.player.updateZones();
-            console.log('Country.prototype.updatePlayer');
         }
     };
 

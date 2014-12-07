@@ -27,6 +27,7 @@
                         success: function(plusData) {
 
                             // Hide button
+                            document.getElementById('facebookButton').setAttribute('style', 'display: none');
                             document.getElementById('signinButton').setAttribute('style', 'display: none');
 
                             // Login
@@ -69,6 +70,7 @@
                 FB.api('/me', {fields: "id, first_name, last_name, email, picture"}, function(response) {
                     // Hide button
                     document.getElementById('facebookButton').setAttribute('style', 'display: none');
+                    document.getElementById('signinButton').setAttribute('style', 'display: none');
 
                     // Login
                     var data = {
