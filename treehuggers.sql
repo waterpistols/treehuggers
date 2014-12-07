@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Dec 07, 2014 at 09:21 AM
+-- Generation Time: Dec 07, 2014 at 01:24 PM
 -- Server version: 5.5.40
 -- PHP Version: 5.3.10-1ubuntu3.15
 
@@ -33,18 +33,30 @@ CREATE TABLE IF NOT EXISTS `answers` (
   `text` text NOT NULL,
   `correct` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=18 ;
 
 --
 -- Dumping data for table `answers`
 --
 
 INSERT INTO `answers` (`id`, `question_id`, `text`, `correct`) VALUES
-(1, 1, 'Yes', 1),
-(2, 1, 'No', 0),
-(3, 2, '125', 1),
-(4, 3, 'NO', 0),
-(5, 3, 'Maybe', 0);
+(1, 1, '500 000', 0),
+(2, 1, '2 million', 0),
+(3, 1, '4 million', 0),
+(4, 1, '7 million', 1),
+(5, 2, '22%', 1),
+(6, 2, '3%', 0),
+(7, 2, '35%', 0),
+(8, 2, '10%', 0),
+(9, 3, 'Michigan', 0),
+(10, 3, 'Texas', 0),
+(11, 3, 'California', 1),
+(12, 3, 'Colorado', 0),
+(13, 4, '30%-50%', 0),
+(14, 4, '40%-60%', 0),
+(15, 4, '70%-80%', 0),
+(16, 4, '75%-95%', 1),
+(17, 5, '52', 1);
 
 -- --------------------------------------------------------
 
@@ -67,7 +79,7 @@ CREATE TABLE IF NOT EXISTS `islands` (
 INSERT INTO `islands` (`id`, `name`, `players`) VALUES
 (1, 'Serenity', 4),
 (2, 'Serenity', 4),
-(3, 'Serenity', 2);
+(3, 'Serenity', 3);
 
 -- --------------------------------------------------------
 
@@ -81,23 +93,14 @@ CREATE TABLE IF NOT EXISTS `islands_users` (
   `user_id` varchar(32) NOT NULL,
   `island_id` int(8) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=11 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
 --
 -- Dumping data for table `islands_users`
 --
 
 INSERT INTO `islands_users` (`id`, `user_id`, `island_id`) VALUES
-(1, '1', 1),
-(2, '2', 1),
-(3, '3', 1),
-(4, '4', 1),
-(5, '5', 2),
-(6, '6', 2),
-(7, '7', 2),
-(8, '1', 2),
-(9, '1', 3),
-(10, '1', 3);
+(1, '1', 3);
 
 -- --------------------------------------------------------
 
@@ -110,18 +113,22 @@ CREATE TABLE IF NOT EXISTS `questions` (
   `id` int(8) NOT NULL AUTO_INCREMENT,
   `text` text NOT NULL,
   `type` varchar(32) NOT NULL,
+  `points` int(8) NOT NULL,
   `info` text NOT NULL,
+  `source` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
 
 --
 -- Dumping data for table `questions`
 --
 
-INSERT INTO `questions` (`id`, `text`, `type`, `info`) VALUES
-(1, 'Did you sign him with a pen or his cock?', 'Dropdown', 'Entourage! Ari Gold to Lizzie Grant'),
-(2, 'huh?', 'Input', 'info'),
-(3, 'Wha?', 'Radio', 'no info');
+INSERT INTO `questions` (`id`, `text`, `type`, `points`, `info`, `source`) VALUES
+(1, 'How many deaths caused by air pollution you think ocurred in 2014?', 'Radio', 0, 'In 2013, more than 2 million deaths occured globally as a direct result of air pollution from human activity.', 'http://www.who.int/mediacentre/news/releases/2014/air-pollution/en/'),
+(2, 'For every increase of 10 μg/m3 in PM10, the lung cancer rate rises:', 'Dropdown', 0, 'Atmospheric particulate matter with an aerodynamic diameter of 10 µm or less (PM10) – is microscopic solid or liquid matter suspended in the Earth''s atmosphere.', 'http://en.wikipedia.org/wiki/Particulates'),
+(3, 'Which US State do you believe has the highest ozone readings?', 'Dropdown', 0, 'Ozone (O3) is defined by Webster as a "very reactive form of oxygen that is a bluish irritating gas of pungent odor, that is a major air pollutant in the lower atmosphere but a beneficial component of the upper atmosphere".', 'http://visual.ly/air-quality-usa'),
+(4, 'How much do you think vehicle exhaust contributes to the level of Carbon Monoxide?', 'Radio', 0, 'Carbon Monoxide is defined as "a colorless odorless very toxic gass (CO)".', 'http://visual.ly/air-quality-usa'),
+(5, 'What percentage has the carbon monoxide level decreased in the US from 2001 to 2010?', 'Input', 0, 'Carbon Monoxide is defined as "a colorless odorless very toxic gass (CO)".', 'http://visual.ly/air-quality-usa');
 
 -- --------------------------------------------------------
 
@@ -137,22 +144,14 @@ CREATE TABLE IF NOT EXISTS `sessions` (
   `last_used` datetime NOT NULL,
   `expires` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
 --
 -- Dumping data for table `sessions`
 --
 
 INSERT INTO `sessions` (`id`, `token`, `user_id`, `last_used`, `expires`) VALUES
-(1, '0.IbjnAvNlaPA', '2', '2014-12-07 09:00:29', '2014-12-07 10:00:29'),
-(2, '0.IbjnAvNlaPA', '3', '2014-12-07 09:00:47', '2014-12-07 10:00:47'),
-(3, '0.IbjnAvNlaPA', '4', '2014-12-07 09:00:47', '2014-12-07 10:00:47'),
-(4, '0.IbjnAvNlaPA', '5', '2014-12-07 09:00:47', '2014-12-07 10:00:47'),
-(5, '0.IbjnAvNlaPA', '6', '2014-12-07 09:00:47', '2014-12-07 10:00:47'),
-(6, '0.IbjnAvNlaPA', '7', '2014-12-07 09:00:48', '2014-12-07 10:00:48'),
-(7, '0.IbjnAvNlaPA', '1', '2014-12-07 09:19:47', '2014-12-07 10:19:47'),
-(8, '0.IbjnAvNlaPA', '1', '2014-12-07 09:09:38', '2014-12-07 10:09:38'),
-(9, '0.IbjnAvNlaPA', '1', '2014-12-07 09:19:40', '2014-12-07 10:19:40');
+(1, '0.IbjnAvNlaPA', '1', '2014-12-07 13:23:08', '2014-12-07 14:23:08');
 
 -- --------------------------------------------------------
 
@@ -197,6 +196,81 @@ CREATE TABLE IF NOT EXISTS `users_answers` (
   `user_id` varchar(32) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users_data`
+--
+
+DROP TABLE IF EXISTS `users_data`;
+CREATE TABLE IF NOT EXISTS `users_data` (
+  `id` int(8) NOT NULL AUTO_INCREMENT,
+  `user_id` int(8) NOT NULL,
+  `pollution` int(8) NOT NULL,
+  `points` double NOT NULL,
+  `trees` int(8) NOT NULL,
+  `asks` int(8) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `users_data`
+--
+
+INSERT INTO `users_data` (`id`, `user_id`, `pollution`, `points`, `trees`, `asks`) VALUES
+(1, 1, 100, 0, 4, 3);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users_zones`
+--
+
+DROP TABLE IF EXISTS `users_zones`;
+CREATE TABLE IF NOT EXISTS `users_zones` (
+  `id` int(8) NOT NULL AUTO_INCREMENT,
+  `user_id` int(8) NOT NULL,
+  `zone_id` int(8) NOT NULL,
+  `degrading_state` int(8) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
+
+--
+-- Dumping data for table `users_zones`
+--
+
+INSERT INTO `users_zones` (`id`, `user_id`, `zone_id`, `degrading_state`) VALUES
+(1, 1, 1, 0),
+(2, 1, 2, 0),
+(3, 1, 3, 0),
+(4, 1, 4, 0),
+(5, 1, 5, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `zones`
+--
+
+DROP TABLE IF EXISTS `zones`;
+CREATE TABLE IF NOT EXISTS `zones` (
+  `id` int(8) NOT NULL AUTO_INCREMENT,
+  `title` varchar(64) NOT NULL,
+  `rank` int(8) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
+
+--
+-- Dumping data for table `zones`
+--
+
+INSERT INTO `zones` (`id`, `title`, `rank`) VALUES
+(1, 'zone1', 3),
+(2, 'zone2', 3),
+(3, 'zone3', 3),
+(4, 'zone4', 2),
+(5, 'zone5', 1);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

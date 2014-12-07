@@ -5,7 +5,6 @@ if (!(strstr($_SERVER['REQUEST_URI'], 'login') && $_SERVER['REQUEST_METHOD'] ===
 	if (isset($_COOKIE['TH-Token'])) {
 
 		$cookieValue = $_COOKIE['TH-Token'];		
-
 		if ($cookieValue) {
 			$result = $db->getSessionByToken($cookieValue);	
 
