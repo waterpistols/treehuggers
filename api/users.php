@@ -253,7 +253,7 @@ $app->post('/login', function() use ($app, $db) {
 				'table'  => 'users',
 				'fields' => array(
 					'id'          => $result['id'],
-					'first_login' => 0
+					'first_login' => 1
 				)
 			));
 
