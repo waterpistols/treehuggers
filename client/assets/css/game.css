@@ -7,6 +7,11 @@ body {
     font-family: 'Open Sans', Helvatica, sans-serif;
     font-size: 12px;
     color: #fff;
+
+}
+
+body.tree-cursor {
+    cursor: url('../images/trees.png') 25 15, auto;
 }
 
     .logo {
@@ -103,21 +108,21 @@ body {
     .button.green {
         background: #70be59;
     }
-    .button.green:hover {
+    .button.green:hover, .button.green.active {
         background: #5c9d49;
     }
 
     .button.red {
         background: #EF896D;
     }
-    .button.red:hover {
+    .button.red:hover, .button.red.active {
         background: #C7715A;
     }
 
     .button.blue {
         background: #005B9D;
     }
-    .button.blue:hover {
+    .button.blue:hover, .button.blue.active {
         background: #003A65;
     }
     .button.skeleton {
@@ -125,7 +130,7 @@ body {
         border: solid 2px #7BB6DF;
         color: #7BB6DF;
     }
-    .button.skeleton:hover {
+    .button.skeleton:hover, .button.skeleton.active {
         background: #7BB6DF;
         color: #0080DC;
     }
@@ -377,8 +382,5 @@ body {
     }
     .you-have .info {
         display: none;
-    }
-    .bottom-block-container {
-        min-width: 900px;
     }
 }

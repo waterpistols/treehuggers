@@ -3,7 +3,7 @@ TH.world = (function() {
     return {
         init : function() {
             this._installPlugins();
-            this._createStage();
+            createjs.Ticker.addEventListener('tick', this.tick);
             this._loadFiles(this._postInit);
         },
 
@@ -11,10 +11,6 @@ TH.world = (function() {
             createjs.CSSPlugin.install();
         },
 
-        _createStage: function() {
-            TH.global.stage = new createjs.Stage('world');
-            createjs.Ticker.addEventListener('tick', this.tick);
-        },
 
         _loadFiles: function(callback) {
             self = this;

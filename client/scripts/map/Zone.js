@@ -19,11 +19,27 @@ TH.Zone = (function() {
             }
 
             player = self.country.player;
-            if(player) {
-                if (player.zoneClickAction()) {
+
+                if (player && player.zoneClickAction()) {
                     self.setFullHealth();
                     player.checkHasWon();
                 }
+
+        });
+
+        this.shape.on('mouseover', function() {
+            var player;
+
+            if (!self.hasNoHealth()) {
+                return;
+            }
+
+            player = self.country.player;
+
+            if (player && player.zoneHoverAction()) {
+                $('body').addClass('tree-cursor');
+            } else {
+                $('body').removeClass('tree-cursor');
             }
         });
     }

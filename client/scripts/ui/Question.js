@@ -4,10 +4,12 @@ TH.Question = (function() {
         params = params || {};
         params.cls = 'question hidden';
 
-        self = this;
+        var self = this;
         dbQuestion = this.getQuestion(function(dbQuestion) {
             self.template = _.template($('#question-' + dbQuestion['type'] + '-Html').html());
             TH.Component.call(self, params);
+
+            TH.global.stateSubscribe(self.stateUpdateHandler, this);
 
             _attachEvents.call(self);
         });
@@ -99,6 +101,7 @@ TH.Question = (function() {
     };
 
     Question.prototype.parseInfografic = function(info) {
+
         if(info === '') {
             return false;
         } else if (info.indexOf('http://') === 0) {
@@ -124,5 +127,13 @@ TH.Question = (function() {
         });
 
     };
+    Question.prototype.stateUpdateHandler = function() {
+        if(TH.global.isState('QUIZ') === true) {
+            this.show();
+        } else {
+            this.hide();
+        }
+
+    };
     return Question;
-}())
+}());

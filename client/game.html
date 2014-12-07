@@ -14,7 +14,7 @@
         <button class="button skeleton logout">Log Out</button>
         <hr class="header-line left"/>
         <div class="air-polution">
-            <p class="label"><span class="industry-icon icon"></span>Air Polution</p>
+            <p class="label"><span class="industry-icon icon"></span>Air Pollution</p>
             <p class="value">100%</p>
             <p class="goal uppercase">Goal is: <span class="bold">20%</span></p>
         </div>
@@ -44,23 +44,23 @@
                     <p class="number"><span>3</span>x</p>
                 </div>
                 <div class="tree-icon icon "></div>
-                <p class="info half-opacity light inline-block">You will receive a new tree <br/> in <b>2 hours</b></p>
+                <p class="info half-opacity light inline-block">You will receive a new tree <br/><b>each day</b></p>
             </div>
-            <div class="plant-now  bottom-block">
+            <div class="plant-now  bottom-block" id="plantNow">
                 <aside class="trees-icon icon"></aside>
                 <div class="inline-block cta-block">
-                    <button class="button green">Plant Now</button>
-                    <p class="text-center">You need 4 trees</p>
+                    <button class="button green" id="plantNowButton">Plant Now</button>
+                    <p class="text-center need-text" id="needText" >You need <span></span> trees</p>
                 </div>
             </div>
-            <div class="take-quiz bottom-block">
+            <div class="take-quiz bottom-block" id="takeQuiz">
                 <div class="quiz-image icon"></div>
                 <div class="inline-block cta-block">
                     <button class="button red">Take a Quiz</button>
                     <p class="text-center">Earn extra trees</p>
                 </div>
             </div>
-            <div class="ask-help bottom-block">
+            <div class="ask-help bottom-block" id="askHelp">
                 <div class="ask-help-image icon"></div>
                 <div class="inline-block cta-block">
                     <button class="button blue">Ask for help</button>
@@ -143,6 +143,9 @@
         <script src="scripts/players/index.js"></script>
         <script src="scripts/ui/Component.js"></script>
         <script src="scripts/ui/Question.js"></script>
+        <script src="scripts/ui/PlantNow.js"></script>
+        <script src="scripts/ui/TakeQuiz.js"></script>
+        <script src="scripts/ui/AskHelp.js"></script>
         <script src="scripts/ui/WinDialog.js"></script>
         <script src="scripts/ui/index.js"></script>
         <script src="scripts/main.js"></script>
