@@ -25,6 +25,7 @@ TH.world = (function() {
             });
             TH.global.queue.addEventListener('complete', function() {
                 $('.preloader').hide();
+                $('body').css({'background-image': 'none'});
                 callback.call(self);
             });
             TH.global.queue.loadManifest([

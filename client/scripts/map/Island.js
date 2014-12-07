@@ -33,7 +33,7 @@ TH.Island = (function() {
             this.container.scaleY = .1;
 
             createjs.Tween.get(this.container)
-                .to({scaleX: 1.2, scaleY: 1.2}, 500, createjs.Ease.linear)
+                .to({scaleX: 1.03, scaleY: 1.03}, 500, createjs.Ease.linear)
                 .to({scaleX: 1, scaleY: 1}, 800, createjs.Ease.bounceOut).call(TH.players.placePlayers.bind(TH.players));
 
         // Regular user
