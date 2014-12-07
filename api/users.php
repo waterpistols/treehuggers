@@ -10,11 +10,20 @@ $app->get('/users', function () use ($app, $db) {
 
 });
 
-// Get By Id
-$app->get('/users/:id', function ($id) use ($app, $db) {
-	
-	$result = $db->getById('users', $id);
-	
+// Get User
+$app->get('/user', function () use ($app, $db) {
+
+	if(isset($_COOKIE['TH-Token'])) {
+		$cookieValue = $_COOKIE['TH-Token'];
+
+  	$result = $db->getSessionByToken($cookieValue);
+  	
+  	$result = $db->getById('users', $result['user_id']);  	
+
+  	$zones = $db->getZonesByUserId($result['user_id']);
+  	$result['zones'] = $zones;
+	}
+
 	$app->response->setBody(json_encode($result));
 
 });
@@ -90,7 +99,34 @@ $app->post('/login', function() use ($app, $db) {
 		} else {
 
 			$requestBody['fields']['first_login'] = 1;
+
+			$apiId  = $requestBody['fields']['api_id'];
 			$result = $db->create($requestBody);
+
+			// initializing user data
+			$requestBody['table'] = 'users_data';
+
+			$requestBody['fields'] = array(
+				'user_id'   => $result['id'],
+				'trees'     => 4,
+				'pollution' => 100,
+				'asks'      => 3
+			);
+			$db->create($requestBody);
+
+			// initializing zones
+			$zones = $db->getAll('zones');
+
+			$requestBody['table'] = 'users_zones';
+			foreach ($zones as $zone) {
+				$requestBody['fields'] = array(
+					'user_id'         => $result['id'],
+					'zone_id'         => $zone['id'],
+					'degrading_state' => 0
+				);
+
+				$db->create($requestBody);
+			}
 
 			// Assign user to island
 			$island = $db->getAssignableIsland();			
@@ -134,7 +170,7 @@ $app->post('/login', function() use ($app, $db) {
 
 			// Create a token for the session
 			$salt = microtime();
-			$token = crypt($requestBody['fields']['api_id'] + microtime(), $salt);
+			$token = crypt($apiId + microtime(), $salt);
 
 			$now = date("Y-m-d H:i:s");
 			$expires = date("Y-m-d H:i:s", strtotime($now) + 3600);

@@ -35,7 +35,11 @@ class DB {
 
 	// get all items from table method
 	public function getById($table = '', $id = 0) {
-		$this->query = "SELECT * FROM `" . $table . "` WHERE `id` = " . $id;
+    $this->query = "SELECT * FROM `" . $table . "` WHERE `id` = " . $id;
+
+    if ($table === 'users') {
+      $this->query = "SELECT * FROM `users` LEFT JOIN `users_data` ON `users`.`id` = `users_data`.`user_id` WHERE `users`.`id` = " . $id;
+    }		
 		
 		return $this->dbHandler->query($this->query)->fetch(PDO::FETCH_ASSOC);
 		
@@ -190,6 +194,19 @@ class DB {
 
   	$result = $this->dbHandler->query($this->query)->fetch(PDO::FETCH_ASSOC);
 
+    // maybe no there are no entries in users_answers
+    if (!$result) {
+      $this->query  = "SELECT `users_answers`.`id` FROM `users_answers`";
+      $usersAnswers = $this->dbHandler->query($this->query)->fetch(PDO::FETCH_ASSOC);
+      if (!$usersAnswers) {
+        $this->query = "SELECT * FROM `questions`";
+
+        $result = $this->dbHandler->query($this->query);
+
+        return $result->fetchAll(PDO::FETCH_ASSOC);   
+      }
+    }
+
   	if ($result) {
   		$this->query = "SELECT * FROM `questions` WHERE id NOT IN (" . $result['ids'] . ")";
 
@@ -208,6 +225,15 @@ class DB {
     $result = $this->dbHandler->query($this->query);
 
     return $result->fetch(PDO::FETCH_ASSOC); 
+
+  }
+
+  public function getZonesByUserId($userId = 0) {
+    $this->query = "SELECT `users_zones`.*, `zones`.`title` FROM `users_zones` LEFT JOIN `zones` ON `zones`.`id` = `users_zones`.`zone_id` WHERE `user_id` = '" . $userId . "'";
+
+    $result = $this->dbHandler->query($this->query);
+
+    return $result->fetchAll(PDO::FETCH_ASSOC); 
 
   }
 }

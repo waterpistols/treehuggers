@@ -7,11 +7,22 @@
         <link rel="stylesheet" type="text/css" href="assets/css/index.css">
         <script src="scripts/global.js"></script>
         <script src="scripts/libs/jquery-2.1.1.js"></script>
-        <script src="https://apis.google.com/js/client:platform.js" async defer></script>
+        <script src="https://apis.google.com/js/client:platform.js?onload=render" async defer></script>
+
     </head>
     <body>
         <script>
             // GOOGLE+
+            function render() {
+                gapi.signin.render('customBtn', {
+                    'callback': 'signinCallback',
+                    'clientid': '1055426340528-5ocjr2f5t4g1tem532581k3ap74uu3pp.apps.googleusercontent.com',
+                    'cookiepolicy': 'single_host_origin',
+                    'requestvisibleactions': 'http://schema.org/AddAction',
+                    'scope': 'https://www.googleapis.com/auth/plus.login'
+                });
+            }
+
             function signinCallback(authResult) {
                 if (authResult['status']['signed_in']) {
 
@@ -28,7 +39,7 @@
 
                             // Hide button
                             document.getElementById('facebookButton').setAttribute('style', 'display: none');
-                            document.getElementById('signinButton').setAttribute('style', 'display: none');
+                            document.getElementById('gSignInWrapper').setAttribute('style', 'display: none');
 
                             // Login
                             var data = {
@@ -66,96 +77,86 @@
             }
 
             // FACEBOOK
-            function getProfile() {
-                FB.api('/me', {fields: "id, first_name, last_name, email, picture"}, function(response) {
-                    // Hide button
-                    document.getElementById('facebookButton').setAttribute('style', 'display: none');
-                    document.getElementById('signinButton').setAttribute('style', 'display: none');
+            function fb_login() {
+                FB.login(function(response) {
 
-                    // Login
-                    var data = {
-                        'first_name': response['first_name'],
-                        'last_name': response['last_name'],
-                        'api_id': response['id'],
-                        'email': '',
-                        'avatar': response['picture']['data']['url']
-                    };
+                    if (response.authResponse) {
+                        FB.api('/me', {fields: "id, first_name, last_name, email, picture"}, function(response) {
 
-                    $.ajax({
-                        type: 'POST',
-                        url: TH.global.endpoints.login,
-                        data: JSON.stringify(data),
-                        contentType: "application/json; charset=utf-8",
-                        dataType: 'json',
-                        xhrFields: { withCredentials: true },
-                        success: function(data) {
-                            window.location.href = TH.global.clientUrl + 'game.html';
-                        }
-                    });
-                });
-            }
+                            // Hide button
+                            document.getElementById('facebookButton').setAttribute('style', 'display: none');
+                            document.getElementById('gSignInWrapper').setAttribute('style', 'display: none');
 
-            function statusChangeCallback(response) {
-                if (response.status === 'connected') {
-                    getProfile();
-                } else if (response.status === 'not_authorized') {
-                    $('.error').html('Please log into this app.').show();
-                } else {
-                    $('.error').html('Please log into Facebook.').show();
-                }
-            }
+                            // Login
+                            var data = {
+                                'first_name': response['first_name'],
+                                'last_name': response['last_name'],
+                                'api_id': response['id'],
+                                'email': '',
+                                'avatar': response['picture']['data']['url']
+                            };
 
-            function checkLoginState() {
-                FB.getLoginStatus(function(response) {
-                    statusChangeCallback(response);
+                            $.ajax({
+                                type: 'POST',
+                                url: TH.global.endpoints.login,
+                                data: JSON.stringify(data),
+                                contentType: "application/json; charset=utf-8",
+                                dataType: 'json',
+                                xhrFields: { withCredentials: true },
+                                success: function(data) {
+                                    window.location.href = TH.global.clientUrl + 'game.html';
+                                }
+                            });
+                        });
+
+                    } else {
+                        $('.error').html('Please log into this app.').show();
+
+                    }
+                }, {
+                    scope: 'publish_stream,email'
                 });
             }
 
             window.fbAsyncInit = function() {
                 FB.init({
                     appId      : '1375113666117184',
+                    oauth      : true,
                     cookie     : true,
+                    status     : true,
                     xfbml      : true,
                     version    : 'v2.2'
                 });
-
-                FB.getLoginStatus(function(response) {
-                    statusChangeCallback(response);
-                });
-
             };
-
-            // Load the SDK asynchronously
-            (function(d, s, id) {
-                var js, fjs = d.getElementsByTagName(s)[0];
-                if (d.getElementById(id)) return;
-                js = d.createElement(s); js.id = id;
-                js.src = "http://connect.facebook.net/en_US/sdk.js";
-                fjs.parentNode.insertBefore(js, fjs);
-            }(document, 'script', 'facebook-jssdk'));
         </script>
-
-
 
         <div id="island">
             <img src="assets/images/index/island.jpg" width="400" alt="island" class="blur" />
 
             <div id="login">
                 <div id="error"></div>
+                <div id="fb-root"></div>
 
-                <fb:login-button id="facebookButton" scope="public_profile, email" data-size="xlarge"  onlogin="checkLoginState();"></fb:login-button>
+                <a href="#" onclick="fb_login();" id="facebookButton">Facebook</a>
 
-                <span id="signinButton">
-                    <span
-                    class="g-signin"
-                    data-callback="signinCallback"
-                    data-clientid="1055426340528-5ocjr2f5t4g1tem532581k3ap74uu3pp.apps.googleusercontent.com"
-                    data-cookiepolicy="single_host_origin"
-                    data-requestvisibleactions="http://schema.org/AddAction"
-                    data-scope="https://www.googleapis.com/auth/plus.login">
-                </span>
-            </span>
+                <div id="gSignInWrapper">
+                    <span class="label">Sign in with:</span>
+                    <div id="customBtn" class="customGPlusSignIn">
+                        <span class="icon"></span>
+                        <span class="buttonText">Google</span>
+                    </div>
+                </div>
             </div>
+            
+            <script>
+                // Load the SDK asynchronously
+                (function() {
+                    var e = document.createElement('script');
+                    e.src = document.location.protocol + '//connect.facebook.net/en_US/all.js';
+                    e.async = true;
+                    document.getElementById('fb-root').appendChild(e);
+                }());
+            </script>
         </div>
     </body>
 </html>
