@@ -202,38 +202,25 @@ class DB {
   }
 
   // get all questions filtered by unanswered correctly
-  public function getAllQuestions() {
+  public function getAllQuestions($userId = 0) {
   	$this->query = "SELECT GROUP_CONCAT( `questions`.`id` ) as ids
 			FROM `questions`
 			LEFT JOIN `users_answers` ON `questions`.`id` = `users_answers`.`question_id`
-			WHERE `users_answers`.`correct` = 1
+			WHERE `users_answers`.`correct` = 1 AND `users_answers`.`user_id` = " . $userId . "
 			GROUP BY `users_answers`.`correct`";
 
   	$result = $this->dbHandler->query($this->query)->fetch(PDO::FETCH_ASSOC);
-
-    // maybe no there are no entries in users_answers
-    if (!$result) {
-      $this->query  = "SELECT `users_answers`.`id` FROM `users_answers`";
-      $usersAnswers = $this->dbHandler->query($this->query)->fetch(PDO::FETCH_ASSOC);
-      if (!$usersAnswers) {
-        $this->query = "SELECT * FROM `questions`";
-
-        $result = $this->dbHandler->query($this->query);
-
-        return $result->fetchAll(PDO::FETCH_ASSOC);   
-      }
+    
+    $this->query = "SELECT * FROM `questions`";
+    
+    if ($result) {
+      $this->query .= " WHERE `id` NOT IN (" . $result['ids'] . ")";   
+      
     }
 
-  	if ($result) {
-  		$this->query = "SELECT * FROM `questions` WHERE id NOT IN (" . $result['ids'] . ")";
+    return $this->dbHandler->query($this->query)->fetchAll(PDO::FETCH_ASSOC);
 
-	  	$result = $this->dbHandler->query($this->query);
 
-	  	return $result->fetchAll(PDO::FETCH_ASSOC);	
-  	}  	
-
-  	return array();
-  	
   }
 
   public function getUserByApiId($apiId = 0) {
