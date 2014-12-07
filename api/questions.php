@@ -169,7 +169,7 @@ $app->post('/plant', function() use ($app, $db) {
 
 	// set zone to fully planted
 	$userZone = $db->getZonesByUserId($result['user_id'], $zoneId);
-	$userZone['degrading_state'] = 4;
+	$userZone['degrading_state'] = 3;
 
 	$db->update(array(
 		'table'  => 'users_zones',

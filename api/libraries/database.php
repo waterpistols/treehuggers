@@ -280,4 +280,45 @@ class DB {
     return $result->fetch(PDO::FETCH_ASSOC); 
   }
 
+  public function getIslandUsersByIslandId($islandId = 0) {
+    $this->query = "SELECT * FROM `islands_users` WHERE `island_id` = " . $islandId;
+
+    $result = $this->dbHandler->query($this->query);
+      
+    return $result->fetchAll(PDO::FETCH_ASSOC); 
+  }
+
+  public function getIslandByUserId($userId = 0) {
+    $this->query = "SELECT * FROM `islands_users` WHERE `user_id` = " . $userId;
+
+    $result = $this->dbHandler->query($this->query);
+      
+    return $result->fetch(PDO::FETCH_ASSOC); 
+  }
+
+  public function getUserRelationsByIsland($islandId = 0, $all = false) {
+    $this->query = "SELECT * FROM `users_relations` WHERE `island_id` = " . $islandId;
+
+    if ($all == false) {
+      $this->query .= " LIMIT 1";
+
+      $result = $this->dbHandler->query($this->query);
+      
+      return $result->fetch(PDO::FETCH_ASSOC); 
+    }
+
+    $result = $this->dbHandler->query($this->query);
+      
+    return $result->fetchAll(PDO::FETCH_ASSOC); 
+
+  }
+
+  public function calculateDegradingSum($userId = 0) {
+    $this->query = "SELECT SUM(degrading_state) as degrading_sum FROM users_zones WHERE user_id = " . $userId . " GROUP BY user_id";
+
+    $result = $this->dbHandler->query($this->query);
+      
+    return $result->fetch(PDO::FETCH_ASSOC); 
+  }
+
 }

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Dec 07, 2014 at 03:22 PM
+-- Generation Time: Dec 07, 2014 at 07:48 PM
 -- Server version: 5.5.40
 -- PHP Version: 5.3.10-1ubuntu3.15
 
@@ -70,7 +70,7 @@ CREATE TABLE IF NOT EXISTS `islands` (
   `name` varchar(64) NOT NULL,
   `players` int(1) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 --
 -- Dumping data for table `islands`
@@ -78,8 +78,7 @@ CREATE TABLE IF NOT EXISTS `islands` (
 
 INSERT INTO `islands` (`id`, `name`, `players`) VALUES
 (1, 'Serenity', 4),
-(2, 'Serenity', 4),
-(3, 'Serenity', 4);
+(2, 'Serenity', 2);
 
 -- --------------------------------------------------------
 
@@ -93,14 +92,19 @@ CREATE TABLE IF NOT EXISTS `islands_users` (
   `user_id` varchar(32) NOT NULL,
   `island_id` int(8) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
 
 --
 -- Dumping data for table `islands_users`
 --
 
 INSERT INTO `islands_users` (`id`, `user_id`, `island_id`) VALUES
-(1, '1', 3);
+(1, '1', 1),
+(2, '2', 1),
+(3, '3', 1),
+(4, '4', 1),
+(5, '5', 2),
+(6, '6', 2);
 
 -- --------------------------------------------------------
 
@@ -144,14 +148,19 @@ CREATE TABLE IF NOT EXISTS `sessions` (
   `last_used` datetime NOT NULL,
   `expires` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
 
 --
 -- Dumping data for table `sessions`
 --
 
 INSERT INTO `sessions` (`id`, `token`, `user_id`, `last_used`, `expires`) VALUES
-(1, '0.IbjnAvNlaPA', '1', '2014-12-07 15:20:15', '2014-12-07 16:20:15');
+(1, '0.aDgqullcviM', '1', '2014-12-07 18:05:39', '2014-12-07 19:05:39'),
+(2, '0.jAdCAr.mu1A', '2', '2014-12-07 19:44:29', '2014-12-07 20:44:29'),
+(3, '0.SZZVfacEv3.', '3', '2014-12-07 17:11:06', '2014-12-07 18:11:06'),
+(4, '0.TpQW53jQ9p.', '4', '2014-12-07 17:11:09', '2014-12-07 18:11:09'),
+(5, '0.piRxONq3AeU', '5', '2014-12-07 17:12:04', '2014-12-07 18:12:04'),
+(6, '0.rbC4AhdTCr6', '6', '2014-12-07 17:35:01', '2014-12-07 18:35:01');
 
 -- --------------------------------------------------------
 
@@ -171,14 +180,19 @@ CREATE TABLE IF NOT EXISTS `users` (
   `created` datetime NOT NULL,
   `modified` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
 
 --
 -- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`id`, `api_id`, `email`, `first_name`, `last_name`, `first_login`, `avatar`, `created`, `modified`) VALUES
-(1, '948413618521507', 'undemian@gmail.com', 'Andrei', 'Demian', 0, 'https://www.facebook.com/app_scoped_user_id/948413618521507/', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+(1, '15', 'undemian@gmail.com', 'Andrei', 'Demian', 0, 'https://www.facebook.com/app_scoped_user_id/948413618521507/', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(2, '13', 'undemian@gmail.com', 'Andrei', 'Demian', 0, 'https://www.facebook.com/app_scoped_user_id/948413618521507/', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(3, '12', 'undemian@gmail.com', 'Andrei', 'Demian', 0, 'https://www.facebook.com/app_scoped_user_id/948413618521507/', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(4, '16', 'undemian@gmail.com', 'Andrei', 'Demian', 0, 'https://www.facebook.com/app_scoped_user_id/948413618521507/', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(5, '21', 'undemian@gmail.com', 'Andrei', 'Demian', 0, 'https://www.facebook.com/app_scoped_user_id/948413618521507/', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(6, '22', 'undemian@gmail.com', 'Andrei', 'Demian', 0, 'https://www.facebook.com/app_scoped_user_id/948413618521507/', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -195,18 +209,7 @@ CREATE TABLE IF NOT EXISTS `users_answers` (
   `correct` tinyint(1) NOT NULL,
   `user_id` varchar(32) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
-
---
--- Dumping data for table `users_answers`
---
-
-INSERT INTO `users_answers` (`id`, `question_id`, `answer_id`, `answer_text`, `correct`, `user_id`) VALUES
-(1, 5, 0, '50', 1, '1'),
-(2, 5, 0, '50', 1, '1'),
-(3, 5, 0, '10', 0, '1'),
-(4, 5, 0, '10', 0, '1'),
-(5, 5, 0, '60', 0, '1');
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -223,14 +226,45 @@ CREATE TABLE IF NOT EXISTS `users_data` (
   `trees` int(8) NOT NULL,
   `asks` int(8) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
 
 --
 -- Dumping data for table `users_data`
 --
 
 INSERT INTO `users_data` (`id`, `user_id`, `pollution`, `points`, `trees`, `asks`) VALUES
-(1, 1, 100, 260, 2, 3);
+(1, 1, 100, 0, 4, 3),
+(2, 2, 100, 0, 4, 3),
+(3, 3, 100, 0, 4, 3),
+(4, 4, 100, 0, 4, 3),
+(5, 5, 100, 0, 4, 3),
+(6, 6, 100, 0, 4, 3);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users_relations`
+--
+
+DROP TABLE IF EXISTS `users_relations`;
+CREATE TABLE IF NOT EXISTS `users_relations` (
+  `id` int(8) NOT NULL AUTO_INCREMENT,
+  `island_id` int(8) NOT NULL,
+  `user_id` int(8) NOT NULL,
+  `neighbour_id` int(8) NOT NULL,
+  `position` varchar(32) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+
+--
+-- Dumping data for table `users_relations`
+--
+
+INSERT INTO `users_relations` (`id`, `island_id`, `user_id`, `neighbour_id`, `position`) VALUES
+(1, 1, 1, 2, 'west'),
+(2, 1, 1, 3, 'north'),
+(3, 1, 1, 4, 'east'),
+(4, 2, 5, 6, 'west');
 
 -- --------------------------------------------------------
 
@@ -245,18 +279,43 @@ CREATE TABLE IF NOT EXISTS `users_zones` (
   `zone_id` int(8) NOT NULL,
   `degrading_state` int(8) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=31 ;
 
 --
 -- Dumping data for table `users_zones`
 --
 
 INSERT INTO `users_zones` (`id`, `user_id`, `zone_id`, `degrading_state`) VALUES
-(1, 1, 1, 1),
+(1, 1, 1, 0),
 (2, 1, 2, 0),
 (3, 1, 3, 0),
 (4, 1, 4, 0),
-(5, 1, 5, 0);
+(5, 1, 5, 0),
+(6, 2, 1, 0),
+(7, 2, 2, 0),
+(8, 2, 3, 0),
+(9, 2, 4, 0),
+(10, 2, 5, 0),
+(11, 3, 1, 0),
+(12, 3, 2, 0),
+(13, 3, 3, 0),
+(14, 3, 4, 0),
+(15, 3, 5, 0),
+(16, 4, 1, 0),
+(17, 4, 2, 0),
+(18, 4, 3, 0),
+(19, 4, 4, 0),
+(20, 4, 5, 0),
+(21, 5, 1, 0),
+(22, 5, 2, 0),
+(23, 5, 3, 0),
+(24, 5, 4, 0),
+(25, 5, 5, 0),
+(26, 6, 1, 0),
+(27, 6, 2, 0),
+(28, 6, 3, 0),
+(29, 6, 4, 0),
+(30, 6, 5, 0);
 
 -- --------------------------------------------------------
 

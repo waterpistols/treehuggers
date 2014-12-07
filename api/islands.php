@@ -48,3 +48,98 @@ $app->delete('/islands/:id', function ($id) use ($app, $db) {
 
 	$app->response->setBody(json_encode($result), FALSE);
 });
+
+
+// Polling endpoint
+$app->get('/islands-polling', function() use ($app, $db) {
+	if(isset($_COOKIE['TH-Token'])) {
+		$neighbours = array();
+
+		$cookieValue = $_COOKIE['TH-Token'];
+
+  	$result = $db->getSessionByToken($cookieValue);
+
+  	$island = $db->getIslandByUserId($result['user_id']);
+
+  	$islandUsers = $db->getIslandUsersByIslandId($island['island_id']);
+
+  	foreach ($islandUsers as $islandUser) {
+  		if ($islandUser['user_id'] != $result['user_id']) {
+				$neighbours[] = $db->getById('users', $islandUser['user_id']);					
+  		}  		
+  	}
+		  	
+  	$relations = $db->getUserRelationsByIsland($island['island_id'], true);
+
+  	foreach ($neighbours as $key => $neighbour) {
+  		// calculating degradation sum
+  		$neighbours[$key]['degrading_sum'] = $db->calculateDegradingSum($neighbour['user_id']);  		
+
+  		// calculating position
+  		
+  		foreach ($relations as $relation) {
+  			if ($relation['user_id'] == $result['user_id']) {
+  				if ($relation['neighbour_id'] == $neighbour['user_id']) {
+  					$neighbours[$key]['position'] = $relation['position'];  					
+  				}
+  			} else {
+  				if ($relation['neighbour_id'] == $result['user_id']) {
+  					$referenceId       = $relation['user_id'];
+  					$referencePosition = $relation['position'];
+  					
+  				}		
+  			}
+  		}
+
+  		foreach ($relations as $relation) {  			
+  			if ($relation['user_id'] == $referenceId && $relation['neighbour_id'] == $neighbour['id']) {
+
+  				if ($relation['position'] === 'north' && $referencePosition == 'west') {
+  					$neighbours[$key]['position'] = 'west';  					
+
+  				}
+
+  				if ($relation['position'] === 'north' && $referencePosition == 'east') {
+  					$neighbours[$key]['position'] = 'east';
+  				}  				
+
+  				elseif ($relation['position'] === 'east' && $referencePosition == 'west') {
+  					$neighbours[$key]['position'] = 'north';
+
+  				}
+
+  				if ($relation['position'] === 'east' && $referencePosition == 'north') {
+  					$neighbours[$key]['position'] = 'west';
+  				}
+  				
+  				if ($relation['position'] === 'west' && $referencePosition == 'north') {
+  					$neighbours[$key]['position'] = 'east';  					
+  				}
+
+  				if ($relation['position'] === 'west' && $referencePosition == 'east') {
+  					$neighbours[$key]['position'] = 'north';
+  				}
+  			}
+
+  			if ($relation['user_id'] == $referenceId && $relation['neighbour_id'] == $result['user_id']) {
+  				if ($relation['position'] == 'north') {
+  					$neighbours[$key]['position'] = 'north';
+  				}
+
+  				if ($relation['position'] == 'west') {
+  					$neighbours[$key]['position'] = 'east';
+  				}
+
+  				if ($relation['position'] == 'east') {
+  					$neighbours[$key]['position'] = 'west';
+  				}
+  			}
+  		}
+
+  		
+  		
+  	}
+
+  	$app->response->setBody(json_encode($neighbours), FALSE);
+	}
+});
