@@ -1,2 +1,6 @@
 local.dev.iml
 git.iml
+node_modules
+Gruntfile
+package.json
+Gruntfile.js

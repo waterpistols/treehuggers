@@ -1,21 +1,70 @@
+
 body {
     background: #0080DC;
+    font-family: 'Open Sans', Helvatica, sans-serif;
+    font-size: 12px;
+    color: #fff;
 }
 
+    .logo {
+        background: url('../images/logo.png') center center no-repeat;
+        position: absolute;
+        display: block;
+        top: 20px;
+        left: 20px;
+        width: 184px;
+        height: 50px;
+    }
+    .header-line {
+        position: absolute;
+        width: 250px;
+        top: 95px;
+    }
+    .header-line.left {
+        left: 20px;
+    }
+    .header-line.right {
+        right: 20px;
+    }
     #world {
+        position: relative;
         max-width: 1130px;
         width: 100%;
 
-        margin: 0 auto;
+        margin: 0 auto -120px;
         display: block;
     }
 
     .hidden {
         display: none;
     }
-
+    .uppercase {
+        text-transform: uppercase;
+    }
+    .bold {
+        font-weight: bold;
+    }
+    .light {
+        font-weight: lighter;
+    }
+    .clear {
+        clear: both;
+    }
+    .text-center {
+        text-align: center;
+    }
+    .half-opacity {
+        opacity: 0.5;
+    }
     .no-opacity {
         opacity: 0;
+    }
+    hr {
+        position: absolute;
+        display: block;
+        height: 2px;
+        border: none;
+        background: #fff;
     }
 
     .question {
@@ -28,3 +77,260 @@ body {
         margin-top: -150px;
         background: white;
     }
+
+    .button {
+        font-weight: bold;
+        text-transform: uppercase;
+        color: #fff;
+        font-size: 12px;
+        font-weight: bold;
+        -wegkit-border-radius: 3px;
+        -moz-border-radius: 3px;
+        border-radius: 3px;
+        border: none;
+        padding: 5px 25px;
+    }
+    .button:focus {
+        outline:0;
+    }
+    .button.green {
+        background: #70be59;
+    }
+    .button.red {
+        background: #EF896D;
+    }
+    .button.blue {
+        background: #005B9D;
+    }
+
+    .air-polution {
+        position: absolute;
+        top: 120px;
+        left: 20px;
+        font-weight: lighter;
+        line-height: 1;
+    }
+    .air-polution .value {
+        font-size: 50px;
+
+        margin: 0;
+    }
+    .air-polution .label,
+    .air-polution .goal {
+        margin: 8px 0;
+    }
+    .game-description {
+        position: absolute;
+        top: 18px;
+        left: 50%;
+        margin-left: -110px;
+        font-weight: lighter;
+        font-size: 16px;
+    }
+    .user-stats {
+        position: absolute;
+        top: 120px;
+        right: 20px;
+        text-align: right;
+        width: 300px;
+    }
+    .user-stats .name {
+        font-size: 20px;
+        font-weight: bold;
+        margin: 0 0 6px 0;
+        width: 100%;
+        line-height: 1.2;
+    }
+    .user-stats .avatar {
+
+        width: 58px;
+        height: 87px;
+        background: url('../images/large-pin.png') top left no-repeat;
+    }
+    .user-stats .left,
+    .user-stats .right {
+        display: inline-block;
+        vertical-align: top;
+    }
+    .user-stats .left {
+        width: 180px;
+        margin-right: 10px;
+    }
+    .user-stats .right {
+        width: 60px;
+
+    }
+    .user-stats .rank {
+        position: relative;
+        display: inline-block;
+        top: 5px;
+        width: 105px;
+        height: 12px;
+        background: url('../images/rank-leaves.png') top left;
+        margin: 0;
+    }
+    .user-stats .points {
+        margin-top: 5px;
+    }
+    .user-stats .rank .leaf-fill {
+        display: block;
+        width: 0;
+        margin: 0;
+        height: 100%;
+        background: url('../images/rank-leaves.png') bottom left;
+    }
+    .user-stats .rank.fill-1 .leaf-fill {
+        width: 20%;
+    }
+    .user-stats .rank.fill-2 .leaf-fill {
+        width: 40%;
+    }
+    .user-stats .rank.fill-3 .leaf-fill {
+        width: 60%;
+    }
+    .user-stats .rank.fill-4 .leaf-fill {
+        width: 80%;
+    }
+    .user-stats .rank.fill-5 .leaf-fill {
+        width: 100%;
+    }
+    .user-stats .rank.fill-0 .leaf-fill {
+        width: 0;
+    }
+
+    .user-stats .avatar .image {
+        position: relative;
+        top: 8px;
+        left: 8px;
+        width: 42px;
+        height: 42px;
+        overflow: hidden;
+        -webkit-border-radius: 100%;
+        -moz-border-radius: 100%;
+        border-radius: 100%;
+    }
+    .bottom-block-container {
+        text-align: center;
+    }
+    .bottom-block {
+        position: relative;
+        display: inline-block;
+        text-align: left;
+        padding: 10px 20px;
+        margin: 10px;
+        margin-top: -250px;
+
+    }
+    .bottom-block:after {
+        content: '';
+        display: block;
+        width: 2px;
+        background: #fff;
+        height: 42px;
+        position: absolute;
+        right: 0;
+        top: 50%;
+        margin-top: -21px;
+    }
+    .bottom-block.ask-help:after {
+        display: none;
+    }
+    .you-have {
+        width: 266px;
+    }
+    .you-have .label {
+        margin: 0;
+    }
+    .bottom-block .inline-block {
+        vertical-align: middle;
+    }
+    .bottom-block p {
+        margin: 4px 0;
+    }
+    .you-have .number {
+        font-size: 40px;
+        font-weight: bold;
+        line-height: 1;
+        margin: 0;
+    }
+    .user-stats .avatar .image img {
+        max-width: 100%;
+        min-height: 100%;
+    }
+
+    .icon {
+        display: inline-block;
+        vertical-align: middle;
+    }
+    .inline-block {
+        display: inline-block;
+    }
+    .industry-icon {
+        width: 20px;
+        height: 20px;
+        background: url('../images/industry.png') center center no-repeat;
+        margin-right: 5px;
+    }
+    .plant-now {
+        width: 235px;
+    }
+    .tree-icon {
+        width: 41px;
+        height: 48px;
+        background: url('../images/tree.png') center center no-repeat;
+        margin-right: 5px;
+    }
+    .trees-icon {
+        width: 91px;
+        height: 50px;
+        background: url('../images/trees.png') center center no-repeat;
+        margin-right: 10px;
+    }
+    .quiz-image {
+        width: 60px;
+        height: 46px;
+        background: url('../images/okwrong.png') center center no-repeat;
+        margin-right: 15px;
+    }
+    .ask-help-image {
+        width: 76px;
+        height: 50px;
+        background: url('../images/ask-help-bubble.png') center center no-repeat;
+        margin-right: 10px;
+    }
+    .footer-line {
+        position: relative;
+        display: block;
+        width: auto;
+        margin: 0 20px 20px;
+    }
+    footer {
+        text-align: center;
+        font-weight: lighter;
+        margin-bottom: 20px;
+    }
+    .small-logo {
+        display: inline-block;
+        width: 50px;
+        height: 50px;
+        vertical-align: middle;
+        margin: 5px;
+        background: url('../images/small-logo.png') center center no-repeat;
+    }
+@media only screen and (max-width : 1160px) {
+    .bottom-block {
+        padding-left: 10px;
+        padding-right: 10px;
+        margin-left: 5px;
+        margin-right: 5px;
+    }
+    .you-have {
+        width: 120px;
+    }
+    .you-have .info {
+        display: none;
+    }
+    .bottom-block-container {
+        min-width: 900px;
+    }
+}

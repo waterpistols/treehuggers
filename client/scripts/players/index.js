@@ -11,26 +11,26 @@ TH.players = (function() {
 
             this.players.red = new TH.MainPlayer(
                 TH.global.queue.getResult('flag'),
-                {   x : 650,
+                {   x : 620,
                     y : -50
                 }
             );
             this.players.green = new TH.Player(
                 TH.global.queue.getResult('avatar'),
-                {   x : 200,
-                    y : -350
+                {   x : 120,
+                    y : -320
                 }
             );
             this.players.yellow = new TH.Player(
                 TH.global.queue.getResult('avatar'),
-                {   x : 650,
+                {   x : 480,
                     y : -450
                 }
             );
             this.players.blue = new TH.Player(
                 TH.global.queue.getResult('avatar'),
                 {   x : 980,
-                    y : -320
+                    y : -300
                 }
             );
 
