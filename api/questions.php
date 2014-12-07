@@ -85,7 +85,39 @@ $app->post('/questions', function() use ($app, $db) {
 
 		$correct = (boolean) $answer['correct'];
 	}
+
+	// if the answer is incorrect, degrade a zone
+	if ($correct === false) {
+		$zone = $db->getEligibleZone($result['user_id']);
 		
+		$zone['degrading_state']--;
+
+		$db->update(array(
+			'table'  => 'users_zones',
+			'fields' => $zone
+		));
+	}	
+
+	// if the answer is correct, increase number of trees
+	if ($correct === true) {
+
+		$question = $db->getById('questions', $payload['questionId']);
+
+		$userData = $db->getUserDataByUserId($result['user_id']);
+		$userData['points'] += $question['points'];
+		$userData['trees']++;
+
+		$db->update(array(
+			'table'  => 'users_data',
+			'fields' => $userData
+		));		
+	}
+
+	$result = $db->getById('users', $result['user_id']);
+
+  $zones = $db->getZonesByUserId($result['user_id']);
+  $result['zones'] = $zones;
+  $result['correct'] = $correct;
 	$requestBody           = array();
 	$requestBody['table']  = 'users_answers';
 	$requestBody['fields'] = array(
@@ -98,9 +130,7 @@ $app->post('/questions', function() use ($app, $db) {
 	
 	$db->create($requestBody);
 
-	$response = array(
-		'correct' => $correct
-	);
+	$response = array($result);
 	
 	$app->response->setBody(json_encode($response));
 
@@ -119,9 +149,59 @@ $app->put('/questions/:id', function ($id) use ($app, $db) {
 // Delete
 $app->delete('/questions/:id', function ($id) use ($app, $db) {
 	$requestBody['fields'] = json_decode($app->request->getBody(), TRUE);
-	$requestBody['table'] = 'questions';
+	$requestBody['table']  = 'questions';
 
 	$result = $db->remove($requestBody);
 
 	$app->response->setBody(json_encode($result), FALSE);
 });
+
+
+// Plant tree
+$app->post('/plant', function() use ($app, $db) {
+	// determine userId
+	$cookieValue = $_COOKIE['TH-Token'];
+
+	$result = $db->getSessionByToken($cookieValue);	
+
+	$payload = json_decode($app->request->getBody(), TRUE);
+	$zoneId  = $payload['zoneId'];
+
+	// set zone to fully planted
+	$userZone = $db->getZonesByUserId($result['user_id'], $zoneId);
+	$userZone['degrading_state'] = 4;
+
+	$db->update(array(
+		'table'  => 'users_zones',
+		'fields' => $userZone
+	));
+
+	// decrease the number of trees by 4
+	$userData = $db->getUserDataByUserId($result['user_id']);
+	$userData['trees'] -= 4;
+
+	$db->update(array(
+		'table'  => 'users_data',
+		'fields' => $userData
+	));
+
+	$app->response->setBody(json_encode($result), FALSE);
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

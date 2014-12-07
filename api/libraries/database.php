@@ -95,6 +95,23 @@ class DB {
 	// update method
 	public function update($params = array()) {
 		extract($params);
+    
+    $keys = array_keys($fields);
+
+    $this->query = 'SHOW COLUMNS FROM `' . $table . '` ';
+
+    $result = $this->dbHandler->query($this->query)->fetchAll();
+
+    foreach ($result as $field) {
+      $dbFields[] = $field['Field'];
+    }
+
+    foreach ($keys as $key => $field) {
+      if (!in_array($field, $dbFields)) {
+        unset($keys[$key]);
+        unset($fields[$field]);
+      }
+    }   
 
 		$this->query = 'UPDATE `' . $table . '` SET ';
 
@@ -228,12 +245,39 @@ class DB {
 
   }
 
-  public function getZonesByUserId($userId = 0) {
+  public function getZonesByUserId($userId = 0, $zoneId = 0) {
     $this->query = "SELECT `users_zones`.*, `zones`.`title` FROM `users_zones` LEFT JOIN `zones` ON `zones`.`id` = `users_zones`.`zone_id` WHERE `user_id` = '" . $userId . "'";
+
+    if ($zoneId) {
+      $this->query .= " AND `zone_id` = " . $zoneId;
+
+      $result = $this->dbHandler->query($this->query);
+
+      return $result->fetch(PDO::FETCH_ASSOC); 
+    }
 
     $result = $this->dbHandler->query($this->query);
 
     return $result->fetchAll(PDO::FETCH_ASSOC); 
 
   }
+
+  // choose a zone for degradation 
+  public function getEligibleZone($userId = 0) {
+    $this->query = "SELECT `users_zones`.*, `zones`.`title` FROM `users_zones` LEFT JOIN `zones` ON `zones`.`id` = `users_zones`.`zone_id` WHERE `user_id` = '" . $userId . "' AND `degrading_state` <= 4 AND `degrading_state` > 0 ORDER BY RANK ASC LIMIT 1";
+
+    $result = $this->dbHandler->query($this->query);
+
+    return $result->fetch(PDO::FETCH_ASSOC); 
+  }
+
+  // choose a zone for degradation 
+  public function getUserDataByUserId($userId = 0) {
+    $this->query = "SELECT * FROM `users_data` WHERE `user_id` = " . $userId;
+
+    $result = $this->dbHandler->query($this->query);
+      
+    return $result->fetch(PDO::FETCH_ASSOC); 
+  }
+
 }
