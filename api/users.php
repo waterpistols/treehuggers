@@ -26,7 +26,16 @@ $app->get('/user', function () use ($app, $db) {
   	$result = $db->getById('users', $result['user_id']);
 
   	$zones = $db->getZonesByUserId($result['user_id']);
+
   	$result['zones'] = $zones;
+
+  	$db->update(array(
+  		'table'  => 'users',
+  		'fields' => array(
+  			'id'          => $result['user_id'],
+  			'first_login' => 0
+			)
+		));
 	}
 
 	$app->response->setBody(json_encode($result));
@@ -67,8 +76,7 @@ $app->post('/login', function() use ($app, $db) {
 
 		$existing = $db->getUserByApiId($requestBody['fields']['api_id']);
 
-		if ($existing) {
-			$requestBody['fields']['first_login'] = 0;
+		if ($existing) {			
 			$requestBody['fields']['id'] = $existing['id'];
 
 			$result = $db->getById('users', $requestBody['fields']['id']);
