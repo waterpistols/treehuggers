@@ -75,10 +75,20 @@ TH.Island = (function() {
     };
 
     Island.prototype.smokey = function() {
-        var smoke = new createjs.Bitmap(TH.global.queue.getResult('smoke'));
-        smoke.x = 10;
-        smoke.y = 10;
-        TH.global.stage.addChild(smoke);
+        var sheetOptions = {
+            images: [TH.global.queue.getResult('smoke').src],
+            frames: {width:34, height:26},
+            animations: {
+                smoke: [0, 1, 2, 3 ,4]
+            }
+        };
+        var sheet = new createjs.SpriteSheet(sheetOptions),
+        sprite = new createjs.Sprite(sheet);
+
+        sprite.gotoAndPlay('smoke');
+
+        TH.global.extend.call(sprite, { x: 543, y: 197, frameset: 3});
+        TH.global.stage.addChild(sprite);
     }
 
     Island.prototype.updateCountries = function() {
