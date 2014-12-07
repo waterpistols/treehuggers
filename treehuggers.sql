@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Dec 06, 2014 at 10:07 PM
+-- Generation Time: Dec 07, 2014 at 08:43 AM
 -- Server version: 5.5.40
 -- PHP Version: 5.3.10-1ubuntu3.15
 
@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS `answers` (
   `text` text NOT NULL,
   `correct` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
 
 --
 -- Dumping data for table `answers`
@@ -42,7 +42,9 @@ CREATE TABLE IF NOT EXISTS `answers` (
 INSERT INTO `answers` (`id`, `question_id`, `text`, `correct`) VALUES
 (1, 1, 'Yes', 1),
 (2, 1, 'No', 0),
-(3, 2, '125', 1);
+(3, 2, '125', 1),
+(4, 3, 'NO', 0),
+(5, 3, 'Maybe', 0);
 
 -- --------------------------------------------------------
 
@@ -127,7 +129,15 @@ CREATE TABLE IF NOT EXISTS `sessions` (
   `last_used` datetime NOT NULL,
   `expires` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=21 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=23 ;
+
+--
+-- Dumping data for table `sessions`
+--
+
+INSERT INTO `sessions` (`id`, `token`, `user_id`, `last_used`, `expires`) VALUES
+(21, '0.RIEHi01CvFE', '12352124', '2014-12-06 23:47:36', '2014-12-07 00:47:36'),
+(22, '0.ispCd8j6Hsg', '948413618521507', '2014-12-07 08:40:35', '2014-12-07 09:40:35');
 
 -- --------------------------------------------------------
 
@@ -175,25 +185,7 @@ CREATE TABLE IF NOT EXISTS `users_answers` (
   `correct` tinyint(1) NOT NULL,
   `user_id` varchar(32) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=14 ;
-
---
--- Dumping data for table `users_answers`
---
-
-INSERT INTO `users_answers` (`id`, `question_id`, `answer_id`, `answer_text`, `correct`, `user_id`) VALUES
-(1, 1, 1, '', 0, '9484136185215072'),
-(3, 1, 1, '', 0, '9484136185215072'),
-(4, 1, 1, '', 0, '9484136185215072'),
-(5, 1, 1, '', 0, '9484136185215072'),
-(6, 1, 1, '', 0, '9484136185215072'),
-(7, 1, 2, '', 0, '9484136185215072'),
-(8, 1, 2, '', 0, '9484136185215072'),
-(9, 0, 0, '', 0, '948413618521507'),
-(10, 0, 0, '', 0, '948413618521507'),
-(11, 2, 0, '120', 0, '948413618521507'),
-(12, 2, 0, '120', 0, '948413618521507'),
-(13, 2, 0, '120', 1, '948413618521507');
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

@@ -168,9 +168,13 @@ class DB {
   }
 
   // get answer by questionId
-  public function getAnswersByQuestionId($questionId) {
+  public function getAnswersByQuestionId($questionId, $type = 'Dropdown') {
   	$this->query = "SELECT * FROM `answers` WHERE `question_id` = '" . $questionId . "'";  	
   	$result = $this->dbHandler->query($this->query);
+  	
+    if ($type === 'Input') {
+      return $result->fetch(PDO::FETCH_ASSOC);
+    }
 
   	return $result->fetchAll(PDO::FETCH_ASSOC);
   }
@@ -185,11 +189,15 @@ class DB {
 
   	$result = $this->dbHandler->query($this->query)->fetch(PDO::FETCH_ASSOC);
 
-  	$this->query = "SELECT * FROM `questions` WHERE id NOT IN (" . $result['ids'] . ")";
+  	if ($result) {
+  		$this->query = "SELECT * FROM `questions` WHERE id NOT IN (" . $result['ids'] . ")";
 
-  	$result = $this->dbHandler->query($this->query);
+	  	$result = $this->dbHandler->query($this->query);
 
-  	return $result->fetchAll(PDO::FETCH_ASSOC);
+	  	return $result->fetchAll(PDO::FETCH_ASSOC);	
+  	}  	
+
+  	return array();
   	
   }
 }

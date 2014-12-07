@@ -6,34 +6,39 @@ $app->get('/questions', function () use ($app, $db) {
 	$payload = $app->request->params();
 
 	$result = $db->getAllQuestions();
-
+	
 	foreach($result as $key => $question) {
 
 		if ($payload && isset($payload['random'])) {
 			$questionIds[] = $question['id'];
 		}
 
-		$answers = $db->getAnswersByQuestionId($question['id']);
+		if ($question['type'] !== 'Input') {
+			$answers = $db->getAnswersByQuestionId($question['id']);
 
-		foreach ($answers as $answerKey => $answer) {			
-			$answers[$answerKey]['correct'] = (boolean) $answer['correct'];
-		}		 
+			foreach ($answers as $answerKey => $answer) {			
+				unset($answers[$answerKey]['correct']);
+			}		 
 
-		$result[$key]['answers'] = $answers;
-	}
-
-	if ($payload && isset($payload['random'])) {
-		$questionId = array_rand($questionIds);
-		$questionId = $questionIds[$questionId];
-		
-		foreach ($result as $key => $question) {
-			if ($questionId == $question['id']) {
-				$idKey = $key;
-			}
+			$result[$key]['answers'] = $answers;
 		}
-
-		$result = $result[$idKey];
 	}
+
+	if ($result) {
+		if ($payload && isset($payload['random'])) {
+			$questionId = array_rand($questionIds);
+			$questionId = $questionIds[$questionId];
+			
+			foreach ($result as $key => $question) {
+				if ($questionId == $question['id']) {
+					$idKey = $key;
+				}
+			}
+
+			$result = $result[$idKey];
+		}
+	}
+	
 
 	$app->response->setBody(json_encode($result));
 
@@ -65,16 +70,22 @@ $app->post('/questions', function() use ($app, $db) {
 
 	$result = $db->getSessionByToken($cookieValue);	
 
+	// question type input
 	if (isset($payload['answerText'])) {
 		$answerText = $payload['answerText'];
 		$answerId   = 0;
+		$answer = $db->getAnswersByQuestionId($payload['questionId'], $type = 'Input');
+		
+		$correct = ($answerText <= $answer['text'] + ($answer['text'] / 10) && $answerText >=  $answer['text'] - ($answer['text'] / 10)) ? true : false;		
+		
 	} else {
 		$answerText = '';
 		$answerId = $payload['answerId'];
-	}
+		$answer = $db->getById('answers', $answerId);
 
-	$correct = $payload['correct'] ? true : false;
-	
+		$correct = (boolean) $answer['correct'];
+	}
+		
 	$requestBody           = array();
 	$requestBody['table']  = 'users_answers';
 	$requestBody['fields'] = array(
@@ -85,9 +96,13 @@ $app->post('/questions', function() use ($app, $db) {
 		'correct'     => $correct
 	);
 	
-	$result = $db->create($requestBody);
+	$db->create($requestBody);
+
+	$response = array(
+		'correct' => $correct
+	);
 	
-	$app->response->setBody(json_encode($result));
+	$app->response->setBody(json_encode($response));
 
 });
 
