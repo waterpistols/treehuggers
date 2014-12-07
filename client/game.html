@@ -16,7 +16,7 @@
         </div>
 
         <!-- Tutorial -->
-        <div class="dialog tutorial" id="tutorial"></div>
+        <div class="dialog tutorial-container" id="tutorial"></div>
 
         <script type="text/html" id="tutorialTemplate">
             <div class="dialog-header tutorial-header<%= first%>">
@@ -117,7 +117,7 @@
             <div class="dialog question">
                 <div class="dialog-header question-header">
                     <img src="assets/images/quiz-icon.png" class="quiz-icon" />
-                    <h3>Quiz</h3>
+                    <h3>QUIZ</h3>
                 </div>
                 <div class="dialog-content">
                     <% if ( question.info ){ %>
@@ -125,14 +125,16 @@
                         <a href="#" id="next" class="button red">GOT IT! QUIZ ME</a>
                         <a href="#" id="close">Cancel</a>
                     <% } else { %>
-                        <h1><%= question.text %></h1>
-                        <select name="response" id="response">
-                            <% _.each( question.answers, function( answer ){ %>
-                                <option value="<%= answer.id %>"><%= answer.text %></value>
-                            <% }); %>
-                        </select>
+                        <div class="question-container">
+                            <h1><%= question.text %></h1>
+                            <select name="response" id="response">
+                                <% _.each( question.answers, function( answer ){ %>
+                                    <option value="<%= answer.id %>"><%= answer.text %></value>
+                                <% }); %>
+                            </select>
 
-                        <button id="sendResponse">Send</button>
+                            <a href="#" class="send-response" id="sendResponse">CONFIRM ANSWER</a>
+                        </div>
                     <% } %>
                 </div>
             </div>
@@ -142,7 +144,7 @@
             <div class="dialog question">
                 <div class="dialog-header question-header">
                     <img src="assets/images/quiz-icon.png" class="quiz-icon" />
-                    <h3>Quiz</h3>
+                    <h3>QUIZ</h3>
                 </div>
                 <div class="dialog-content">
                     <% if ( question.info ){ %>
@@ -150,12 +152,15 @@
                         <a href="#" id="next" class="button red">GOT IT! QUIZ ME</a>
                         <a href="#" id="close">Cancel</a>
                     <% } else { %>
-                        <h1><%= question.text %></h1>
-                        <% _.each( question.answers, function( answer ){ %>
-                            <input type="radio" value="<%= answer.id %>" name="response" class="response" /> <%= answer.text %>
-                        <% }); %>
+                        <div class="question-container">
+                            <h1><%= question.text %></h1>
+                            <% _.each( question.answers, function( answer ){ %>
+                                <input type="radio" value="<%= answer.id %>" id="response_<%= answer.id %>" name="response" class="response" />
+                                <label class="checkbox-label" for="response_<%= answer.id%>"><%= answer.text %></label><br />
+                            <% }); %>
 
-                        <button id="sendResponse">Send</button>
+                            <a href="#" class="send-response" id="sendResponse">CONFIRM ANSWER</a>
+                        </div>
                     <% } %>
                 </div>
             </div>
@@ -165,7 +170,7 @@
             <div class="dialog question">
                 <div class="dialog-header question-header">
                     <img src="assets/images/quiz-icon.png" class="quiz-icon" />
-                    <h3>Quiz</h3>
+                    <h3>QUIZ</h3>
                 </div>
                 <div class="dialog-content">
                     <% if ( question.info ){ %>
@@ -173,9 +178,11 @@
                         <a href="#" id="next" class="button red">GOT IT! QUIZ ME</a>
                         <a href="#" id="close">Cancel</a>
                     <% } else { %>
-                        <h1><%= question.text %></h1>
-                        <input type="text" name="response" id="response"/>
-                        <button id="sendResponse">Send</button>
+                        <div class="question-container">
+                            <h1><%= question.text %></h1>
+                            <input type="text" name="response" id="response"/>
+                            <a href="#" class="send-response" id="sendResponse">CONFIRM ANSWER</a>
+                        </div>
                     <% } %>
                 </div>
             </div>
