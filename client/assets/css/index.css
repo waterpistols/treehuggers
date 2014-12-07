@@ -9,6 +9,7 @@
     width: 400px;
     height: auto;
     box-shadow: 0px 0px 8px  rgba(17, 17, 17, 0.3);
+    z-index: 3;
 }
 
     .dialog-header {

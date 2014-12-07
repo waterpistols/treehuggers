@@ -5,6 +5,7 @@ TH.map = (function() {
         countries: {},
         zones: {},
         island: null,
+        
         init : function() {
             this.createIsland();
             this.createCountries();
