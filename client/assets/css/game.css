@@ -35,7 +35,15 @@ body.enable-dynamic-cursor.tree-cursor {
             height: 30px;
         }
 
-            .tutorial-header h3{
+            .tutorial-header-first {
+                height: 60px;
+            }
+
+            .tutorial-header-first h3 {
+                line-height: 37px;
+            }
+
+            .tutorial-header h3 {
                 padding-top: 10px;
             }
 
@@ -49,6 +57,10 @@ body.enable-dynamic-cursor.tree-cursor {
                 font-size: 22px;
                 color: #111;
                 font-weight: lighter;
+            }
+
+            .tutorial-first {
+                text-align: center;
             }
 
             .tutorial-content .info {
@@ -95,7 +107,22 @@ body.enable-dynamic-cursor.tree-cursor {
                     color: white;
                     text-align: center;
                     text-decoration: none;
-                    font-weight: normal;
+                    font-weight: bold;
+                    position: relative;
+                    line-height: 37px;
+                }
+
+                .start-play {
+                    width: 150px;
+                    height: 40px;
+                    border-radius: 5px;
+                    font-size: 12px;
+                    display: block;
+                    background-color: #70be59;
+                    color: white;
+                    text-align: center;
+                    text-decoration: none;
+                    font-weight: bold;
                     position: relative;
                     line-height: 37px;
                 }

@@ -38,9 +38,7 @@ TH.global = (function() {
         },
 
         extend: function(params) {
-
             var key;
-
             for(key in params) {
                 if (params.hasOwnProperty(key) === true) {
                     this[key] = params[key];
@@ -84,7 +82,7 @@ TH.global = (function() {
 
         errorHandler: function(error) {
             console.log(error);
-            
+
             // Cookie expired
             if(error.responseText === 'FAIL! You need to login!') {
                 window.location.href = TH.global.clientUrl + 'index.html';
