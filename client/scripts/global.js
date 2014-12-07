@@ -22,6 +22,7 @@ TH.global = (function() {
             'IDLE': 3,
             'QUIZ': 4
         },
+        _prevState: null,
         properties: {},
         stateHandlers: [],
         minTrees : 4,
@@ -53,8 +54,13 @@ TH.global = (function() {
             });
         },
         setState: function(value) {
+
+            this._prevState = this._state;
             this._state =  this.states[value];
-            this._execStateHandlers();
+            if (this._prevState !== this._state) {
+                this._execStateHandlers();
+            }
+
         },
         isState: function(value) {
             return this._state === this.states[value];

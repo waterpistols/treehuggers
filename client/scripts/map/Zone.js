@@ -27,10 +27,6 @@ TH.Zone = (function() {
         this.shape.on('mouseover', function() {
             var player;
 
-            if (!self.hasNoHealth()) {
-                return;
-            }
-
             player = self.country.player;
 
             if (player && player.zoneHoverAction()) {

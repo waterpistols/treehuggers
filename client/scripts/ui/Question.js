@@ -103,7 +103,7 @@ TH.Question = (function() {
 
     Question.prototype.parseInfografic = function(info) {
 
-        if(info === '') {
+        if(!info) {
             return false;
         } else if (info.indexOf('http://') === 0) {
             return '<img src="' + info + '" />';
@@ -123,6 +123,7 @@ TH.Question = (function() {
 
     Question.prototype.show = function() {
         self = this;
+
         this.changeQuestion(function() {
             TH.global.setState('QUIZ');
             TH.Component.prototype.show.call(self);

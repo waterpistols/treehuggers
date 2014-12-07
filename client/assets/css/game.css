@@ -22,6 +22,7 @@ body.enable-dynamic-cursor.tree-cursor {
         top: 0;
         left: 50%;
         margin-left: -565px;
+
     }
 
         .button {
@@ -67,6 +68,7 @@ body.enable-dynamic-cursor.tree-cursor {
 
         margin: 0 auto -120px;
         display: block;
+
     }
 
     .hidden {
@@ -273,7 +275,6 @@ body.enable-dynamic-cursor.tree-cursor {
     }
     .bottom-block-container {
         width: auto;
-        margin-top: 700px;
         text-align: center;
     }
     .bottom-block {

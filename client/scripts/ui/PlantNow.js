@@ -18,6 +18,7 @@ TH.PlantNow = (function() {
     function _attachEvents() {
         var self = this;
         this.$button.on('click', function() {
+
             if (self.$button.hasClass('disabled')) {
                 return false;
             }
