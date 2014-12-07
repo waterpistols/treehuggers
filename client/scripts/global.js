@@ -24,6 +24,7 @@ TH.global = (function() {
             'IDLE': 3,
             'QUIZ': 4
         },
+        firstLogin: 1,
         _prevState: null,
         properties: {},
         stateHandlers: [],

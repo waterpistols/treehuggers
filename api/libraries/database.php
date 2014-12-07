@@ -38,7 +38,7 @@ class DB {
     $this->query = "SELECT * FROM `" . $table . "` WHERE `id` = " . $id;
 
     if ($table === 'users') {
-      $this->query = "SELECT * FROM `users` LEFT JOIN `users_data` ON `users`.`id` = `users_data`.`user_id` WHERE `users`.`id` = " . $id;
+      $this->query = "SELECT `users`.*, `users_data`.*, `users_data`.`id` as user_data_id FROM `users` LEFT JOIN `users_data` ON `users`.`id` = `users_data`.`user_id` WHERE `users`.`id` = " . $id;
     }		
 		
 		return $this->dbHandler->query($this->query)->fetch(PDO::FETCH_ASSOC);
@@ -321,4 +321,13 @@ class DB {
     return $result->fetch(PDO::FETCH_ASSOC); 
   }
 
+  public function getNotificationByUserId($userId = 0) {
+    $this->query = "SELECT * FROM `help_notifications` WHERE `user_id` = " . $userId . " AND received_help = 0";
+
+    $result = $this->dbHandler->query($this->query);
+      
+    return $result->fetch(PDO::FETCH_ASSOC); 
+  }
+
+  
 }

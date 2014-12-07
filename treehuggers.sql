@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Dec 07, 2014 at 07:48 PM
+-- Generation Time: Dec 07, 2014 at 09:05 PM
 -- Server version: 5.5.40
 -- PHP Version: 5.3.10-1ubuntu3.15
 
@@ -57,6 +57,27 @@ INSERT INTO `answers` (`id`, `question_id`, `text`, `correct`) VALUES
 (15, 4, '70%-80%', 0),
 (16, 4, '75%-95%', 1),
 (17, 5, '52', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `help_notifications`
+--
+
+DROP TABLE IF EXISTS `help_notifications`;
+CREATE TABLE IF NOT EXISTS `help_notifications` (
+  `id` int(8) NOT NULL AUTO_INCREMENT,
+  `user_id` int(8) NOT NULL,
+  `received_help` tinyint(1) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=13 ;
+
+--
+-- Dumping data for table `help_notifications`
+--
+
+INSERT INTO `help_notifications` (`id`, `user_id`, `received_help`) VALUES
+(1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -156,7 +177,7 @@ CREATE TABLE IF NOT EXISTS `sessions` (
 
 INSERT INTO `sessions` (`id`, `token`, `user_id`, `last_used`, `expires`) VALUES
 (1, '0.aDgqullcviM', '1', '2014-12-07 18:05:39', '2014-12-07 19:05:39'),
-(2, '0.jAdCAr.mu1A', '2', '2014-12-07 19:44:29', '2014-12-07 20:44:29'),
+(2, '0.jAdCAr.mu1A', '2', '2014-12-07 21:04:45', '2014-12-07 22:04:45'),
 (3, '0.SZZVfacEv3.', '3', '2014-12-07 17:11:06', '2014-12-07 18:11:06'),
 (4, '0.TpQW53jQ9p.', '4', '2014-12-07 17:11:09', '2014-12-07 18:11:09'),
 (5, '0.piRxONq3AeU', '5', '2014-12-07 17:12:04', '2014-12-07 18:12:04'),
@@ -234,7 +255,7 @@ CREATE TABLE IF NOT EXISTS `users_data` (
 
 INSERT INTO `users_data` (`id`, `user_id`, `pollution`, `points`, `trees`, `asks`) VALUES
 (1, 1, 100, 0, 4, 3),
-(2, 2, 100, 0, 4, 3),
+(2, 2, 100, 0, 0, 3),
 (3, 3, 100, 0, 4, 3),
 (4, 4, 100, 0, 4, 3),
 (5, 5, 100, 0, 4, 3),

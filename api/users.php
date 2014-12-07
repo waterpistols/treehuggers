@@ -26,7 +26,16 @@ $app->get('/user', function () use ($app, $db) {
   	$result = $db->getById('users', $result['user_id']);
 
   	$zones = $db->getZonesByUserId($result['user_id']);
+
   	$result['zones'] = $zones;
+
+  	$db->update(array(
+  		'table'  => 'users',
+  		'fields' => array(
+  			'id'          => $result['user_id'],
+  			'first_login' => 0
+			)
+		));
 	}
 
 	$app->response->setBody(json_encode($result));
@@ -67,8 +76,7 @@ $app->post('/login', function() use ($app, $db) {
 
 		$existing = $db->getUserByApiId($requestBody['fields']['api_id']);
 
-		if ($existing) {
-			$requestBody['fields']['first_login'] = 0;
+		if ($existing) {			
 			$requestBody['fields']['id'] = $existing['id'];
 
 			$result = $db->getById('users', $requestBody['fields']['id']);
@@ -245,7 +253,7 @@ $app->post('/login', function() use ($app, $db) {
 				'table'  => 'users',
 				'fields' => array(
 					'id'          => $result['id'],
-					'first_login' => 0
+					'first_login' => 1
 				)
 			));
 
@@ -258,6 +266,70 @@ $app->post('/login', function() use ($app, $db) {
 
 });
 
+// ask for help
+$app->post('/ask-help', function() use($app, $db) {
+	if(isset($_COOKIE['TH-Token'])) {
+		$cookieValue = $_COOKIE['TH-Token'];
+
+  	$result = $db->getSessionByToken($cookieValue);
+  	
+  	$db->create(array(
+  		'table' => 'help_notifications',
+  		'fields' => array(
+  			'user_id'       => $result['user_id'],
+  			'received_help' => 0
+			)  		
+		));
+
+		$user = $db->getById('users', $result['user_id']);
+
+		$db->update(array(
+			'table'  => 'users_data',
+			'fields' => array(
+				'asks' => $user['asks'] - 1,
+				'id'   => $user['user_data_id']
+			)
+		));
+		$user['asks']--;
+		$app->response->setBody(json_encode($user));	
+  }
+
+});
+
+// help
+$app->post('/help', function() use($app, $db) {
+	if(isset($_COOKIE['TH-Token'])) {
+		$cookieValue = $_COOKIE['TH-Token'];
+
+  	$result      = $db->getSessionByToken($cookieValue);
+  	
+  	$helpingUser = $db->getById('users', $result['user_id']);
+
+  	$db->update(array(
+			'table'  => 'users_data',
+			'fields' => array(
+				'trees' => $helpingUser['trees'] - 1,
+				'id'   => $helpingUser['user_data_id']
+			)
+		));
+
+  	$payload     = json_decode($app->request->getBody(), TRUE);
+  	$helpedUser  = $db->getById('users', $payload['user_id']);
+  	
+  	$notif = $db->getNotificationByUserId($payload['user_id']);
+
+  	$db->update(array(
+  		'table'  => 'help_notifications',
+  		'fields' => array(
+  			'id'            => $notif['id'],
+  			'received_help' => 1
+			)
+		));		
+  }
+
+  $app->response->setBody(json_encode(array('success' => true)), FALSE);
+
+});
 // Update
 $app->put('/users/:id', function ($id) use ($app, $db) {
 	$requestBody['fields'] = json_decode($app->request->getBody(), TRUE);
