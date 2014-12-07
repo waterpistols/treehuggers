@@ -95,53 +95,54 @@ $app->get('/islands-polling', function() use ($app, $db) {
   		}
 
         if (!$OK) {
-            foreach ($relations as $relation) {
-                if ($relation['user_id'] == $referenceId && $relation['neighbour_id'] == $neighbour['id'] && !isset($neighbours[$key]['position'])) {
+          foreach ($relations as $relation) {
+              if ($relation['user_id'] == $referenceId && $relation['neighbour_id'] == $neighbour['id'] && !isset($neighbours[$key]['position'])) {
 
                 if ($relation['position'] === 'north' && $referencePosition == 'west') {
-                $neighbours[$key]['position'] = 'west';
+                  $neighbours[$key]['position'] = 'west';
 
                 }
 
                 if ($relation['position'] === 'north' && $referencePosition == 'east') {
-                $neighbours[$key]['position'] = 'east';
+                  $neighbours[$key]['position'] = 'east';
                 }
 
                 elseif ($relation['position'] === 'east' && $referencePosition == 'west') {
-                $neighbours[$key]['position'] = 'north';
+                  $neighbours[$key]['position'] = 'north';
 
                 }
 
                 if ($relation['position'] === 'east' && $referencePosition == 'north') {
-                $neighbours[$key]['position'] = 'west';
+                  $neighbours[$key]['position'] = 'west';
                 }
 
                 if ($relation['position'] === 'west' && $referencePosition == 'north') {
-                $neighbours[$key]['position'] = 'east';
+                  $neighbours[$key]['position'] = 'east';
                 }
 
                 if ($relation['position'] === 'west' && $referencePosition == 'east') {
-                $neighbours[$key]['position'] = 'north';
+                  $neighbours[$key]['position'] = 'north';
                 }
-                }
+              }
 
-                if ($relation['user_id'] == $referenceId && $relation['neighbour_id'] == $result['user_id'] && !isset($neighbours[$key]['position'])) {
+              if ($neighbour['user_id'] == $referenceId && $relation['neighbour_id'] == $result['user_id'] && !isset($neighbours[$key]['position'])) {
 
 
                 if ($relation['position'] == 'north' && !isset($neighbours[$key]['position'])) {
-                $neighbours[$key]['position'] = 'north';
+                  $neighbours[$key]['position'] = 'north';
                 }
 
                 if ($relation['position'] == 'west' && !isset($neighbours[$key]['position'])) {
 
-                $neighbours[$key]['position'] = 'east';
+                  $neighbours[$key]['position'] = 'east';
+
                 }
 
                 if ($relation['position'] == 'east' && !isset($neighbours[$key]['position'])) {
                     $neighbours[$key]['position'] = 'west';
                 }
-                }
-             }}
+              }
+           }}
 
 
       // getting help notification
