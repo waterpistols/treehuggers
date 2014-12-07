@@ -258,6 +258,70 @@ $app->post('/login', function() use ($app, $db) {
 
 });
 
+// ask for help
+$app->post('/ask-help', function() use($app, $db) {
+	if(isset($_COOKIE['TH-Token'])) {
+		$cookieValue = $_COOKIE['TH-Token'];
+
+  	$result = $db->getSessionByToken($cookieValue);
+  	
+  	$db->create(array(
+  		'table' => 'help_notifications',
+  		'fields' => array(
+  			'user_id'       => $result['user_id'],
+  			'received_help' => 0
+			)  		
+		));
+
+		$user = $db->getById('users', $result['user_id']);
+
+		$db->update(array(
+			'table'  => 'users_data',
+			'fields' => array(
+				'asks' => $user['asks'] - 1,
+				'id'   => $user['user_data_id']
+			)
+		));
+		$user['asks']--;
+		$app->response->setBody(json_encode($user));	
+  }
+
+});
+
+// help
+$app->post('/help', function() use($app, $db) {
+	if(isset($_COOKIE['TH-Token'])) {
+		$cookieValue = $_COOKIE['TH-Token'];
+
+  	$result      = $db->getSessionByToken($cookieValue);
+  	
+  	$helpingUser = $db->getById('users', $result['user_id']);
+
+  	$db->update(array(
+			'table'  => 'users_data',
+			'fields' => array(
+				'trees' => $helpingUser['trees'] - 1,
+				'id'   => $helpingUser['user_data_id']
+			)
+		));
+
+  	$payload     = json_decode($app->request->getBody(), TRUE);
+  	$helpedUser  = $db->getById('users', $payload['user_id']);
+  	
+  	$notif = $db->getNotificationByUserId($payload['user_id']);
+
+  	$db->update(array(
+  		'table'  => 'help_notifications',
+  		'fields' => array(
+  			'id'            => $notif['id'],
+  			'received_help' => 1
+			)
+		));		
+  }
+
+  $app->response->setBody(json_encode(array('success' => true)), FALSE);
+
+});
 // Update
 $app->put('/users/:id', function ($id) use ($app, $db) {
 	$requestBody['fields'] = json_decode($app->request->getBody(), TRUE);

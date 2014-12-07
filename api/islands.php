@@ -73,10 +73,10 @@ $app->get('/islands-polling', function() use ($app, $db) {
 
   	foreach ($neighbours as $key => $neighbour) {
   		// calculating degradation sum
-  		$neighbours[$key]['degrading_sum'] = $db->calculateDegradingSum($neighbour['user_id']);  		
+  		$degradingSum = $db->calculateDegradingSum($neighbour['user_id']);
+      $neighbours[$key]['degrading_sum'] = $degradingSum['degrading_sum'];
 
-  		// calculating position
-  		
+  		// calculating position  		
   		foreach ($relations as $relation) {
   			if ($relation['user_id'] == $result['user_id']) {
   				if ($relation['neighbour_id'] == $neighbour['user_id']) {
@@ -133,9 +133,15 @@ $app->get('/islands-polling', function() use ($app, $db) {
   				if ($relation['position'] == 'east') {
   					$neighbours[$key]['position'] = 'west';
   				}
-  			}
+  			}        
   		}
 
+      // getting help notification
+      $help = $db->getNotificationByUserId($neighbour['user_id']);
+
+      if ($help) {
+        $neighbours[$key]['askForHelp'] = true;
+      }
   		
   		
   	}
