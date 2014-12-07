@@ -6,6 +6,8 @@ TH.Player = (function() {
         var self = this;
 
         this.shape = new createjs.Bitmap(image.src);
+        _createHelpShape.call(this);
+
         TH.global.extend.call(this.shape, params);
         this.country = null;
         setInterval(function() {
@@ -21,10 +23,27 @@ TH.Player = (function() {
         country.assignPlayer(this);
 
     };
+    function _createHelpShape() {
+        var sheetOptions = {
+            images: [TH.global.queue.getResult('help').src],
+            frames: {width:421, height:152},
+            animations: {
+                be: [0, 3, true]
+            }
+        };
+
+        var sheet = new createjs.SpriteSheet(sheetOptions),
+            sprite = new createjs.Sprite(sheet);
+
+        this.helpShape = new createjs.Bitmap(TH.global.queue.getResult('help'));
+    }
+
+
 
     Player.prototype.zoneClickAction = function() {
         return false;
     };
+
     Player.prototype.zoneHoverAction = function() {
         return false;
     };

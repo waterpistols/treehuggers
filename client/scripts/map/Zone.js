@@ -51,6 +51,7 @@ TH.Zone = (function() {
         country.addZone(this);
     };
     Zone.prototype.update = function() {
+
         this.shape.gotoAndStop(this.health);
     };
     Zone.prototype.setFullHealth = function() {

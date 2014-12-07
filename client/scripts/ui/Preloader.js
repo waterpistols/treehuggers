@@ -53,6 +53,7 @@ TH.Preloader = (function() {
         if (this.loadCallbacks['all']) {
             this.loadCallbacks['all']();
         }
+        debugger;
         this.hide();
         return true;
     };

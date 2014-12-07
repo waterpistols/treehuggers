@@ -6,6 +6,7 @@ TH.players = (function() {
 
         init : function() {
             this.createPlayers();
+            this.startPlayerPolling(this.polllHandler);
         },
         createPlayers: function() {
 
@@ -44,7 +45,32 @@ TH.players = (function() {
             this.players.yellow.assignCountry(TH.map.countries.yellow);
             this.players.blue.assignCountry(TH.map.countries.blue);
 
+        },
+        ajaxRequest : true,
+        startPlayerPolling: function(successCallback) {
+            var payload = {},
+                self = this;
 
+            if (!this.ajaxRequest) {
+                this.ajaxRequest = $.ajax({
+                    type: 'POST',
+                    url: TH.global.endpoints.plant,
+                    contentType: "application/json; charset=utf-8",
+                    data: JSON.stringify(payload),
+                    dataType: 'json',
+                    xhrFields: { withCredentials: true },
+                    success: function(response) {
+                        self.ajaxRequest = null;
+                        if (successCallback) {
+                            successCallback(response);
+                        }
+                    },
+                    error: function(error) {
+                        self.ajaxRequest = null;
+                        alert('Well ..' + error);
+                    }
+                });
+            }
         },
 
         placePlayers: function() {

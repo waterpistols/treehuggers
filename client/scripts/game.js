@@ -47,7 +47,7 @@ TH.world = (function() {
                 {id: 'zone3',  src: 'assets/images/island1/zone3.png'},
                 {id: 'zone4',  src: 'assets/images/island1/zone4.png'},
                 {id: 'zone5',  src: 'assets/images/island1/zone5.png'},
-                {id: 'thief', src: 'assets/images/thief.png'},
+                {id: 'help', src: 'assets/images/help.png'},
                 {id: 'avatar', src: 'assets/images/pin.png'},
                 {id: 'ocean', src: 'assets/images/index/ocean.png'},
                 {id: 'flag', src: 'assets/images/flag.png'},
