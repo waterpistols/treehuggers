@@ -106,9 +106,7 @@ TH.Zone = (function() {
             dataType: 'json',
             xhrFields: { withCredentials: true },
             success: successCallback,
-            error: function(error) {
-                alert('Well ..' + error);
-            }
+            error: TH.global.errorHandler
         });
     };
 

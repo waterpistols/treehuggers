@@ -28,6 +28,7 @@ TH.global = (function() {
         stateHandlers: [],
         minTrees : 4,
         pointsThreshold : 10000,
+
         init : function() {
             this.properties.canvasWidth = 1130;
             this.properties.canvasHeight = 827;
@@ -35,6 +36,7 @@ TH.global = (function() {
             this.stage.enableMouseOver(20);
 
         },
+
         extend: function(params) {
 
             var key;
@@ -45,6 +47,7 @@ TH.global = (function() {
                 }
             }
         },
+
         stateSubscribe: function(fn, context) {
             var context = context || this;
             if (!fn) {
@@ -54,6 +57,7 @@ TH.global = (function() {
                 fn.apply(context, arguments);
             });
         },
+
         setState: function(value) {
 
             this._prevState = this._state;
@@ -63,15 +67,29 @@ TH.global = (function() {
             }
 
         },
+
         isState: function(value) {
             return this._state === this.states[value];
         },
+
         getState: function() {
             return this._state;
         },
+
         _execStateHandlers: function() {
             for (var i = 0; i < this.stateHandlers.length; i++) {
                 this.stateHandlers[i](this._state);
+            }
+        },
+
+        errorHandler: function(error) {
+            console.log(error);
+            
+            // Cookie expired
+            if(error.responseText === 'FAIL! You need to login!') {
+                window.location.href = TH.global.clientUrl + 'index.html';
+            } else {
+                window.location.href = TH.global.clientUrl + 'index.html';
             }
         }
     }

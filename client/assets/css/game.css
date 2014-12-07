@@ -215,13 +215,16 @@ body.enable-dynamic-cursor.tree-cursor {
         padding: 5px 25px;
     }
     .button.disabled {
-        background: #585858 !important;
-        color: #717171 !important;
+        opacity: 0.4;
+        cursor: default;
     }
     .button:focus {
         outline:0;
     }
     .button.green {
+        background: #70be59;
+    }
+    .button.disabled.green:hover {
         background: #70be59;
     }
     .button.green:hover {
@@ -231,11 +234,17 @@ body.enable-dynamic-cursor.tree-cursor {
     .button.red {
         background: #EF896D;
     }
+    .button.red.disabled:hover {
+        background: #EF896D;
+    }
     .button.red:hover {
         background: #C7715A;
     }
 
     .button.blue {
+        background: #005B9D;
+    }
+    .button.disabled.blue:hover {
         background: #005B9D;
     }
     .button.blue:hover {

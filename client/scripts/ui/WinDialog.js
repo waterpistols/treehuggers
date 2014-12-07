@@ -12,11 +12,11 @@ TH.WinDialog = (function() {
 
     WinDialog.prototype = Object.create(TH.Component.prototype);
     WinDialog.prototype.constructor = WinDialog;
-    
+
     function _attachEvents() {
         var self = this;
         $('body').on('click', '#winDialogOK', function() {
-            window.location.href="http://pornhub.com";
+            window.location.href="http://koding.com";
             self.hide();
         });
     }

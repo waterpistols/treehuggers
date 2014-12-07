@@ -20,8 +20,8 @@ TH.ui = (function() {
             this.components.preloader = new TH.Preloader();
             this.components.tutorial = new TH.Tutorial(true);
         },
-        updateComponents: function(data) {
 
+        updateComponents: function(data) {
             for (var key in this.components) {
                 if (this.components.hasOwnProperty(key) === true) {
                     this.components[key].update(data);

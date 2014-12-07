@@ -73,9 +73,7 @@ TH.Question = (function() {
                         self.show();
                     }
                 },
-                error: function(error) {
-                    alert('Well ..' + error);
-                }
+                error: TH.global.errorHandler
             });
         });
     }
@@ -95,9 +93,7 @@ TH.Question = (function() {
                     callback(dbQuestion);
                 }
             },
-            error: function(error) {
-                alert('Well ..' + error);
-            }
+            error: TH.global.errorHandler
         });
     };
 
