@@ -43,6 +43,7 @@ TH.world = (function() {
                 {id: 'flag', src: 'assets/images/flag.png'},
                 {id: 'island', src: 'assets/images/index/island.jpg'},
                 {id: 'bird', src: 'assets/images/bird.png'},
+                {id: 'smoke', src: 'assets/images/smoke.gif'},
 
                 /* SOUNDS */
                 {id: 'sound', src: 'assets/sounds/snd_0160.mp3'}
