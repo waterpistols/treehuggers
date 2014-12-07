@@ -79,7 +79,10 @@ TH.Island = (function() {
             images: [TH.global.queue.getResult('smoke').src],
             frames: {width:34, height:26},
             animations: {
-                smoke: [0, 1, 2, 3 ,4]
+                smoke: {
+                    frames: [0, 1, 2, 3 ,4],
+                    speed: 4
+                }
             }
         };
         var sheet = new createjs.SpriteSheet(sheetOptions),
@@ -87,8 +90,10 @@ TH.Island = (function() {
 
         sprite.gotoAndPlay('smoke');
 
-        TH.global.extend.call(sprite, { x: 543, y: 197, frameset: 3});
-        TH.global.stage.addChild(sprite);
+        setTimeout(function() {
+            TH.global.extend.call(sprite, { x: 543, y: 197});
+            TH.global.stage.addChild(sprite);
+        }, 600);
     }
 
     Island.prototype.updateCountries = function() {
