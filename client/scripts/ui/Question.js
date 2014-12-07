@@ -54,27 +54,29 @@ TH.Question = (function() {
                     break;
             }
 
-
-
-            $.ajax({
-                type: 'POST',
-                url: TH.global.endpoints.questions,
-                contentType: "application/json; charset=utf-8",
-                data: JSON.stringify(payload),
-                dataType: 'json',
-                xhrFields: { withCredentials: true },
-                success: function(data) {
-                    if(data['correct']) {
-                        TH.players.players.red.incrementTrees();
-                        self.hide();
-                    } else {
-                        TH.players.players.red.country.decrementZoneHealth();
-                        self.hide();
-                        self.show();
-                    }
-                },
-                error: TH.global.errorHandler
-            });
+            if(dbQuestion['type'] === 'Input' && !value) {
+                $('.error-input').show();
+            } else {
+                $.ajax({
+                    type: 'POST',
+                    url: TH.global.endpoints.questions,
+                    contentType: "application/json; charset=utf-8",
+                    data: JSON.stringify(payload),
+                    dataType: 'json',
+                    xhrFields: { withCredentials: true },
+                    success: function(data) {
+                        console.log(data['correct']);
+                        if(data['correct']) {
+                            TH.players.players.red.incrementTrees();
+                            $('.success-message', self).show();
+                        } else {
+                            TH.players.players.red.country.decrementZoneHealth();
+                            $('.error-message', self).show();
+                        }
+                    },
+                    error: TH.global.errorHandler
+                });
+            }
         });
     }
 
@@ -104,8 +106,9 @@ TH.Question = (function() {
         } else if (info.indexOf('http://') === 0) {
             return '<img src="' + info + '" alt="info"/>';
         } else {
+            return '<img src="assets/images/tut1-1.jpg" alt="info"/>';
             return false;
-            // return info;
+            return info;
         }
     };
 

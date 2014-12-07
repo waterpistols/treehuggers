@@ -70,19 +70,21 @@ body.enable-dynamic-cursor.tree-cursor {
                 font-weight: lighter;
             }
 
-            .tutorial-content .actions {
+            .actions {
                 list-style-type: none;
+                padding-left: 0px;
                 padding-top: 15px;
+                padding-bottom: 30px;
             }
 
-                .tutorial-content .actions:after {
+                .actions:after {
                     content: '';
                     display: block;
                     clear: both;
                 }
 
 
-                .tutorial-content .actions li {
+                .actions li {
                     float: left;
                     margin-right: 20px;
                 }
@@ -253,6 +255,10 @@ body.enable-dynamic-cursor.tree-cursor {
                 color: #111;
             }
 
+                .question-container img {
+                    margin-left: -40px;
+                }
+
             .checkbox-label {
                 padding-left: 5px;
             }
@@ -261,7 +267,6 @@ body.enable-dynamic-cursor.tree-cursor {
                 width: 150px;
                 height: 40px;
                 border-radius: 5px;
-                margin-top: 30px;
                 font-size: 12px;
                 display: block;
                 background-color: #EF896D;
@@ -277,6 +282,41 @@ body.enable-dynamic-cursor.tree-cursor {
                     background-color: #C7715A;
                 }
 
+            .success-message {
+                display: none;
+                padding-top: 10px;
+                color: #70be59;
+            }
+                .success-message img {
+                    float: left;
+                    margin-right: 5px;
+                }
+
+            .error-message {
+                display: none;
+                padding-top: 10px;
+                color: #F15A31;
+            }
+                .error-message img {
+                    float: left;
+                    margin-right: 5px;
+                }
+
+            .error-input {
+                display: none;
+                padding-top: 10px;
+                color: #F15A31;
+            }
+                .error-input img {
+                    float: left;
+                    margin-right: 5px;
+                }
+
+            .info-text {
+                display :block;
+                font-size: 12px;
+                color: #111;
+            }
 
     .button {
         font-weight: bold;

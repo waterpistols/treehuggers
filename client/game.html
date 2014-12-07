@@ -120,12 +120,22 @@
                     <h3>QUIZ</h3>
                 </div>
                 <div class="dialog-content">
-                    <% if ( question.info ){ %>
-                        <%= question.info %>
-                        <a href="#" id="next" class="button red">GOT IT! QUIZ ME</a>
-                        <a href="#" id="close">Cancel</a>
-                    <% } else { %>
-                        <div class="question-container">
+                    <div class="question-container">
+                        <% if ( question.info ){ %>
+                            <%= question.info %>
+
+                            <span class="info-text">
+                                Please read carefully the information above. The correc answer for the next question will be tested on it.
+                                <% if(question.source){ %>
+                                    <a href="<%= question.source%>" target="_blank"> source </a>
+                                <% } %>
+                            </span>
+
+                            <ul class="actions">
+                                <li><a href="#" id="next" class="send-response">GOT IT! QUIZ ME</a></li>
+                                <li><a href="#" class="close-tutorial" id="close">Cancel</a></li>
+                            </ul>
+                        <% } else { %>
                             <h1><%= question.text %></h1>
                             <select name="response" id="response">
                                 <% _.each( question.answers, function( answer ){ %>
@@ -133,9 +143,22 @@
                                 <% }); %>
                             </select>
 
-                            <a href="#" class="send-response" id="sendResponse">CONFIRM ANSWER</a>
-                        </div>
-                    <% } %>
+                            <div class="success-message">
+                                <img src="assets/images/quizz-good.png" alt="good" />
+                                <strong>Congratulations!</strong> You just won a tree.
+                            </div>
+
+                            <div class="error-message">
+                                <img src="assets/images/quizz-bad.png" alt="bad" />
+                                <strong>Sorry!</strong> You just lost a battle against pollution.
+                            </div>
+
+                            <ul class="actions">
+                                <li><a href="#" class="send-response" id="sendResponse">CONFIRM ANSWER</a></li>
+                                <li><a href="#" class="close-tutorial" id="close">Cancel</a></li>
+                            </ul>
+                        <% } %>
+                    </div>
                 </div>
             </div>
         </script>
@@ -147,21 +170,44 @@
                     <h3>QUIZ</h3>
                 </div>
                 <div class="dialog-content">
-                    <% if ( question.info ){ %>
-                        <%= question.info %>
-                        <a href="#" id="next" class="button red">GOT IT! QUIZ ME</a>
-                        <a href="#" id="close">Cancel</a>
-                    <% } else { %>
-                        <div class="question-container">
+                    <div class="question-container">
+                        <% if ( question.info ){ %>
+                            <%= question.info %>
+
+                            <span class="info-text">
+                                Please read carefully the information above. The correc answer for the next question will be tested on it.
+                                <% if(question.source){ %>
+                                    <a href="<%= question.source%>" target="_blank"> source </a>
+                                <% } %>
+                            </span>
+
+                            <ul class="actions">
+                                <li><a href="#" id="next" class="send-response">GOT IT! QUIZ ME</a></li>
+                                <li><a href="#" class="close-tutorial" id="close">Cancel</a></li>
+                            </ul>
+                        <% } else { %>
                             <h1><%= question.text %></h1>
                             <% _.each( question.answers, function( answer ){ %>
-                                <input type="radio" value="<%= answer.id %>" id="response_<%= answer.id %>" name="response" class="response" />
+                                <input type="radio" value="<%= answer.id %>" id="response_<%= answer.id %>" checked="checked" name="response" class="response" />
                                 <label class="checkbox-label" for="response_<%= answer.id%>"><%= answer.text %></label><br />
                             <% }); %>
 
-                            <a href="#" class="send-response" id="sendResponse">CONFIRM ANSWER</a>
-                        </div>
-                    <% } %>
+                            <div class="success-message">
+                                <img src="assets/images/quizz-good.png" alt="good" />
+                                <strong>Congratulations!</strong> You just won a tree.
+                            </div>
+
+                            <div class="error-message">
+                                <img src="assets/images/quizz-bad.png" alt="bad" />
+                                <strong>Sorry!</strong> You just lost a battle against pollution.
+                            </div>
+
+                            <ul class="actions">
+                                <li><a href="#" class="send-response" id="sendResponse">CONFIRM ANSWER</a></li>
+                                <li><a href="#" class="close-tutorial" id="close">Cancel</a></li>
+                            </ul>
+                        <% } %>
+                    </div>
                 </div>
             </div>
         </script>
@@ -173,17 +219,45 @@
                     <h3>QUIZ</h3>
                 </div>
                 <div class="dialog-content">
-                    <% if ( question.info ){ %>
-                        <%= question.info %>
-                        <a href="#" id="next" class="button red">GOT IT! QUIZ ME</a>
-                        <a href="#" id="close">Cancel</a>
-                    <% } else { %>
-                        <div class="question-container">
+                    <div class="question-container">
+                        <% if ( question.info ){ %>
+                            <%= question.info %>
+
+                            <span class="info-text">
+                                Please read carefully the information above. The correc answer for the next question will be tested on it.
+                                <% if(question.source){ %>
+                                    <a href="<%= question.source%>" target="_blank"> source </a>
+                                <% } %>
+                            </span>
+                            <ul class="actions">
+                                <li><a href="#" id="next" class="send-response">GOT IT! QUIZ ME</a></li>
+                                <li><a href="#" class="close-tutorial" id="close">Cancel</a></li>
+                            </ul>
+                        <% } else { %>
                             <h1><%= question.text %></h1>
-                            <input type="text" name="response" id="response"/>
-                            <a href="#" class="send-response" id="sendResponse">CONFIRM ANSWER</a>
-                        </div>
-                    <% } %>
+                            <input type="number" name="response" id="response"/>
+
+                            <div class="success-message">
+                                <img src="assets/images/quizz-good.png" alt="good" />
+                                <strong>Congratulations!</strong> You just won a tree.
+                            </div>
+
+                            <div class="error-message">
+                                <img src="assets/images/quizz-bad.png" alt="bad" />
+                                <strong>Sorry!</strong> You just lost a battle against pollution.
+                            </div>
+
+                            <div class="error-input">
+                                <img src="assets/images/quizz-bad.png" alt="bad" />
+                                <strong>Sorry!</strong> Please insert a numeric value.
+                            </div>
+
+                            <ul class="actions">
+                                <li><a href="#" class="send-response" id="sendResponse">CONFIRM ANSWER</a></li>
+                                <li><a href="#" class="close-tutorial" id="close">Cancel</a></li>
+                            </ul>
+                        <% } %>
+                    </div>
                 </div>
             </div>
         </script>
