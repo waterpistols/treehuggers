@@ -4,14 +4,28 @@
         <title>TreeHuggers :: Login</title>
         <meta charset="UTF-8">
 
+        <link rel="stylesheet" type="text/css" href="assets/css/normalize.css">
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,700' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" type="text/css" href="assets/css/game.css">
         <link rel="stylesheet" type="text/css" href="assets/css/index.css">
+
         <script src="scripts/global.js"></script>
         <script src="scripts/libs/jquery-2.1.1.js"></script>
         <script src="https://apis.google.com/js/client:platform.js?onload=render" async defer></script>
-
     </head>
     <body>
         <script>
+
+            // Buttons
+            $('body').on('mouseover', '.login-button', function() {
+                $('.icon', this).stop(true).animate({left: '150px'}, 300);
+                $('.buttonText', this).stop(true).animate({opacity: '0'}, 200);
+            });
+            $('body').on('mouseout', '.login-button', function() {
+                $('.icon', this).stop(true).animate({left: '10px'}, 300);
+                $('.buttonText', this).stop(true).animate({opacity: '1'}, 200);
+            });
+
             // GOOGLE+
             function render() {
                 gapi.signin.render('customBtn', {
@@ -71,7 +85,7 @@
                     //   "access_denied" - User denied access to your app
                     //   "immediate_failed" - Could not automatically log in the user
                     if(authResult['error'] === 'access_denied') {
-                        $('.error').html(authResult['error']).show();
+                        $('.error').show();
                     }
                 }
             }
@@ -110,7 +124,7 @@
                         });
 
                     } else {
-                        $('.error').html('Please log into this app.').show();
+                        $('.error').show();
 
                     }
                 }, {
@@ -130,33 +144,49 @@
             };
         </script>
 
-        <div id="island">
-            <img src="assets/images/index/island.jpg" width="400" alt="island" class="blur" />
+        <hr class="header-line left"/>
+        <p class="game-description half-opacity">Saving our planet. Tree by tree.</p>
+        <hr class="header-line right"/>
 
-            <div id="login">
-                <div id="error"></div>
+        <div class="dialog">
+            <div class="dialog-header">
+                <h3>WELCOME TO TREEHUGGERS</h3>
+                <h1>Are you ready to save the world ?</h1>
+                <img src="assets/images/logo-mini.png" alt="logo" class="splash-logo" />
+            </div>
+            <div class="dialog-content">
                 <div id="fb-root"></div>
 
-                <a href="#" onclick="fb_login();" id="facebookButton">Facebook</a>
+                <a href="#" onclick="fb_login();" class="login-button" id="facebookButton">
+                    <span class="icon"><img src="assets/images/facebook.png" width="18" alt="facebook" /></span>
+                    <span class="buttonText">SIGN IN WITH FACEBOOK</span>
+                </a>
 
-                <div id="gSignInWrapper">
-                    <span class="label">Sign in with:</span>
+                <div id="gSignInWrapper" class="login-button">
                     <div id="customBtn" class="customGPlusSignIn">
-                        <span class="icon"></span>
-                        <span class="buttonText">Google</span>
+                        <span class="icon"><img src="assets/images/google.png" width="18" alt="google" /></span>
+                        <span class="buttonText">SIGN IN WITH GOOGLE+</span>
                     </div>
                 </div>
+
+                <div class="error">Sorry, there was an error please try again.</div>
             </div>
-            
-            <script>
-                // Load the SDK asynchronously
-                (function() {
-                    var e = document.createElement('script');
-                    e.src = document.location.protocol + '//connect.facebook.net/en_US/all.js';
-                    e.async = true;
-                    document.getElementById('fb-root').appendChild(e);
-                }());
-            </script>
         </div>
+
+        <footer class="splash">
+            <span class="half-opacity">&copy; 2014 TreeHuggers.</span>
+            <div class="small-logo inline-block"></div>
+            <span class="half-opacity">All rights reserved.</span>
+        </footer>
+
+        <script>
+            // Load the SDK asynchronously
+            (function() {
+                var e = document.createElement('script');
+                e.src = document.location.protocol + '//connect.facebook.net/en_US/all.js';
+                e.async = true;
+                document.getElementById('fb-root').appendChild(e);
+            }());
+        </script>
     </body>
 </html>
