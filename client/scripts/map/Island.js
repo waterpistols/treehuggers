@@ -60,25 +60,35 @@ TH.Island = (function() {
 
         sprite.gotoAndPlay('flap');
 
-        TH.global.extend.call(sprite, { x: -10, y: 500});
+        TH.global.extend.call(sprite, { x: -10, y: 300});
         TH.global.stage.addChild(sprite);
 
         createjs.Tween.get(sprite, { loop: true})
-            .to({x: 1330, y: 0}, 10000, createjs.Ease.linear)
+            .to({x: 1330, y: 100}, 10000, createjs.Ease.linear)
             .to({x: -400, y: 700}, 1, createjs.Ease.linear)
             .wait(10000)
-            .to({x: 1330, y: 100}, 15000, createjs.Ease.linear)
+            .to({x: 1330, y: 400}, 15000, createjs.Ease.linear)
             .to({x: -400, y: 700}, 1, createjs.Ease.linear)
             .wait(10000)
-            .to({x: 1330, y: 200}, 5000, createjs.Ease.linear)
+            .to({x: 1330, y: 300}, 5000, createjs.Ease.linear)
             .to({x: -400, y: 700}, 1, createjs.Ease.linear);
     };
 
     Island.prototype.smokey = function() {
-        var smoke = new createjs.Bitmap(TH.global.queue.getResult('smoke'));
-        smoke.x = 10;
-        smoke.y = 10;
-        TH.global.stage.addChild(smoke);
+        var sheetOptions = {
+            images: [TH.global.queue.getResult('smoke').src],
+            frames: {width:34, height:26},
+            animations: {
+                smoke: [0, 1, 2, 3 ,4]
+            }
+        };
+        var sheet = new createjs.SpriteSheet(sheetOptions),
+        sprite = new createjs.Sprite(sheet);
+
+        sprite.gotoAndPlay('smoke');
+
+        TH.global.extend.call(sprite, { x: 543, y: 197, frameset: 3});
+        TH.global.stage.addChild(sprite);
     }
 
     Island.prototype.updateCountries = function() {
