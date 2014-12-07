@@ -7,15 +7,82 @@
         <link rel="stylesheet" type="text/css" href="assets/css/index.css">
         <script src="scripts/global.js"></script>
         <script src="scripts/libs/jquery-2.1.1.js"></script>
+        <script src="https://apis.google.com/js/client:platform.js" async defer></script>
     </head>
     <body>
         <script>
+            // GOOGLE+
+            function signinCallback(authResult) {
+                if (authResult['status']['signed_in']) {
+
+                    // Get avatar
+                    $.ajax({
+                        type: 'GET',
+                        url: 'https://www.googleapis.com/plus/v1/people/me',
+                        headers: {
+                            'Authorization': 'Bearer ' + authResult['access_token']
+                        },
+                        contentType: "application/json; charset=utf-8",
+                        dataType: 'json',
+                        success: function(plusData) {
+
+                            // Hide button
+                            document.getElementById('signinButton').setAttribute('style', 'display: none');
+
+                            // Login
+                            var data = {
+                                'first_name': plusData['name']['givenName'],
+                                'last_name': plusData['name']['familyName'],
+                                'api_id': plusData['id'],
+                                'email': '',
+                                'avatar': plusData['image']['url']
+                            };
+
+                            $.ajax({
+                                type: 'POST',
+                                url: TH.global.endpoints.login,
+                                data: JSON.stringify(data),
+                                contentType: "application/json; charset=utf-8",
+                                dataType: 'json',
+                                xhrFields: { withCredentials: true },
+                                success: function(data) {
+                                    window.location.href = TH.global.clientUrl + 'game.html';
+                                }
+                            });
+                        }
+                    });
+
+                } else {
+                    // Update the app to reflect a signed out user
+                    // Possible error values:
+                    //   "user_signed_out" - User is signed-out
+                    //   "access_denied" - User denied access to your app
+                    //   "immediate_failed" - Could not automatically log in the user
+                    if(authResult['error'] === 'access_denied') {
+                        $('.error').html(authResult['error']).show();
+                    }
+                }
+            }
+
+            // FACEBOOK
             function getProfile() {
-                FB.api('/me', function(response) {
+                FB.api('/me', {fields: "id, first_name, last_name, email, picture"}, function(response) {
+                    // Hide button
+                    document.getElementById('facebookButton').setAttribute('style', 'display: none');
+
+                    // Login
+                    var data = {
+                        'first_name': response['first_name'],
+                        'last_name': response['last_name'],
+                        'api_id': response['id'],
+                        'email': '',
+                        'avatar': response['picture']['data']['url']
+                    };
+
                     $.ajax({
                         type: 'POST',
                         url: TH.global.endpoints.login,
-                        data: JSON.stringify(response),
+                        data: JSON.stringify(data),
                         contentType: "application/json; charset=utf-8",
                         dataType: 'json',
                         xhrFields: { withCredentials: true },
@@ -30,11 +97,9 @@
                 if (response.status === 'connected') {
                     getProfile();
                 } else if (response.status === 'not_authorized') {
-                    document.getElementById('status').innerHTML = 'Please log ' +
-                    'into this app.';
+                    $('.error').html('Please log into this app.').show();
                 } else {
-                    document.getElementById('status').innerHTML = 'Please log ' +
-                    'into Facebook.';
+                    $('.error').html('Please log into Facebook.').show();
                 }
             }
 
@@ -68,11 +133,26 @@
             }(document, 'script', 'facebook-jssdk'));
         </script>
 
+
+
         <div id="island">
             <img src="assets/images/index/island.jpg" width="400" alt="island" class="blur" />
+
             <div id="login">
-                <fb:login-button scope="public_profile,email" data-size="xlarge"  onlogin="checkLoginState();"></fb:login-button>
-                <div id="status"></div>
+                <div id="error"></div>
+
+                <fb:login-button id="facebookButton" scope="public_profile, email" data-size="xlarge"  onlogin="checkLoginState();"></fb:login-button>
+
+                <span id="signinButton">
+                    <span
+                    class="g-signin"
+                    data-callback="signinCallback"
+                    data-clientid="1055426340528-5ocjr2f5t4g1tem532581k3ap74uu3pp.apps.googleusercontent.com"
+                    data-cookiepolicy="single_host_origin"
+                    data-requestvisibleactions="http://schema.org/AddAction"
+                    data-scope="https://www.googleapis.com/auth/plus.login">
+                </span>
+            </span>
             </div>
         </div>
     </body>

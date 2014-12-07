@@ -17,6 +17,10 @@ body {
         top: 25px;
         left: 40%;
     }
+    #error {
+        display: none;
+        color: red;
+    }
 
 .blur {
     -webkit-filter: blur(7px); -moz-filter: blur(7px); -o-filter: blur(7px); -ms-filter: blur(7px); filter: blur(7px);
