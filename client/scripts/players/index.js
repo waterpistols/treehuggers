@@ -68,7 +68,7 @@ TH.players = (function() {
                     },
                     error: function(error) {
                         self.ajaxRequest = null;
-                        alert('Well ..' + error);
+                        TH.global.errorHandler(error);
                     }
                 });
             }
