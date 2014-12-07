@@ -12,7 +12,8 @@ TH.global = (function() {
             login: api + 'login',
             logout: api + 'logout',
             users: api + 'users',
-            user: api + 'user'
+            user: api + 'user',
+            plant: api + 'plant'
         },
         _state: null,
         states: {

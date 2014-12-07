@@ -19,7 +19,9 @@ TH.Zone = (function() {
 
             if (player && player.zoneClickAction()) {
                 self.setFullHealth();
-                player.checkHasWon();
+                self.sendZoneData(function() {
+                    player.checkHasWon();
+                });
             }
 
         });
@@ -90,6 +92,24 @@ TH.Zone = (function() {
         }
         return false;
 
+    };
+    Zone.prototype.sendZoneData = function(successCallback) {
+
+        var payload = {
+            zoneId: this.id
+        };
+        $.ajax({
+            type: 'POST',
+            url: TH.global.endpoints.plant,
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(payload),
+            dataType: 'json',
+            xhrFields: { withCredentials: true },
+            success: successCallback,
+            error: function(error) {
+                alert('Well ..' + error);
+            }
+        });
     };
 
     return Zone;

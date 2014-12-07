@@ -42,7 +42,6 @@ TH.MainPlayer = (function() {
 
         if (TH.global.isState('PLANTING_TREES') === true) {
             this.decrementTrees(TH.global.minTrees);
-
             return true;
         }
 
@@ -104,6 +103,7 @@ TH.MainPlayer = (function() {
             }
         });
     };
+
 
     return MainPlayer;
 }());

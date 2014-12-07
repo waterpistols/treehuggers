@@ -161,7 +161,7 @@ TH.map = (function() {
             if (data.zones) {
                 for (var i = 0; i < data.zones.length; i++) {
 
-                    this.zones[data.zones[i].title].setHealth(data.zones[i].degrading_state);
+                    this.zones[data.zones[i].title].setHealth(parseInt(data.zones[i].degrading_state));
                 }
             }
 
