@@ -2,15 +2,15 @@
 
 // Get All
 $app->get('/questions', function () use ($app, $db) {
-		
+
 	$payload = $app->request->params();
 	// determine userId
 	$cookieValue = $_COOKIE['TH-Token'];
 
-	$session = $db->getSessionByToken($cookieValue);	
+	$session = $db->getSessionByToken($cookieValue);
 
 	$result = $db->getAllQuestions($session['user_id']);
-	
+
 	foreach($result as $key => $question) {
 
 		if ($payload && isset($payload['random'])) {
@@ -20,9 +20,9 @@ $app->get('/questions', function () use ($app, $db) {
 		if ($question['type'] !== 'Input') {
 			$answers = $db->getAnswersByQuestionId($question['id']);
 
-			foreach ($answers as $answerKey => $answer) {			
+			foreach ($answers as $answerKey => $answer) {
 				unset($answers[$answerKey]['correct']);
-			}		 
+			}
 
 			$result[$key]['answers'] = $answers;
 		}
@@ -32,7 +32,7 @@ $app->get('/questions', function () use ($app, $db) {
 		if ($payload && isset($payload['random'])) {
 			$questionId = array_rand($questionIds);
 			$questionId = $questionIds[$questionId];
-			
+
 			foreach ($result as $key => $question) {
 				if ($questionId == $question['id']) {
 					$idKey = $key;
@@ -42,21 +42,21 @@ $app->get('/questions', function () use ($app, $db) {
 			$result = $result[$idKey];
 		}
 	}
-	
+
 	$app->response->setBody(json_encode($result));
 
 });
 
 // Get By Id
 $app->get('/questions/:id', function ($id) use ($app, $db) {
-	
+
 	$result = $db->getById('questions', $id);
-	
+
 	$answers = $db->getAnswersByQuestionId($result['id']);
 
 	foreach ($answers as $answerKey => $answer) {
 		$answers[$answerKey]['correct'] = (boolean) $answer['correct'];
-	}		 
+	}
 
 	$result['answers'] = $answers;
 
@@ -65,22 +65,22 @@ $app->get('/questions/:id', function ($id) use ($app, $db) {
 });
 
 // Create
-$app->post('/questions', function() use ($app, $db) {	
+$app->post('/questions', function() use ($app, $db) {
 	$payload = json_decode($app->request->getBody(), TRUE);
-  
+
 	// determine userId
 	$cookieValue = $_COOKIE['TH-Token'];
 
-	$result = $db->getSessionByToken($cookieValue);	
+	$result = $db->getSessionByToken($cookieValue);
 
 	// question type input
 	if (isset($payload['answerText'])) {
 		$answerText = $payload['answerText'];
 		$answerId   = 0;
 		$answer = $db->getAnswersByQuestionId($payload['questionId'], $type = 'Input');
-		
-		$correct = ($answerText <= $answer['text'] + ($answer['text'] / 10) && $answerText >=  $answer['text'] - ($answer['text'] / 10)) ? true : false;		
-		
+
+		$correct = ($answerText <= $answer['text'] + ($answer['text'] / 10) && $answerText >=  $answer['text'] - ($answer['text'] / 10)) ? true : false;
+
 	} else {
 		$answerText = '';
 		$answerId = $payload['answerId'];
@@ -92,14 +92,15 @@ $app->post('/questions', function() use ($app, $db) {
 	// if the answer is incorrect, degrade a zone
 	if ($correct === false) {
 		$zone = $db->getEligibleZone($result['user_id']);
-		
-		$zone['degrading_state']--;
+		if ($zone) {
+			$zone['degrading_state']--;
 
-		$db->update(array(
-			'table'  => 'users_zones',
-			'fields' => $zone
-		));
-	}	
+			$db->update(array(
+				'table'  => 'users_zones',
+				'fields' => $zone
+			));
+		}
+	}
 
 	// if the answer is correct, increase number of trees
 	if ($correct === true) {
@@ -113,7 +114,7 @@ $app->post('/questions', function() use ($app, $db) {
 		$db->update(array(
 			'table'  => 'users_data',
 			'fields' => $userData
-		));		
+		));
 	}
 
 	$result = $db->getById('users', $result['user_id']);
@@ -130,11 +131,11 @@ $app->post('/questions', function() use ($app, $db) {
 		'user_id'     => $result['user_id'],
 		'correct'     => $correct
 	);
-	
+
 	$db->create($requestBody);
 
 	$response = array($result);
-	
+
 	$app->response->setBody(json_encode($response));
 
 });
@@ -165,7 +166,7 @@ $app->post('/plant', function() use ($app, $db) {
 	// determine userId
 	$cookieValue = $_COOKIE['TH-Token'];
 
-	$result = $db->getSessionByToken($cookieValue);	
+	$result = $db->getSessionByToken($cookieValue);
 
 	$payload = json_decode($app->request->getBody(), TRUE);
 	$zoneId  = $payload['zoneId'];
@@ -190,21 +191,3 @@ $app->post('/plant', function() use ($app, $db) {
 
 	$app->response->setBody(json_encode($result), FALSE);
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -55,7 +55,6 @@ TH.Question = (function() {
             }
 
             if(dbQuestion['type'] === 'Input' && !value) {
-                console.log('a');
                 $('.error-input').show();
             } else {
                 $.ajax({
@@ -66,6 +65,7 @@ TH.Question = (function() {
                     dataType: 'json',
                     xhrFields: { withCredentials: true },
                     success: function(data) {
+                        console.log(data['correct']);
                         if(data['correct']) {
                             TH.players.players.red.incrementTrees();
                             $('.success-message', self).show();
