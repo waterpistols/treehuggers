@@ -74,7 +74,7 @@ TH.Tutorial = (function() {
     Tutorial.prototype.update = function(data) {
         if(TH.global.firstLogin) {
             $('.overlay').show();
-            $('.tutorial').show();
+            $('.tutorial-container').show();
         }
     }
 
