@@ -93,17 +93,32 @@ body {
         border: none;
         padding: 5px 25px;
     }
+    .button.disabled {
+        background: #585858 !important;
+        color: #717171 !important;
+    }
     .button:focus {
         outline:0;
     }
     .button.green {
         background: #70be59;
     }
+    .button.green:hover {
+        background: #5c9d49;
+    }
+
     .button.red {
         background: #EF896D;
     }
+    .button.red:hover {
+        background: #C7715A;
+    }
+
     .button.blue {
         background: #005B9D;
+    }
+    .button.blue:hover {
+        background: #003A65;
     }
     .button.skeleton {
         background: none;
@@ -112,7 +127,7 @@ body {
     }
     .button.skeleton:hover {
         background: #7BB6DF;
-        color: #0080dc;
+        color: #0080DC;
     }
     .logout {
         position: absolute;
