@@ -51,10 +51,6 @@
                         dataType: 'json',
                         success: function(plusData) {
 
-                            // Hide button
-                            document.getElementById('facebookButton').setAttribute('style', 'display: none');
-                            document.getElementById('gSignInWrapper').setAttribute('style', 'display: none');
-
                             // Login
                             var data = {
                                 'first_name': plusData['name']['givenName'],
@@ -93,14 +89,8 @@
             // FACEBOOK
             function fb_login() {
                 FB.login(function(response) {
-
                     if (response.authResponse) {
                         FB.api('/me', {fields: "id, first_name, last_name, email, picture"}, function(response) {
-
-                            // Hide button
-                            document.getElementById('facebookButton').setAttribute('style', 'display: none');
-                            document.getElementById('gSignInWrapper').setAttribute('style', 'display: none');
-
                             // Login
                             var data = {
                                 'first_name': response['first_name'],
@@ -125,7 +115,6 @@
 
                     } else {
                         $('.error').show();
-
                     }
                 }, {
                     scope: 'publish_stream,email'
@@ -144,41 +133,42 @@
             };
         </script>
 
-        <hr class="header-line left"/>
-        <p class="game-description half-opacity">Saving our planet. Tree by tree.</p>
-        <hr class="header-line right"/>
+        <div class="container content">
+            <hr class="header-line left"/>
+            <p class="game-description half-opacity">Saving our planet. Tree by tree.</p>
+            <hr class="header-line right"/>
 
-        <div class="dialog">
-            <div class="dialog-header">
-                <h3>WELCOME TO TREEHUGGERS</h3>
-                <h1>Are you ready to save the world ?</h1>
-                <img src="assets/images/logo-mini.png" alt="logo" class="splash-logo" />
-            </div>
-            <div class="dialog-content">
-                <div id="fb-root"></div>
-
-                <a href="#" onclick="fb_login();" class="login-button" id="facebookButton">
-                    <span class="icon"><img src="assets/images/facebook.png" width="18" alt="facebook" /></span>
-                    <span class="buttonText">SIGN IN WITH FACEBOOK</span>
-                </a>
-
-                <div id="gSignInWrapper" class="login-button">
-                    <div id="customBtn" class="customGPlusSignIn">
-                        <span class="icon"><img src="assets/images/google.png" width="18" alt="google" /></span>
-                        <span class="buttonText">SIGN IN WITH GOOGLE+</span>
-                    </div>
+            <div class="dialog">
+                <div class="dialog-header">
+                    <h3>WELCOME TO TREEHUGGERS</h3>
+                    <h1>Are you ready to save the world ?</h1>
+                    <img src="assets/images/logo-mini.png" alt="logo" class="splash-logo" />
                 </div>
+                <div class="dialog-content">
+                    <div id="fb-root"></div>
 
-                <div class="error">Sorry, there was an error please try again.</div>
+                    <a href="#" onclick="fb_login();" class="login-button" id="facebookButton">
+                        <span class="icon"><img src="assets/images/facebook.png" width="18" alt="facebook" /></span>
+                        <span class="buttonText">SIGN IN WITH FACEBOOK</span>
+                    </a>
+
+                    <div id="gSignInWrapper" class="login-button">
+                        <div id="customBtn" class="customGPlusSignIn">
+                            <span class="icon"><img src="assets/images/google.png" width="18" alt="google" /></span>
+                            <span class="buttonText">SIGN IN WITH GOOGLE+</span>
+                        </div>
+                    </div>
+
+                    <div class="error">Sorry, there was an error please try again.</div>
+                </div>
             </div>
+
+            <footer class="splash">
+                <span class="half-opacity">&copy; 2014 TreeHuggers.</span>
+                <div class="small-logo inline-block"></div>
+                <span class="half-opacity">All rights reserved.</span>
+            </footer>
         </div>
-
-        <footer class="splash">
-            <span class="half-opacity">&copy; 2014 TreeHuggers.</span>
-            <div class="small-logo inline-block"></div>
-            <span class="half-opacity">All rights reserved.</span>
-        </footer>
-
         <script>
             // Load the SDK asynchronously
             (function() {
