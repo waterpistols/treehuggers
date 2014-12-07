@@ -69,8 +69,14 @@
                                 xhrFields: { withCredentials: true },
                                 success: function(data) {
                                     window.location.href = TH.global.clientUrl + 'game.html';
+                                },
+                                error: function(error) {
+                                    console.log(error);
                                 }
                             });
+                        },
+                        error: function(error) {
+                            console.log(error);
                         }
                     });
 
@@ -80,7 +86,7 @@
                     //   "user_signed_out" - User is signed-out
                     //   "access_denied" - User denied access to your app
                     //   "immediate_failed" - Could not automatically log in the user
-                    if(authResult['error'] === 'access_denied') {
+                    if(authResult['error'] !== 'immediate_failed') {
                         $('.error').show();
                     }
                 }
@@ -109,6 +115,9 @@
                                 xhrFields: { withCredentials: true },
                                 success: function(data) {
                                     window.location.href = TH.global.clientUrl + 'game.html';
+                                },
+                                error: function(error) {
+                                    console.log(error);
                                 }
                             });
                         });

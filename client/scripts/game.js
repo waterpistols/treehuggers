@@ -15,6 +15,7 @@ TH.world = (function() {
                 'all': function() {
                     TH.map.placeMap();
                     TH.players.placePlayers();
+                    self._attachEvents();
                 }
             });
         },
@@ -23,6 +24,21 @@ TH.world = (function() {
             createjs.CSSPlugin.install();
         },
 
+        _attachEvents: function(){
+            $('body').on('click', '#logout', function(){
+                $.ajax({
+                    type: 'POST',
+                    url: TH.global.endpoints.logout,
+                    contentType: "application/json; charset=utf-8",
+                    dataType: 'json',
+                    xhrFields: { withCredentials: true },
+                    success: function(data) {
+                        window.location.href = TH.global.clientUrl + 'index.html';
+                    },
+                    error: TH.global.errorHandler
+                });
+            });
+        },
 
         _loadFiles: function() {
             self = this;
@@ -58,11 +74,6 @@ TH.world = (function() {
                 /* SOUNDS */
                 {id: 'sound', src: 'assets/sounds/snd_0160.mp3'}
             ]);
-        },
-
-        _postInit: function() {
-            TH.map.init();
-
         },
 
         tick: function() {

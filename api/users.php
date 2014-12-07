@@ -5,8 +5,12 @@ $app->get('/users', function () use ($app, $db) {
 	
 	$result = $db->getAll('users');	
 	echo "<html><head><title>Slim Application Error</title><style>body{margin:0;padding:30px;font:12px/1.5 Helvetica,Arial,Verdana,sans-serif;}h1{margin:0;font-size:48px;font-weight:normal;line-height:48px;}strong{display:inline-block;width:65px;}</style></head><body><h1>Slim Application Error</h1><p>The application could not run because of the following error:</p><h2>Details</h2><div><strong>Type:</strong> ErrorException</div><div><strong>Code:</strong> 8</div><div><strong>Message:</strong> Undefined index: id</div><div><strong>File:</strong> /vagrant/public/local.dev/api/libraries/database.php</div><div><strong>Line:</strong> 124</div><h2>Trace</h2><pre><div>#0 /vagrant/public/local.dev/api/libraries/database.php(124): Slim\Slim::handleErrors(8, 'Undefined index...', '/vagrant/public...', 124, Array)
-<div>#1 /vagrant/public/local.dev/api/questions.php(171): DB->update(Array)
-<div>#2 [internal function]: {closure}()";
+<div>#1 /vagrant/public/local.dev/api/users.php(240): DB->update(Array)
+<div>#2 [internal function]: {closure}()
+<div>#3 /vagrant/public/local.dev/api/vendor/slim/slim/Slim/Route.php(462): call_user_func_array(Object(Closure), Array)
+<div>#4 /vagrant/public/local.dev/api/vendor/slim/slim/Slim/Slim.php(1326): Slim\Route->dispatch()
+<div>#5 /vagrant/public/local.dev/api/vendor/slim/slim/Slim/Middleware/Flash.php(85): Slim\Slim->call()
+<div>#6 /vagrant/public/local.dev/api/vendor/slim/slim/Slim/Middleware";
 	$app->response->setBody(json_encode($result));
 
 });
@@ -141,11 +145,11 @@ $app->post('/login', function() use ($app, $db) {
 				);
 				$params['table'] = 'islands';
 
-				$createdIsland = $db->create($params);
+				$island = $db->create($params);
 
 				$params['fields'] = array(
-					'user_id' => $result['id'],
-					'island_id' => $createdIsland['id']
+					'user_id'   => $result['id'],
+					'island_id' => $island['id']
 				);
 				$params['table'] = 'islands_users';
 
@@ -154,7 +158,7 @@ $app->post('/login', function() use ($app, $db) {
 			} else {
 				// There is a free island. Assign the new user to it
 				$params['fields'] = array(
-					'user_id' => $result['id'],
+					'user_id'   => $result['id'],
 					'island_id' => $island['id']
 				);
 				$params['table'] = 'islands_users';
@@ -166,7 +170,58 @@ $app->post('/login', function() use ($app, $db) {
 				$params['fields'] = $island;
 				$params['table'] = 'islands';
 				
-				$db->update($params);			}
+				$db->update($params);			
+			}
+
+			$positions = array(				
+				1 => 'west',
+				2 => 'north',
+				3 => 'east'
+			);
+
+			$oppositions = array(
+				1 => 'east',
+				2 => 'north',
+				3 => 'west'
+			);
+
+			if ($island['players'] == 2) {
+				$islandUsers = $db->getIslandUsersByIslandId($island['id']);				
+
+				foreach ($islandUsers as $islandUser) {
+					if($islandUser['user_id'] != $result['id']) {
+						$entry = array(
+							'island_id'    => $island['id'],
+							'user_id'      => $islandUser['user_id'],
+							'neighbour_id' => $result['id'],
+							'position'      => 'west'
+						);
+
+						$db->create(array(
+							'table'  => 'users_relations',
+							'fields' => $entry
+						));
+						$neighbourId = $islandUser['user_id'];
+					}
+				}				
+			}
+
+			if ($island['players'] > 2 && $island['players'] <= 4) {
+				$userRelation = $db->getUserRelationsByIsland($island['id']);
+
+				$entry = array(
+					'island_id'    => $island['id'],
+					'user_id'      => $userRelation['user_id'],
+					'neighbour_id' => $result['id'],
+					'position'     => $positions[$island['players'] - 1]
+				);
+
+				$db->create(array(
+					'table'  => 'users_relations',
+					'fields' => $entry
+				));
+			}
+			
 
 			// Create a token for the session
 			$salt = microtime();
@@ -189,6 +244,7 @@ $app->post('/login', function() use ($app, $db) {
 			$db->update(array(
 				'table'  => 'users',
 				'fields' => array(
+					'id'          => $result['id'],
 					'first_login' => 0
 				)
 			));
