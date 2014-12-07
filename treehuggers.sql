@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Dec 07, 2014 at 09:11 AM
+-- Generation Time: Dec 07, 2014 at 09:21 AM
 -- Server version: 5.5.40
 -- PHP Version: 5.3.10-1ubuntu3.15
 
@@ -67,7 +67,7 @@ CREATE TABLE IF NOT EXISTS `islands` (
 INSERT INTO `islands` (`id`, `name`, `players`) VALUES
 (1, 'Serenity', 4),
 (2, 'Serenity', 4),
-(3, 'Serenity', 1);
+(3, 'Serenity', 2);
 
 -- --------------------------------------------------------
 
@@ -81,7 +81,7 @@ CREATE TABLE IF NOT EXISTS `islands_users` (
   `user_id` varchar(32) NOT NULL,
   `island_id` int(8) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=11 ;
 
 --
 -- Dumping data for table `islands_users`
@@ -96,7 +96,8 @@ INSERT INTO `islands_users` (`id`, `user_id`, `island_id`) VALUES
 (6, '6', 2),
 (7, '7', 2),
 (8, '1', 2),
-(9, '1', 3);
+(9, '1', 3),
+(10, '1', 3);
 
 -- --------------------------------------------------------
 
@@ -136,7 +137,7 @@ CREATE TABLE IF NOT EXISTS `sessions` (
   `last_used` datetime NOT NULL,
   `expires` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10 ;
 
 --
 -- Dumping data for table `sessions`
@@ -149,8 +150,9 @@ INSERT INTO `sessions` (`id`, `token`, `user_id`, `last_used`, `expires`) VALUES
 (4, '0.IbjnAvNlaPA', '5', '2014-12-07 09:00:47', '2014-12-07 10:00:47'),
 (5, '0.IbjnAvNlaPA', '6', '2014-12-07 09:00:47', '2014-12-07 10:00:47'),
 (6, '0.IbjnAvNlaPA', '7', '2014-12-07 09:00:48', '2014-12-07 10:00:48'),
-(7, '0.IbjnAvNlaPA', '1', '2014-12-07 09:06:51', '2014-12-07 10:06:51'),
-(8, '0.IbjnAvNlaPA', '1', '2014-12-07 09:09:38', '2014-12-07 10:09:38');
+(7, '0.IbjnAvNlaPA', '1', '2014-12-07 09:19:47', '2014-12-07 10:19:47'),
+(8, '0.IbjnAvNlaPA', '1', '2014-12-07 09:09:38', '2014-12-07 10:09:38'),
+(9, '0.IbjnAvNlaPA', '1', '2014-12-07 09:19:40', '2014-12-07 10:19:40');
 
 -- --------------------------------------------------------
 
@@ -166,7 +168,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `first_name` varchar(32) NOT NULL,
   `last_name` varchar(32) NOT NULL,
   `first_login` tinyint(1) NOT NULL,
-  `avatar` varchar(64) NOT NULL,
+  `avatar` text NOT NULL,
   `created` datetime NOT NULL,
   `modified` datetime NOT NULL,
   PRIMARY KEY (`id`)
