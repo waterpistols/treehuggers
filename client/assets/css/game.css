@@ -6,6 +6,26 @@ body {
     color: #fff;
 }
 
+    .logo {
+        background: url('../images/logo.png') center center no-repeat;
+        position: absolute;
+        display: block;
+        top: 20px;
+        left: 20px;
+        width: 184px;
+        height: 50px;
+    }
+    .header-line {
+        position: absolute;
+        width: 250px;
+        top: 95px;
+    }
+    .header-line.left {
+        left: 20px;
+    }
+    .header-line.right {
+        right: 20px;
+    }
     #world {
         position: relative;
         max-width: 1130px;
@@ -82,7 +102,20 @@ body {
     .button.blue {
         background: #005B9D;
     }
-
+    .button.skeleton {
+        background: none;
+        border: solid 2px #7BB6DF;
+        color: #7BB6DF;
+    }
+    .button.skeleton:hover {
+        background: #7BB6DF;
+        color: #0080dc;
+    }
+    .logout {
+        position: absolute;
+        top: 30px;
+        right: 20px;
+    }
     .air-polution {
         position: absolute;
         top: 120px;
