@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Dec 07, 2014 at 01:24 PM
+-- Generation Time: Dec 07, 2014 at 03:22 PM
 -- Server version: 5.5.40
 -- PHP Version: 5.3.10-1ubuntu3.15
 
@@ -79,7 +79,7 @@ CREATE TABLE IF NOT EXISTS `islands` (
 INSERT INTO `islands` (`id`, `name`, `players`) VALUES
 (1, 'Serenity', 4),
 (2, 'Serenity', 4),
-(3, 'Serenity', 3);
+(3, 'Serenity', 4);
 
 -- --------------------------------------------------------
 
@@ -124,11 +124,11 @@ CREATE TABLE IF NOT EXISTS `questions` (
 --
 
 INSERT INTO `questions` (`id`, `text`, `type`, `points`, `info`, `source`) VALUES
-(1, 'How many deaths caused by air pollution you think ocurred in 2014?', 'Radio', 0, 'In 2013, more than 2 million deaths occured globally as a direct result of air pollution from human activity.', 'http://www.who.int/mediacentre/news/releases/2014/air-pollution/en/'),
-(2, 'For every increase of 10 μg/m3 in PM10, the lung cancer rate rises:', 'Dropdown', 0, 'Atmospheric particulate matter with an aerodynamic diameter of 10 µm or less (PM10) – is microscopic solid or liquid matter suspended in the Earth''s atmosphere.', 'http://en.wikipedia.org/wiki/Particulates'),
-(3, 'Which US State do you believe has the highest ozone readings?', 'Dropdown', 0, 'Ozone (O3) is defined by Webster as a "very reactive form of oxygen that is a bluish irritating gas of pungent odor, that is a major air pollutant in the lower atmosphere but a beneficial component of the upper atmosphere".', 'http://visual.ly/air-quality-usa'),
-(4, 'How much do you think vehicle exhaust contributes to the level of Carbon Monoxide?', 'Radio', 0, 'Carbon Monoxide is defined as "a colorless odorless very toxic gass (CO)".', 'http://visual.ly/air-quality-usa'),
-(5, 'What percentage has the carbon monoxide level decreased in the US from 2001 to 2010?', 'Input', 0, 'Carbon Monoxide is defined as "a colorless odorless very toxic gass (CO)".', 'http://visual.ly/air-quality-usa');
+(1, 'How many deaths caused by air pollution you think ocurred in 2014?', 'Radio', 120, 'In 2013, more than 2 million deaths occured globally as a direct result of air pollution from human activity.', 'http://www.who.int/mediacentre/news/releases/2014/air-pollution/en/'),
+(2, 'For every increase of 10 μg/m3 in PM10, the lung cancer rate rises:', 'Dropdown', 140, 'Atmospheric particulate matter with an aerodynamic diameter of 10 µm or less (PM10) – is microscopic solid or liquid matter suspended in the Earth''s atmosphere.', 'http://en.wikipedia.org/wiki/Particulates'),
+(3, 'Which US State do you believe has the highest ozone readings?', 'Dropdown', 110, 'Ozone (O3) is defined by Webster as a "very reactive form of oxygen that is a bluish irritating gas of pungent odor, that is a major air pollutant in the lower atmosphere but a beneficial component of the upper atmosphere".', 'http://visual.ly/air-quality-usa'),
+(4, 'How much do you think vehicle exhaust contributes to the level of Carbon Monoxide?', 'Radio', 230, 'Carbon Monoxide is defined as "a colorless odorless very toxic gass (CO)".', 'http://visual.ly/air-quality-usa'),
+(5, 'What percentage has the carbon monoxide level decreased in the US from 2001 to 2010?', 'Input', 260, 'Carbon Monoxide is defined as "a colorless odorless very toxic gass (CO)".', 'http://visual.ly/air-quality-usa');
 
 -- --------------------------------------------------------
 
@@ -151,7 +151,7 @@ CREATE TABLE IF NOT EXISTS `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `token`, `user_id`, `last_used`, `expires`) VALUES
-(1, '0.IbjnAvNlaPA', '1', '2014-12-07 13:23:08', '2014-12-07 14:23:08');
+(1, '0.IbjnAvNlaPA', '1', '2014-12-07 15:20:15', '2014-12-07 16:20:15');
 
 -- --------------------------------------------------------
 
@@ -195,7 +195,18 @@ CREATE TABLE IF NOT EXISTS `users_answers` (
   `correct` tinyint(1) NOT NULL,
   `user_id` varchar(32) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
+
+--
+-- Dumping data for table `users_answers`
+--
+
+INSERT INTO `users_answers` (`id`, `question_id`, `answer_id`, `answer_text`, `correct`, `user_id`) VALUES
+(1, 5, 0, '50', 1, '1'),
+(2, 5, 0, '50', 1, '1'),
+(3, 5, 0, '10', 0, '1'),
+(4, 5, 0, '10', 0, '1'),
+(5, 5, 0, '60', 0, '1');
 
 -- --------------------------------------------------------
 
@@ -219,7 +230,7 @@ CREATE TABLE IF NOT EXISTS `users_data` (
 --
 
 INSERT INTO `users_data` (`id`, `user_id`, `pollution`, `points`, `trees`, `asks`) VALUES
-(1, 1, 100, 0, 4, 3);
+(1, 1, 100, 260, 2, 3);
 
 -- --------------------------------------------------------
 
@@ -241,7 +252,7 @@ CREATE TABLE IF NOT EXISTS `users_zones` (
 --
 
 INSERT INTO `users_zones` (`id`, `user_id`, `zone_id`, `degrading_state`) VALUES
-(1, 1, 1, 0),
+(1, 1, 1, 1),
 (2, 1, 2, 0),
 (3, 1, 3, 0),
 (4, 1, 4, 0),
