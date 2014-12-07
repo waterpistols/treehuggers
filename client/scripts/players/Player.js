@@ -80,7 +80,7 @@ TH.Player = (function() {
     }
     Player.prototype.setTotalHealth = function(health) {
 
-        var diff = this.previousHealth - health,
+        var diff = health - this.previousHealth,
             self = this;
 
         if (health < 5) {
