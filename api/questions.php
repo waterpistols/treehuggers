@@ -4,8 +4,12 @@
 $app->get('/questions', function () use ($app, $db) {
 		
 	$payload = $app->request->params();
+	// determine userId
+	$cookieValue = $_COOKIE['TH-Token'];
 
-	$result = $db->getAllQuestions();
+	$session = $db->getSessionByToken($cookieValue);	
+
+	$result = $db->getAllQuestions($session['user_id']);
 	
 	foreach($result as $key => $question) {
 
@@ -39,7 +43,6 @@ $app->get('/questions', function () use ($app, $db) {
 		}
 	}
 	
-
 	$app->response->setBody(json_encode($result));
 
 });
