@@ -8,6 +8,8 @@ body {
     font-size: 12px;
     color: #fff;
 
+    min-height: 800px;
+
 }
 
 body.enable-dynamic-cursor.tree-cursor {
@@ -108,21 +110,21 @@ body.enable-dynamic-cursor.tree-cursor {
     .button.green {
         background: #70be59;
     }
-    .button.green:hover, .button.green.active {
+    .button.green:hover {
         background: #5c9d49;
     }
 
     .button.red {
         background: #EF896D;
     }
-    .button.red:hover, .button.red.active {
+    .button.red:hover {
         background: #C7715A;
     }
 
     .button.blue {
         background: #005B9D;
     }
-    .button.blue:hover, .button.blue.active {
+    .button.blue:hover {
         background: #003A65;
     }
     .button.skeleton {
@@ -130,7 +132,7 @@ body.enable-dynamic-cursor.tree-cursor {
         border: solid 2px #7BB6DF;
         color: #7BB6DF;
     }
-    .button.skeleton:hover, .button.skeleton.active {
+    .button.skeleton:hover {
         background: #7BB6DF;
         color: #0080DC;
     }
@@ -382,5 +384,8 @@ body.enable-dynamic-cursor.tree-cursor {
     }
     .you-have .info {
         display: none;
+    }
+    .bottom-block-container {
+        min-width: 900px;
     }
 }
