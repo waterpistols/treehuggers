@@ -6,9 +6,11 @@ TH.Player = (function() {
         var self = this;
 
         this.shape = new createjs.Bitmap(image.src);
-        _createHelpShape.call(this);
 
         TH.global.extend.call(this.shape, params);
+
+        _createHelpShape.call(this);
+        _attachEvents.call(this);
         this.country = null;
         setInterval(function() {
             if (self.country.zones[0]) {
@@ -26,20 +28,49 @@ TH.Player = (function() {
     function _createHelpShape() {
         var sheetOptions = {
             images: [TH.global.queue.getResult('help').src],
-            frames: {width:421, height:152},
+            frames: {width:38, height:38},
             animations: {
-                be: [0, 3, true]
+                be: {
+                    frames: [0, 2]
+                }
             }
         };
+        var sheet = new createjs.SpriteSheet(sheetOptions);
+        this.helpShape = new createjs.Sprite(sheet);
 
-        var sheet = new createjs.SpriteSheet(sheetOptions),
-            sprite = new createjs.Sprite(sheet);
+        this.helpShape.x = this.shape.x - 45;
+        this.helpShape.y = this.shape.y + 600;
+        this.helpShape.alpha = 0;
 
-        this.helpShape = new createjs.Bitmap(TH.global.queue.getResult('help'));
+        this.helpShape.gotoAndStop(0);
+        TH.global.stage.addChild(this.helpShape);
+
     }
 
+    function _attachEvents(){
+        var self = this;
+        this.helpShape.addEventListener('click', function() {
+            self.helpShape.gotoAndStop(2);
 
+            self.hideHelp();
+        });
+        this.helpShape.addEventListener('mouseover', function() {
+            self.helpShape.gotoAndStop(1);
+        });
+        this.helpShape.addEventListener('mouseout', function() {
+            if (self.helpShape.currentFrame == 1) {
+                self.helpShape.gotoAndStop(0);
+            }
 
+        });
+    }
+
+    Player.prototype.showHelp = function() {
+        var tw = createjs.Tween.get(this.helpShape).to({alpha: 1}, 100);
+    };
+    Player.prototype.hideHelp = function() {
+        var tw = createjs.Tween.get(this.helpShape).wait(300).to({alpha: 0}, 100);
+    };
     Player.prototype.zoneClickAction = function() {
         return false;
     };

@@ -18,6 +18,7 @@ TH.ui = (function() {
             this.components.avatar = new TH.Avatar();
             this.components.youHave = new TH.YouHave();
             this.components.preloader = new TH.Preloader();
+            this.components.tutorial = new TH.Tutorial(true);
         },
         updateComponents: function(data) {
 
