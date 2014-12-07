@@ -12,17 +12,21 @@ TH.world = (function() {
         },
 
         _createStage: function() {
-
-
-
             TH.global.stage = new createjs.Stage('world');
             createjs.Ticker.addEventListener('tick', this.tick);
         },
 
         _loadFiles: function(callback) {
+            self = this;
             TH.global.queue = new createjs.LoadQueue(false);
             TH.global.queue.installPlugin(createjs.Sound);
-            TH.global.queue.addEventListener('complete', callback.bind(this));
+            TH.global.queue.addEventListener('progress', function() {
+                $('.preloader').show();
+            });
+            TH.global.queue.addEventListener('complete', function() {
+                $('.preloader').hide();
+                callback.call(self);
+            });
             TH.global.queue.loadManifest([
                 /* IMAGES */
                 {id: 'diamonds', src: 'assets/images/test-sprite.png'},
@@ -42,6 +46,7 @@ TH.world = (function() {
                 {id: 'flag', src: 'assets/images/flag.png'},
                 {id: 'island', src: 'assets/images/index/island.jpg'},
                 {id: 'bird', src: 'assets/images/bird.png'},
+                {id: 'smoke', src: 'assets/images/smoke.gif'},
 
                 /* SOUNDS */
                 {id: 'sound', src: 'assets/sounds/snd_0160.mp3'}

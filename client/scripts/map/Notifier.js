@@ -14,11 +14,11 @@ TH.Notifier = (function() {
 
     Notifier.prototype.incrementedHealth = function(health) {
         this.setText('+' + health, null, '#33ff88');
-        return createjs.Tween.get(this.label).to({y: this.label.y - 200, alpha: 0}, 1000);
+        return createjs.Tween.get(this.label).to({y: this.label.y - 200, alpha: 0}, 2000);
     };
     Notifier.prototype.decrementedHealth = function(health) {
         this.setText('-' + health, null, '#ff3388');
-        return createjs.Tween.get(this.label).to({y: this.label.y - 200, alpha: 0}, 1000);
+        return createjs.Tween.get(this.label).to({y: this.label.y - 200, alpha: 0}, 2000);
     };
 
 

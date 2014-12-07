@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Dec 06, 2014 at 10:07 PM
+-- Generation Time: Dec 07, 2014 at 09:21 AM
 -- Server version: 5.5.40
 -- PHP Version: 5.3.10-1ubuntu3.15
 
@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS `answers` (
   `text` text NOT NULL,
   `correct` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
 
 --
 -- Dumping data for table `answers`
@@ -42,7 +42,9 @@ CREATE TABLE IF NOT EXISTS `answers` (
 INSERT INTO `answers` (`id`, `question_id`, `text`, `correct`) VALUES
 (1, 1, 'Yes', 1),
 (2, 1, 'No', 0),
-(3, 2, '125', 1);
+(3, 2, '125', 1),
+(4, 3, 'NO', 0),
+(5, 3, 'Maybe', 0);
 
 -- --------------------------------------------------------
 
@@ -56,14 +58,16 @@ CREATE TABLE IF NOT EXISTS `islands` (
   `name` varchar(64) NOT NULL,
   `players` int(1) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 --
 -- Dumping data for table `islands`
 --
 
 INSERT INTO `islands` (`id`, `name`, `players`) VALUES
-(1, 'Serenity', 4);
+(1, 'Serenity', 4),
+(2, 'Serenity', 4),
+(3, 'Serenity', 2);
 
 -- --------------------------------------------------------
 
@@ -77,17 +81,23 @@ CREATE TABLE IF NOT EXISTS `islands_users` (
   `user_id` varchar(32) NOT NULL,
   `island_id` int(8) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=11 ;
 
 --
 -- Dumping data for table `islands_users`
 --
 
 INSERT INTO `islands_users` (`id`, `user_id`, `island_id`) VALUES
-(1, '9484136185215072', 1),
-(2, '948413618521507', 1),
-(3, '123124', 1),
-(4, '12352124', 1);
+(1, '1', 1),
+(2, '2', 1),
+(3, '3', 1),
+(4, '4', 1),
+(5, '5', 2),
+(6, '6', 2),
+(7, '7', 2),
+(8, '1', 2),
+(9, '1', 3),
+(10, '1', 3);
 
 -- --------------------------------------------------------
 
@@ -127,7 +137,22 @@ CREATE TABLE IF NOT EXISTS `sessions` (
   `last_used` datetime NOT NULL,
   `expires` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=21 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10 ;
+
+--
+-- Dumping data for table `sessions`
+--
+
+INSERT INTO `sessions` (`id`, `token`, `user_id`, `last_used`, `expires`) VALUES
+(1, '0.IbjnAvNlaPA', '2', '2014-12-07 09:00:29', '2014-12-07 10:00:29'),
+(2, '0.IbjnAvNlaPA', '3', '2014-12-07 09:00:47', '2014-12-07 10:00:47'),
+(3, '0.IbjnAvNlaPA', '4', '2014-12-07 09:00:47', '2014-12-07 10:00:47'),
+(4, '0.IbjnAvNlaPA', '5', '2014-12-07 09:00:47', '2014-12-07 10:00:47'),
+(5, '0.IbjnAvNlaPA', '6', '2014-12-07 09:00:47', '2014-12-07 10:00:47'),
+(6, '0.IbjnAvNlaPA', '7', '2014-12-07 09:00:48', '2014-12-07 10:00:48'),
+(7, '0.IbjnAvNlaPA', '1', '2014-12-07 09:19:47', '2014-12-07 10:19:47'),
+(8, '0.IbjnAvNlaPA', '1', '2014-12-07 09:09:38', '2014-12-07 10:09:38'),
+(9, '0.IbjnAvNlaPA', '1', '2014-12-07 09:19:40', '2014-12-07 10:19:40');
 
 -- --------------------------------------------------------
 
@@ -137,28 +162,24 @@ CREATE TABLE IF NOT EXISTS `sessions` (
 
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE IF NOT EXISTS `users` (
-  `id` varchar(32) NOT NULL,
+  `id` int(8) NOT NULL AUTO_INCREMENT,
+  `api_id` varchar(32) NOT NULL,
   `email` varchar(32) NOT NULL,
   `first_name` varchar(32) NOT NULL,
   `last_name` varchar(32) NOT NULL,
-  `gender` varchar(8) NOT NULL,
-  `link` varchar(64) NOT NULL,
-  `locale` varchar(32) NOT NULL,
-  `timezone` int(4) NOT NULL,
+  `first_login` tinyint(1) NOT NULL,
+  `avatar` text NOT NULL,
   `created` datetime NOT NULL,
   `modified` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `email`, `first_name`, `last_name`, `gender`, `link`, `locale`, `timezone`, `created`, `modified`) VALUES
-('123124', 'andrei.dan.laza@gmail.com', 'Laza', 'Andrei', '', 'https://www.facebook.com/app_scoped_user_id/948413618521507/', 'en_US', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-('12352124', 'andrei.dan.laza@gmail.com', 'Laza', 'Andrei', '', 'https://www.facebook.com/app_scoped_user_id/948413618521507/', 'en_US', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-('948413618521507', 'undemian@gmail.com', 'Andrei', 'Demian', 'male', '', '', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-('9484136185215072', 'undemian@gmail.com', 'Andrei', 'Demian', 'male', 'https://www.facebook.com/app_scoped_user_id/948413618521507/', 'en_US', 2, '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+INSERT INTO `users` (`id`, `api_id`, `email`, `first_name`, `last_name`, `first_login`, `avatar`, `created`, `modified`) VALUES
+(1, '948413618521507', 'undemian@gmail.com', 'Andrei', 'Demian', 0, 'https://www.facebook.com/app_scoped_user_id/948413618521507/', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -175,25 +196,7 @@ CREATE TABLE IF NOT EXISTS `users_answers` (
   `correct` tinyint(1) NOT NULL,
   `user_id` varchar(32) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=14 ;
-
---
--- Dumping data for table `users_answers`
---
-
-INSERT INTO `users_answers` (`id`, `question_id`, `answer_id`, `answer_text`, `correct`, `user_id`) VALUES
-(1, 1, 1, '', 0, '9484136185215072'),
-(3, 1, 1, '', 0, '9484136185215072'),
-(4, 1, 1, '', 0, '9484136185215072'),
-(5, 1, 1, '', 0, '9484136185215072'),
-(6, 1, 1, '', 0, '9484136185215072'),
-(7, 1, 2, '', 0, '9484136185215072'),
-(8, 1, 2, '', 0, '9484136185215072'),
-(9, 0, 0, '', 0, '948413618521507'),
-(10, 0, 0, '', 0, '948413618521507'),
-(11, 2, 0, '120', 0, '948413618521507'),
-(12, 2, 0, '120', 0, '948413618521507'),
-(13, 2, 0, '120', 1, '948413618521507');
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

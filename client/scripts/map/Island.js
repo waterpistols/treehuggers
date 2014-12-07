@@ -72,9 +72,14 @@ TH.Island = (function() {
             .wait(10000)
             .to({x: 1330, y: 200}, 5000, createjs.Ease.linear)
             .to({x: -400, y: 700}, 1, createjs.Ease.linear);
-
-
     };
+
+    Island.prototype.smokey = function() {
+        var smoke = new createjs.Bitmap(TH.global.queue.getResult('smoke'));
+        smoke.x = 10;
+        smoke.y = 10;
+        TH.global.stage.addChild(smoke);
+    }
 
     Island.prototype.updateCountries = function() {
         var i;

@@ -12,6 +12,7 @@ TH.map = (function() {
             this.assignZones();
             this.island.popIn();
             this.island.birdy();
+            this.island.smokey();
         },
 
         createCountries: function() {
