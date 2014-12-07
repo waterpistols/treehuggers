@@ -24,11 +24,14 @@ TH.global = (function() {
         },
         properties: {},
         stateHandlers: [],
+        minTrees : 4,
+        pointsThreshold : 10000,
         init : function() {
             this.properties.canvasWidth = 1130;
             this.properties.canvasHeight = 827;
             this.stage = new createjs.Stage('world');
             this.stage.enableMouseOver(20);
+
         },
         extend: function(params) {
 

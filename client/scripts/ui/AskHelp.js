@@ -20,5 +20,11 @@ TH.AskHelp = (function() {
 
     }
 
+    AskHelp.prototype.update = function(data) {
+        if (typeof data.asks !== 'undefined') {
+            var value = data.asks;
+            this.$element.find('.update-target').text(value);
+        }
+    };
     return AskHelp;
 }());

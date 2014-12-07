@@ -3,9 +3,10 @@ TH.Zone = (function() {
     var maxHealth = 3;
 
 
-    function Zone(shape, params) {
+    function Zone(id, shape, params) {
         var self = this;
         TH.global.extend.call(shape, params);
+        this.id = id;
         this.shape = shape;
         this.health = 0;
 
@@ -60,7 +61,7 @@ TH.Zone = (function() {
     };
     Zone.prototype.setFullHealth = function() {
         this.health = maxHealth;
-        this.notifier.incrementedHealth(this.health);
+        this.notifier.incrementedHealth(this.health + 1);
         this.update();
     };
     Zone.prototype.hasFullHealth = function() {

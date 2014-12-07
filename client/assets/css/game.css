@@ -10,7 +10,7 @@ body {
 
 }
 
-body.tree-cursor {
+body.enable-dynamic-cursor.tree-cursor {
     cursor: url('../images/trees.png') 25 15, auto;
 }
 

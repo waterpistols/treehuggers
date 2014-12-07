@@ -1,20 +1,24 @@
 TH = TH || {};
 TH.MainPlayer = (function() {
 
-    var minTrees = 4;
+
     function MainPlayer(image, params) {
         var self = this;
 
         this.shape = new createjs.Bitmap(image.src);
         TH.global.extend.call(this.shape, params);
-        this.trees = 4;
+
         this.country = null;
 
-//        this.fetchData(function(response) {
-//
-//            this.updateState();
-//        });
+        this.fetchData(function(response) {
 
+            if (response) {
+                self.trees = response.trees;
+                TH.ui.updateComponents(response);
+            }
+            TH.global.stateSubscribe(self.stateUpdateHandler, self);
+            self.updateState();
+        });
 
 
     }
@@ -35,7 +39,8 @@ TH.MainPlayer = (function() {
 
     MainPlayer.prototype.zoneClickAction = function() {
         if (TH.global.isState('PLANTING_TREES') === true) {
-            this.decrementTrees(minTrees);
+            this.decrementTrees(TH.global.minTrees);
+
             return true;
         }
 
@@ -50,7 +55,7 @@ TH.MainPlayer = (function() {
     };
 
     MainPlayer.prototype.updateState =  function() {
-        if (this.trees < minTrees) {
+        if (this.trees < TH.global.minTrees) {
             TH.global.setState('IDLE');
         } else {
             TH.global.setState('CAN_PLANT_TREES');
@@ -75,7 +80,12 @@ TH.MainPlayer = (function() {
     };
 
     MainPlayer.prototype.stateUpdateHandler = function() {
-        TH.components.plantNow.setTreeNeedText(minTrees - this.trees);
+        if (TH.global.isState('PLANTING_TREES') === true) {
+            $('body').addClass('enable-dynamic-cursor');
+        } else {
+            $('body').removeClass('enable-dynamic-cursor');
+        }
+        TH.ui.updateComponents({trees: this.trees});
     };
     MainPlayer.prototype.fetchData = function(successCallback) {
         $.ajax({
@@ -88,7 +98,6 @@ TH.MainPlayer = (function() {
             error: function(error) {
                 alert('Well ..' + error);
             }
-
         });
     };
 

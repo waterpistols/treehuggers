@@ -5,9 +5,9 @@ TH.YouHave = (function() {
 
         TH.Component.call(this, params);
 
-        this.$element = $('#plantNow');
+        this.$element = $('#youHave');
         this.$button = this.$element.find('.button');
-        TH.global.stateSubscribe(this.stateUpdateHandler, this);
+
 
         _attachEvents.call(this);
     }
@@ -19,6 +19,12 @@ TH.YouHave = (function() {
         var self = this;
 
     }
+    YouHave.prototype.update = function(data) {
+        if (typeof data.trees !== 'undefined') {
+            var value = data.trees;
+            this.$element.find('.update-target').text(value);
+        }
+    };
 
     return YouHave;
 }());

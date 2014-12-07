@@ -39,8 +39,20 @@ TH.PlantNow = (function() {
         }
 
     };
-    PlantNow.prototype.setTreeNeedText = function() {
-        this.$element.find('')
+    PlantNow.prototype.update = function(data) {
+        if (typeof data.trees !== 'undefined') {
+            var value = TH.global.minTrees - data.trees,
+                $target = this.$element.find('.update-target'),
+                $parentTarget = $target.parent();
+            if (value > 0) {
+                $parentTarget.show();
+                $target.text(value);
+            } else {
+                $parentTarget.hide();
+            }
+        }
+
+
     };
     return PlantNow;
 }());

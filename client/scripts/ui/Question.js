@@ -9,7 +9,7 @@ TH.Question = (function() {
             self.template = _.template($('#question-' + dbQuestion['type'] + '-Html').html());
             TH.Component.call(self, params);
 
-            TH.global.stateSubscribe(self.stateUpdateHandler, this);
+            TH.global.stateSubscribe(self.stateUpdateHandler, self);
 
             _attachEvents.call(self);
         });
