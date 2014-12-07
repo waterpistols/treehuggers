@@ -15,6 +15,7 @@ TH.MainPlayer = (function() {
             if (response) {
                 self.trees = response.trees;
                 TH.ui.updateComponents(response);
+                TH.map.updateZones(response);
             }
             TH.global.stateSubscribe(self.stateUpdateHandler, self);
             self.updateState();
@@ -38,11 +39,14 @@ TH.MainPlayer = (function() {
     };
 
     MainPlayer.prototype.zoneClickAction = function() {
+
         if (TH.global.isState('PLANTING_TREES') === true) {
             this.decrementTrees(TH.global.minTrees);
 
             return true;
         }
+
+        TH.ui.components.plantNow.flashButton();
 
         return false;
     };

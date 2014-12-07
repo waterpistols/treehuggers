@@ -16,6 +16,17 @@ body.enable-dynamic-cursor.tree-cursor {
     cursor: url('../images/trees.png') 25 15, auto;
 }
 
+    .button {
+        -webkit-transition: transform 0.1s;
+        -moz-transition: transform 0.1s;
+        transition: transform 0.1s;
+    }
+    .button.flash {
+        position: relative;
+        transform: scale(1.2);
+        transform-origin: center center;
+
+    }
     .logo {
         background: url('../images/logo.png') center center no-repeat;
         position: absolute;

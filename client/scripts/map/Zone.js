@@ -14,17 +14,14 @@ TH.Zone = (function() {
 
         this.shape.addEventListener('click', function() {
             var player;
-
-            if (!self.hasNoHealth()) {
-                return;
-            }
+            
 
             player = self.country.player;
 
-                if (player && player.zoneClickAction()) {
-                    self.setFullHealth();
-                    player.checkHasWon();
-                }
+            if (player && player.zoneClickAction()) {
+                self.setFullHealth();
+                player.checkHasWon();
+            }
 
         });
 
@@ -62,6 +59,10 @@ TH.Zone = (function() {
     Zone.prototype.setFullHealth = function() {
         this.health = maxHealth;
         this.notifier.incrementedHealth(this.health + 1);
+        this.update();
+    };
+    Zone.prototype.setHealth = function(value) {
+        this.health = value;
         this.update();
     };
     Zone.prototype.hasFullHealth = function() {

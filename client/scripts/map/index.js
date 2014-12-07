@@ -156,6 +156,15 @@ TH.map = (function() {
                 sprite = new createjs.Sprite(sheet);
 
             return new TH.Zone(id, sprite, spriteOptions);
+        },
+        updateZones: function(data) {
+            if (data.zones) {
+                for (var i = 0; i < data.zones.length; i++) {
+
+                    this.zones[data.zones[i].title].setHealth(data.zones[i].degrading_state);
+                }
+            }
+
         }
 
 

@@ -6,7 +6,7 @@ TH.PlantNow = (function() {
         TH.Component.call(this, params);
 
         this.$element = $('#plantNow');
-        this.$button = $('#plantNowButton');
+        this.$button = this.$element.find('.button');
         TH.global.stateSubscribe(this.stateUpdateHandler, this);
 
         _attachEvents.call(this);
@@ -51,7 +51,13 @@ TH.PlantNow = (function() {
                 $parentTarget.hide();
             }
         }
-
+    };
+    PlantNow.prototype.flashButton = function() {
+        var self = this;
+        this.$button.addClass('flash');
+        setTimeout(function(){
+            self.$button.removeClass('flash');
+        }, 100);
 
     };
     return PlantNow;
