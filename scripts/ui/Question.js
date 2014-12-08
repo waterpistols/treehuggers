@@ -29,6 +29,8 @@ TH.Question = (function() {
             dbQuestion['info'] = false;
             self.content = self.template({question: dbQuestion});
             TH.Component.prototype.show.call(self);
+            $('#nextQuestion').hide();
+            $('#sendResponse').show();
         });
 
         $('body').on('click', '#nextQuestion', function() {
