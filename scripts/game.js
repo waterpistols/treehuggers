@@ -66,7 +66,7 @@ TH.world = (function() {
                 createjs.Sound.play("ocean", { loop: -1, volume: 0.2});
                 createjs.Sound.play("seaqull", { loop: -1, volume: 0.4});
             });
-
+            createjs.Sound.alternateExtensions = ['ogg'];
             TH.global.queue.loadManifest([
                 /* IMAGES */
                 {id: 'country1',  src: 'assets/images/island1/country1.png'},
@@ -83,8 +83,8 @@ TH.world = (function() {
                 {id: 'smoke', src: 'assets/images/smoke.png'},
 
                 /* SOUNDS */
-                {id: 'ocean', src: 'assets/sounds/ocean.wav'},
-                {id: 'seaqull', src: 'assets/sounds/seaqull.wav'}
+                {id: 'ocean', src: 'assets/sounds/ocean.mp3'},
+                {id: 'seaqull', src: 'assets/sounds/seaqull.mp3'}
             ]);
         },
 
