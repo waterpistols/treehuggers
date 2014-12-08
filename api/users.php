@@ -303,12 +303,22 @@ $app->post('/help', function() use($app, $db) {
 			'table'  => 'users_data',
 			'fields' => array(
 				'trees' => $helpingUser['trees'],
-				'id'   => $helpingUser['user_data_id']
+				'id'    => $helpingUser['user_data_id']
 			)
 		));
 
   	$payload     = json_decode($app->request->getBody(), TRUE);
+
   	$helpedUser  = $db->getById('users', $payload['user_id']);
+		$helpedUser['trees']++;
+		
+  	$db->update(array(
+  		'table'  => 'users_data',
+			'fields' => array(
+				'trees' => $helpedUser['trees'],
+				'id'    => $helpedUser['user_data_id']
+			)
+		));
   	
   	$notif = $db->getNotificationByUserId($payload['user_id']);
 
