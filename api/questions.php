@@ -209,5 +209,5 @@ $app->post('/plant', function() use ($app, $db) {
 		'fields' => $userData
 	));
 
-	$app->response->setBody(json_encode($result), FALSE);
+	$app->response->setBody(json_encode($userData), FALSE);
 });
