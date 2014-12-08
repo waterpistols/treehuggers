@@ -132,8 +132,10 @@ $app->post('/questions', function() use ($app, $db) {
 
 	$result = $db->getById('users', $result['user_id']);  
 
-  $result['zones'] = $zones;
+  $result['zones']   = $zones;
   $result['correct'] = $correct;
+  $result['points']  = $userData['points'];
+  
 	$requestBody           = array();
 	$requestBody['table']  = 'users_answers';
 	$requestBody['fields'] = array(
