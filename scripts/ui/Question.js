@@ -74,6 +74,7 @@ TH.Question = (function() {
                     success: function(data) {
                         if(data['correct']) {
                             TH.players.players.red.incrementTrees();
+                            TH.ui.components.update({points: parseInt(data.points)});
                             $('.success-message').show();
                             $('#nextQuestion').show();
                             $('#sendResponse').hide();
