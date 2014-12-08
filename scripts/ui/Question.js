@@ -97,7 +97,7 @@ TH.Question = (function() {
         var self = this;
         $.ajax({
             type: 'GET',
-            url: TH.global.endpoints.questions + '?random=true',
+            url: TH.global.endpoints.questions,
             contentType: "application/json; charset=utf-8",
             dataType: 'json',
             xhrFields: { withCredentials: true },
