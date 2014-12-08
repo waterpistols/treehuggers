@@ -19,4 +19,9 @@ require 'users.php';
 require 'questions.php';
 require 'islands.php';
 
+$app->response->headers->set('Access-Control-Allow-Origin', 'http://andreilaza.koding.io');
+$app->response->headers->set('Access-Control-Allow-Credentials', 'true');
+$app->response->headers->set('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+$app->response->headers->set('Access-Control-Allow-Headers', 'Content-Type');
+
 $app->run();
