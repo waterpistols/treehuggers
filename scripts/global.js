@@ -3,7 +3,7 @@ var TH = TH || {};
 TH.global = (function() {
 
     var baseUrl = '/';
-    var api = baseUrl + 'api/index.php/';
+    var api = baseUrl + '/';
 
     return {
         clientUrl: baseUrl + '',
