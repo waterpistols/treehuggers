@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Dec 08, 2014 at 05:25 AM
+-- Generation Time: Dec 08, 2014 at 05:31 AM
 -- Server version: 5.5.40
 -- PHP Version: 5.3.10-1ubuntu3.15
 
@@ -137,7 +137,7 @@ CREATE TABLE IF NOT EXISTS `questions` (
 
 INSERT INTO `questions` (`id`, `text`, `type`, `points`, `info`, `source`) VALUES
 (1, 'How many deaths caused by air pollution you think ocurred in 2014?', 'Radio', 120, 'In 2013, more than 2 million deaths occured globally as a direct result of air pollution from human activity.', 'http://www.who.int/mediacentre/news/releases/2014/air-pollution/en/'),
-(2, 'For every increase of 10 micrograms/m3 in PM10, the lung cancer rate rises:', 'Dropdown', 140, 'Atmospheric particulate matter with an aerodynamic diameter of 10 micrograms or less (PM10) – is microscopic solid or liquid matter suspended in the Earth''s atmosphere.', 'http://en.wikipedia.org/wiki/Particulates'),
+(2, 'For every increase of 10 micrograms\\/m3 in PM10, the lung cancer rate rises:', 'Dropdown', 140, 'Atmospheric particulate matter with an aerodynamic diameter of 10 micrograms or less (PM10) - is microscopic solid or liquid matter suspended in the Earth''s atmosphere', 'http://en.wikipedia.org/wiki/Particulates'),
 (3, 'Which US State do you believe has the highest ozone readings?', 'Dropdown', 110, 'Ozone (O3) is defined by Webster as a "very reactive form of oxygen that is a bluish irritating gas of pungent odor, that is a major air pollutant in the lower atmosphere but a beneficial component of the upper atmosphere".', 'http://visual.ly/air-quality-usa'),
 (4, 'How much do you think vehicle exhaust contributes to the level of Carbon Monoxide?', 'Radio', 230, 'Carbon Monoxide is defined as "a colorless odorless very toxic gass (CO)".', 'http://visual.ly/air-quality-usa'),
 (5, 'What percentage has the carbon monoxide level decreased in the US from 2001 to 2010?', 'Input', 260, 'Carbon Monoxide is defined as "a colorless odorless very toxic gass (CO)".', 'http://visual.ly/air-quality-usa'),
