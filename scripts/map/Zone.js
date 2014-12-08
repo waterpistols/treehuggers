@@ -19,7 +19,8 @@ TH.Zone = (function() {
 
             if (player && player.zoneClickAction()) {
                 self.setFullHealth();
-                self.sendZoneData(function() {
+                self.sendZoneData(function(data) {
+                    TH.ui.updateComponents({pollution: data.pollution});
                     player.checkHasWon();
                 });
             }
