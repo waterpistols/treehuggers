@@ -37,6 +37,21 @@ TH.world = (function() {
                     error: TH.global.errorHandler
                 });
             });
+
+            $('body').on('click', '.mute', function(){
+                $('.volume').show();
+                $('.mute').hide();
+
+                createjs.Sound.setMute(false);
+            });
+
+            $('body').on('click', '.volume', function(){
+                $('.volume').hide();
+                $('.mute').show();
+
+                createjs.Sound.setMute(true);
+            });
+
         },
 
         _loadFiles: function() {
