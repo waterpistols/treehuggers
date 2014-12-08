@@ -78,7 +78,7 @@ TH.Island = (function() {
             animations: {
                 smoke: {
                     frames: [0, 1, 2, 3 ,4],
-                    speed: 4
+                    speed: 0.5
                 }
             }
         };
