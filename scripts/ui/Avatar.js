@@ -31,10 +31,18 @@ TH.Avatar = (function() {
                 rank: _getRank(data.points)
             };
 
-            this.$element.find('.name .update-target').text(value.name);
-            this.$element.find('.points .update-target').text(value.points);
-            this.$element.find('.image .update-target').attr('src', value.image);
-            this.$element.find('.rank')[0].className = 'rank fill-' + value.rank;
+            if (typeof value.name !== 'undefined') {
+                this.$element.find('.name .update-target').text(value.name);
+            }
+            if (typeof value.image !== 'undefined') {
+                this.$element.find('.points .update-target').text(value.points);
+            }
+            if (typeof value.image !== 'undefined') {
+                this.$element.find('.image .update-target').attr('src', value.image);
+            }
+            if (typeof value.rank !== 'undefined') {
+                this.$element.find('.rank')[0].className = 'rank fill-' + value.rank;
+            }
         }
     };
     function _getRank(points) {
