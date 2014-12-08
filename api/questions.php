@@ -89,10 +89,30 @@ $app->post('/questions', function() use ($app, $db) {
 		$correct = (boolean) $answer['correct'];
 	}
 
+	$userData = $db->getUserDataByUserId($result['user_id']);
+	$zones    = $db->getZonesByUserId($result['user_id']);
+
 	// if the answer is incorrect, degrade a zone
 	if ($correct === false) {
 		$zone = $db->getEligibleZone($result['user_id']);
+
+		if ($userData['pollution'] < 100) {
+			$pollution = ($userData['pollution'] + 16) > 100 ? 100 : $userData['pollution'] + 16;
+
+			$userData['pollution'] = $pollution;
+
+			$db->update(array(
+				'table'  => 'users_data',
+				'fields' => $userData
+			));
+
+		}
+
+		$zones = array();
+		
 		if ($zone) {
+			
+			$zones[] = $zone;
 			$zone['degrading_state']--;
 
 			$db->update(array(
@@ -106,10 +126,10 @@ $app->post('/questions', function() use ($app, $db) {
 	if ($correct === true) {
 
 		$question = $db->getById('questions', $payload['questionId']);
-
-		$userData = $db->getUserDataByUserId($result['user_id']);
+		
 		$userData['points'] += $question['points'];
 		$userData['trees']++;
+		$userData['pollution'] = ($userData['pollution'] - 16) < 20 ? 20 : $userData['pollution'] - 16;
 
 		$db->update(array(
 			'table'  => 'users_data',
@@ -117,9 +137,8 @@ $app->post('/questions', function() use ($app, $db) {
 		));
 	}
 
-	$result = $db->getById('users', $result['user_id']);
+	$result = $db->getById('users', $result['user_id']);  
 
-  $zones = $db->getZonesByUserId($result['user_id']);
   $result['zones'] = $zones;
   $result['correct'] = $correct;
 	$requestBody           = array();
@@ -134,9 +153,9 @@ $app->post('/questions', function() use ($app, $db) {
 
 	$db->create($requestBody);
 
-	$response = array($result);
+	// $response = array($result);
 
-	$app->response->setBody(json_encode($response));
+	$app->response->setBody(json_encode($result));
 
 });
 
