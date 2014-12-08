@@ -60,11 +60,11 @@ TH.global = (function() {
             });
         },
 
-        setState: function(value) {
+        setState: function(value, forceExec) {
 
             this._prevState = this._state;
             this._state =  this.states[value];
-            if (this._prevState !== this._state) {
+            if (this._prevState !== this._state || forceExec) {
                 this._execStateHandlers();
             }
 

@@ -22,7 +22,7 @@ TH.PlantNow = (function() {
             if (self.$button.hasClass('disabled')) {
                 return false;
             }
-            TH.global.setState('PLANTING_TREES');
+            TH.global.setState('PLANTING_TREES', true);
         });
     }
     PlantNow.prototype.stateUpdateHandler = function() {

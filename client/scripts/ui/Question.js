@@ -21,7 +21,8 @@ TH.Question = (function() {
         var self = this;
         $('body').on('click', '#close', function() {
             self.hide();
-            TH.global.setState('IDLE');
+
+            TH.players.players.red.updateState();
         });
 
         $('body').on('click', '#next', function() {
@@ -77,7 +78,9 @@ TH.Question = (function() {
                             $('#nextQuestion').show();
                             $('#sendResponse').hide();
                         } else {
-                            TH.players.players.red.country.decrementZoneHealth();
+                            if (data.zones[0]) {
+                                TH.players.players.red.country.decrementZoneHealth(data.zones[0].zone_id);
+                            }
                             $('.error-message').show();
                             $('#response').attr('disabled', 'disabled');
                             $('#sendResponse').hide();
@@ -140,10 +143,7 @@ TH.Question = (function() {
         });
 
     };
-    Question.prototype.hide = function() {
-        TH.players.players.red.updateState();
-        TH.Component.prototype.hide.apply(this, arguments);
-    };
+
 
     Question.prototype.stateUpdateHandler = function() {
         if(TH.global.isState('QUIZ') === true) {

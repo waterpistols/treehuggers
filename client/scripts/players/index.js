@@ -11,6 +11,7 @@ TH.players = (function() {
         createMainPlayer: function() {
 
             this.players.red = new TH.MainPlayer();
+            this.players.red.assignCountry(TH.map.countries.red);
         },
 
         startPlayerPolling: function(successCallback) {

@@ -32,10 +32,11 @@ TH.Country = (function() {
         island.addCountry(this);
     };
 
-    Country.prototype.decrementZoneHealth = function() {
+    Country.prototype.decrementZoneHealth = function(zoneId) {
         var i;
         for (i = 0; i < this.zones.length; i++) {
-            if (this.zones[i].decrementHealth()) {
+            if (this.zones[i].id === parseInt(zoneId)) {
+                this.zones[i].decrementHealth();
                 return true;
             }
         }

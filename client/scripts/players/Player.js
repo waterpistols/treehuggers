@@ -28,7 +28,6 @@ TH.Player = (function() {
         };
 
 
-
         this.container = new createjs.Container();
         this.container.x = this.properties.x;
         this.container.y = this.properties.y;
