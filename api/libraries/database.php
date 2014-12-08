@@ -105,7 +105,7 @@ class DB {
     if (!isset($fields['id'])) {
       unset($_COOKIE['TH-Token']);
       setcookie('TH-Token', '', time() - 3600);
-      
+
     }
 
     foreach ($result as $field) {
@@ -116,6 +116,8 @@ class DB {
       if (!in_array($field, $dbFields)) {
         unset($keys[$key]);
         unset($fields[$field]);
+
+        return;
       }
     }   
 
@@ -168,7 +170,7 @@ class DB {
   }
 
   ############## INTERNAL METHODS ##############
-  
+
   // get islands that are not filled
   public function getAssignableIsland() {
 
