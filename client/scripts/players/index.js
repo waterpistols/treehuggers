@@ -114,7 +114,8 @@ TH.players = (function() {
                 }
 
                 this.players[pos].setTotalHealth(parseInt(data[i].degrading_sum));
-                if (data.askForHelp) {
+
+                if (data[i].askForHelp) {
                     this.players[pos].showHelp();
                 }
             }
