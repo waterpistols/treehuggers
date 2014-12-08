@@ -58,13 +58,11 @@ TH.players = (function() {
                     success: function(response) {
                         self.ajaxRequest = null;
 
-                        if(firstRequest) {
-                            self.firstPollHandler(response);
+                        self.pollHandler(response);
+                        if (firstRequest) {
                             firstRequest = false;
-                        } else {
-                            self.pollHandler(response);
+                            TH.ui.components.preloader.setLoadedStep('otherPlayers');
                         }
-
                     },
                     error: function(error) {
                         self.ajaxRequest = null;
@@ -85,44 +83,36 @@ TH.players = (function() {
             'north': 'yellow',
             'east': 'blue'
         },
-        firstPollHandler: function(data) {
-
-            var initData = {
-                'green' : {
-                    x : 120,
-                    y : 280
-                },
-                'yellow' : {
-                    x : 550,
-                    y : 150
-                },
-                'blue' : {
-                    x : 980,
-                    y : 300
-                }
-            };
-
-            for (var i = 0; i < data.length; i++) {
-
-                var pos = this.countryMap[data[i].position];
-                this.players[pos] = new TH.Player(
-                    data[i].avatar,
-                    initData[pos]
-                );
-                TH.global.stage.addChild(this.players[pos].container);
-                this.players[pos].assignCountry(TH.map.countries[pos]);
-                this.players[pos].setTotalHealth(parseInt(data[i].degrading_sum));
-                if (data.askForHelp) {
-                    this.players[pos].showHelp();
-                }
+        initData : {
+            'green' : {
+                x : 120,
+                y : 280
+            },
+            'yellow' : {
+                x : 550,
+                y : 130
+            },
+            'blue' : {
+                x : 980,
+                y : 300
             }
-            TH.ui.components.preloader.setLoadedStep('otherPlayers');
-
         },
         pollHandler: function(data) {
 
             for (var i = 0; i < data.length; i++) {
                 var pos = this.countryMap[data[i].position];
+
+                if (!this.players[pos]) {
+                    this.players[pos] = new TH.Player(
+                        data[i].avatar,
+                        this.initData[pos]
+                    );
+                    this.players[pos].assignCountry(TH.map.countries[pos]);
+                    TH.global.stage.addChild(this.players[pos].container);
+                } else {
+
+                }
+
                 this.players[pos].setTotalHealth(parseInt(data[i].degrading_sum));
                 if (data.askForHelp) {
                     this.players[pos].showHelp();
