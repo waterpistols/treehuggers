@@ -2,8 +2,9 @@ TH = TH || {};
 TH.Player = (function() {
     var delay = 0;
 
-    function Player(image, params) {
+    function Player(id, image, params) {
         var self = this;
+        this.id = id;
         this.properties = {};
         TH.global.extend.call(this.properties, params);
 
@@ -11,24 +12,29 @@ TH.Player = (function() {
         _createPin.call(this, image);
         _attachEvents.call(this);
         this.country = null;
-
     }
 
     function _createPin(image) {
 
-        var avatar = new createjs.Bitmap(image);
-        avatar.scaleX = 0.62;
-        avatar.scaleY = 0.6;
-        avatar.x = 3;
-        avatar.y = 3;
         var pin = new createjs.Bitmap(TH.global.queue.getResult('pin'));
+        var circle = new createjs.Shape();
+
+        var img = new Image();
+        img.src = image;
+        img.style.width = '13px';
+
+        img.onload = function() {
+            circle.graphics.beginBitmapFill(img, "no-repeat").drawCircle(19,19,14);
+        };
+
+
 
         this.container = new createjs.Container();
         this.container.x = this.properties.x;
         this.container.y = this.properties.y;
 
         this.container.addChild(pin);
-        this.container.addChild(avatar);
+        this.container.addChild(circle);
         this.fallDown();
 
     }
@@ -58,15 +64,16 @@ TH.Player = (function() {
         this.helpShape.gotoAndStop(0);
         TH.global.stage.addChild(this.helpShape);
         this.previousHealth = 0;
+        this.showHelpLock = false;
 
     }
 
-    function _attachEvents(){
+    function _attachEvents() {
         var self = this;
         this.helpShape.addEventListener('click', function() {
             self.helpShape.gotoAndStop(2);
+            self.helpPlayer();
 
-            self.hideHelp();
         });
         this.helpShape.addEventListener('mouseover', function() {
             self.helpShape.gotoAndStop(1);
@@ -78,6 +85,40 @@ TH.Player = (function() {
 
         });
     }
+    Player.prototype.helpPlayer = function() {
+        var self = this;
+        var payload = {
+            user_id: this.id
+        };
+        this.showHelpLock = true;
+
+        $.ajax({
+            type: 'post',
+            url: TH.global.endpoints.help,
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(payload),
+            dataType: 'json',
+            xhrFields: { withCredentials: true },
+            success: function(response) {
+
+                if (response) {
+                    TH.players.players.red.setTrees(parseInt(response.trees));
+                }
+
+                setTimeout(function(){
+                    self.showHelpLock = false;
+                }, 1000);
+
+            },
+            error: function(error) {
+                self.ajaxRequest = null;
+                setTimeout(function(){
+                    self.showHelpLock = false;
+                }, 1000);
+                TH.global.errorHandler(error);
+            }
+        });
+    };
     Player.prototype.setTotalHealth = function(health) {
 
         var diff = health - this.previousHealth,
@@ -113,9 +154,12 @@ TH.Player = (function() {
 
     Player.prototype.showHelp = function() {
         var self = this;
+
         setTimeout(function() {
-            self.helpShape.alpha = 1;
-            self.helpShape.gotoAndStop(0);
+            if (!self.showHelpLock) {
+                self.helpShape.alpha = 1;
+                self.helpShape.gotoAndStop(0);
+            }
         }, 1000);
     };
 

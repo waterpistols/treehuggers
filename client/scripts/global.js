@@ -15,6 +15,7 @@ TH.global = (function() {
             askHelp: api + 'ask-help',
             user: api + 'user',
             plant: api + 'plant',
+            help: api + 'help',
             islands: api + 'islands-polling'
         },
         _state: null,

@@ -76,6 +76,14 @@ TH.MainPlayer = (function() {
         this.trees++;
         this.updateState();
     };
+    MainPlayer.prototype.setTrees = function(value, preventStateUpdate) {
+        this.trees = value;
+        if (!preventStateUpdate) {
+            this.updateState();
+        }
+
+        TH.ui.updateComponents({trees: this.trees});
+    };
 
     MainPlayer.prototype.updateZones = function() {
     };

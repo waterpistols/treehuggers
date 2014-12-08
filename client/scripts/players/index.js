@@ -11,35 +11,6 @@ TH.players = (function() {
         createMainPlayer: function() {
 
             this.players.red = new TH.MainPlayer();
-//            this.players.green = new TH.Player(
-//                TH.global.queue.getResult('avatar'),
-//                {   x : 120,
-//                    y : -320
-//                }
-//            );
-//            this.players.yellow = new TH.Player(
-//                TH.global.queue.getResult('avatar'),
-//                {   x : 480,
-//                    y : -450
-//                }
-//            );
-//            this.players.blue = new TH.Player(
-//                TH.global.queue.getResult('avatar'),
-//                {   x : 980,
-//                    y : -300
-//                }
-//            );
-
-
-//            TH.global.stage.addChild(this.players.green.shape);
-//            TH.global.stage.addChild(this.players.yellow.shape);
-//            TH.global.stage.addChild(this.players.blue.shape);
-
-            this.players.red.assignCountry(TH.map.countries.red);
-//            this.players.green.assignCountry(TH.map.countries.green);
-//            this.players.yellow.assignCountry(TH.map.countries.yellow);
-//            this.players.blue.assignCountry(TH.map.countries.blue);
-
         },
 
         startPlayerPolling: function(successCallback) {
@@ -98,13 +69,16 @@ TH.players = (function() {
             }
         },
         pollHandler: function(data) {
+            var i, user;
+            TH.players.players.red.setTrees(parseInt(data.trees), true);
 
-            for (var i = 0; i < data.length; i++) {
-                var pos = this.countryMap[data[i].position];
+            for (i = 0; user = data.users[i], i < data.users.length; i++) {
+                var pos = this.countryMap[user.position];
 
                 if (!this.players[pos]) {
                     this.players[pos] = new TH.Player(
-                        data[i].avatar,
+                        parseInt(user.id),
+                        user.avatar,
                         this.initData[pos]
                     );
                     this.players[pos].assignCountry(TH.map.countries[pos]);
@@ -113,10 +87,12 @@ TH.players = (function() {
 
                 }
 
-                this.players[pos].setTotalHealth(parseInt(data[i].degrading_sum));
+                this.players[pos].setTotalHealth(parseInt(user.degrading_sum));
 
-                if (data[i].askForHelp) {
+                if (user.askForHelp) {
                     this.players[pos].showHelp();
+                } else {
+                    this.players[pos].hideHelp();
                 }
             }
         }
