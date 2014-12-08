@@ -49,7 +49,8 @@ TH.Island = (function() {
             images: [TH.global.queue.getResult('bird').src],
             frames: {width:40, height:41},
             animations: {
-                flap: [0, 1]
+                flap: { frames : [0, 1], speed: 0.5}
+
             }
         };
         var sheet = new createjs.SpriteSheet(sheetOptions),
