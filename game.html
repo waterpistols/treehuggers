@@ -29,11 +29,11 @@
                 <span class="info"><%= content %></span>
                 <ul class="actions with-padding">
                     <% if ( first ){ %>
-                        <li><a href="#" class="next-tip" data-id="<%= id %>" id="nextTip">TAKE THE TOUR</a></li>
-                        <li><a href="#" class="green start-play" id="closeTutorial"> LET'S PLAY!</a></li>
+                        <li><a href="javascript: void();" class="next-tip" data-id="<%= id %>" id="nextTip">TAKE THE TOUR</a></li>
+                        <li><a href="javascript: void();" class="green start-play" id="closeTutorial"> LET'S PLAY!</a></li>
                     <% } else { %>
-                        <li><a href="#" class="next-tip" data-id="<%= id %>" id="nextTip">NEXT TIP</a></li>
-                        <li><a href="#" class="close-tutorial" id="closeTutorial"> Let's play!</a></li>
+                        <li><a href="javascript: void();" class="next-tip" data-id="<%= id %>" id="nextTip">NEXT TIP</a></li>
+                        <li><a href="javascript: void();" class="close-tutorial" id="closeTutorial"> Let's play!</a></li>
                     <% } %>
                 </ul>
             </div>
@@ -45,10 +45,10 @@
         <div class="container">
             <canvas id="world" width="1130" height="827"></canvas>
             <!-- Header -->
-            <a href="" class="logo"></a>
+            <a href="javascript: void();" class="logo"></a>
 
-            <a href="#" class="volume-icon mute"><img src="assets/images/mute.png" /></a>
-            <a href="#" class="volume-icon volume"><img src="assets/images/volume.png" /></a>
+            <a href="javascript: void();" class="volume-icon mute"><img src="assets/images/mute.png" /></a>
+            <a href="javascript: void();" class="volume-icon volume"><img src="assets/images/volume.png" /></a>
 
             <button class="button skeleton logout" id="logout">Log Out</button>
             <hr class="header-line left"/>
@@ -136,8 +136,8 @@
                             </span>
 
                             <ul class="actions">
-                                <li><a href="#" id="next" class="send-response">GOT IT! QUIZ ME</a></li>
-                                <li><a href="#" class="close-tutorial" id="close">Cancel</a></li>
+                                <li><a href="javascript: void();" id="next" class="send-response">GOT IT! QUIZ ME</a></li>
+                                <li><a href="javascript: void();" class="close-tutorial" id="close">Cancel</a></li>
                             </ul>
                         <% } else { %>
                             <h1><%= question.text %></h1>
@@ -158,9 +158,9 @@
                             </div>
 
                             <ul class="actions">
-                                <li><a href="#" class="send-response" id="sendResponse">CONFIRM ANSWER</a></li>
-                                <li><a href="#" class="next-question" id="nextQuestion">TAKE ANOTHER</a></li>
-                                <li><a href="#" class="close-tutorial" id="close">Cancel</a></li>
+                                <li><a href="javascript: void();" class="send-response" id="sendResponse">CONFIRM ANSWER</a></li>
+                                <li><a href="javascript: void();" class="next-question" id="nextQuestion">TAKE ANOTHER</a></li>
+                                <li><a href="javascript: void();" class="close-tutorial" id="close">Cancel</a></li>
                             </ul>
                         <% } %>
                     </div>
@@ -187,8 +187,8 @@
                             </span>
 
                             <ul class="actions">
-                                <li><a href="#" id="next" class="send-response">GOT IT! QUIZ ME</a></li>
-                                <li><a href="#" class="close-tutorial" id="close">Cancel</a></li>
+                                <li><a href="javascript: void();" id="next" class="send-response">GOT IT! QUIZ ME</a></li>
+                                <li><a href="javascript: void();" class="close-tutorial" id="close">Cancel</a></li>
                             </ul>
                         <% } else { %>
                             <h1><%= question.text %></h1>
@@ -208,9 +208,9 @@
                             </div>
 
                             <ul class="actions">
-                                <li><a href="#" class="send-response" id="sendResponse">CONFIRM ANSWER</a></li>
-                                <li><a href="#" class="next-question" id="nextQuestion">TAKE ANOTHER</a></li>
-                                <li><a href="#" class="close-tutorial" id="close">Cancel</a></li>
+                                <li><a href="javascript: void();" class="send-response" id="sendResponse">CONFIRM ANSWER</a></li>
+                                <li><a href="javascript: void();" class="next-question" id="nextQuestion">TAKE ANOTHER</a></li>
+                                <li><a href="javascript: void();" class="close-tutorial" id="close">Cancel</a></li>
                             </ul>
                         <% } %>
                     </div>
@@ -236,8 +236,8 @@
                                 <% } %>
                             </span>
                             <ul class="actions">
-                                <li><a href="#" id="next" class="send-response">GOT IT! QUIZ ME</a></li>
-                                <li><a href="#" class="close-tutorial" id="close">Cancel</a></li>
+                                <li><a href="javascript: void();" id="next" class="send-response">GOT IT! QUIZ ME</a></li>
+                                <li><a href="javascript: void();" class="close-tutorial" id="close">Cancel</a></li>
                             </ul>
                         <% } else { %>
                             <h1><%= question.text %></h1>
@@ -259,9 +259,9 @@
                             </div>
 
                             <ul class="actions">
-                                <li><a href="#" class="send-response" id="sendResponse">CONFIRM ANSWER</a></li>
-                                <li><a href="#" class="next-question" id="nextQuestion">TAKE ANOTHER</a></li>
-                                <li><a href="#" class="close-tutorial" id="close">Cancel</a></li>
+                                <li><a href="javascript: void();" class="send-response" id="sendResponse">CONFIRM ANSWER</a></li>
+                                <li><a href="javascript: void();" class="next-question" id="nextQuestion">TAKE ANOTHER</a></li>
+                                <li><a href="javascript: void();" class="close-tutorial" id="close">Cancel</a></li>
                             </ul>
                         <% } %>
                     </div>
@@ -272,7 +272,7 @@
         <!-- Win dialog -->
         <script type="text/html" id="winDialogHtml">
             <h1>You have won!!</h1>
-            
+
         </script>
         <script src="scripts/libs/jquery-2.1.1.js"></script>
         <script src="scripts/libs/underscore.js"></script>
