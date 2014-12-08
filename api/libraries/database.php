@@ -102,6 +102,12 @@ class DB {
 
     $result = $this->dbHandler->query($this->query)->fetchAll();
 
+    if (!isset($fields['id'])) {
+      unset($_COOKIE['TH-Token']);
+      setcookie('TH-Token', '', time() - 3600);
+      
+    }
+
     foreach ($result as $field) {
       $dbFields[] = $field['Field'];
     }
@@ -162,7 +168,7 @@ class DB {
   }
 
   ############## INTERNAL METHODS ##############
-
+  
   // get islands that are not filled
   public function getAssignableIsland() {
 
