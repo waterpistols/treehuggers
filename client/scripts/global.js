@@ -12,6 +12,7 @@ TH.global = (function() {
             login: api + 'login',
             logout: api + 'logout',
             users: api + 'users',
+            askHelp: api + 'ask-help',
             user: api + 'user',
             plant: api + 'plant',
             islands: api + 'islands-polling'
