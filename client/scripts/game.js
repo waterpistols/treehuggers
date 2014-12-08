@@ -37,6 +37,21 @@ TH.world = (function() {
                     error: TH.global.errorHandler
                 });
             });
+
+            $('body').on('click', '.mute', function(){
+                $('.volume').show();
+                $('.mute').hide();
+
+                createjs.Sound.setMute(false);
+            });
+
+            $('body').on('click', '.volume', function(){
+                $('.volume').hide();
+                $('.mute').show();
+
+                createjs.Sound.setMute(true);
+            });
+
         },
 
         _loadFiles: function() {
@@ -48,12 +63,12 @@ TH.world = (function() {
             });
             TH.global.queue.addEventListener('complete', function() {
                 TH.ui.components.preloader.setLoadedStep('assets');
+                createjs.Sound.play("ocean", { loop: -1, volume: 0.2});
+                createjs.Sound.play("seaqull", { loop: -1, volume: 0.4});
             });
+
             TH.global.queue.loadManifest([
                 /* IMAGES */
-                {id: 'diamonds', src: 'assets/images/test-sprite.png'},
-                {id: 'ocean',   src: 'assets/images/index/ocean.png'},
-                {id: 'island',  src: 'assets/images/index/island.jpg'},
                 {id: 'country1',  src: 'assets/images/island1/country1.png'},
                 {id: 'country2',  src: 'assets/images/island1/country2.png'},
                 {id: 'country3',  src: 'assets/images/island1/country3.png'},
@@ -64,14 +79,12 @@ TH.world = (function() {
                 {id: 'zone5',  src: 'assets/images/island1/zone5.png'},
                 {id: 'help', src: 'assets/images/help.png'},
                 {id: 'pin', src: 'assets/images/pin.png'},
-                {id: 'ocean', src: 'assets/images/index/ocean.png'},
-                {id: 'flag', src: 'assets/images/flag.png'},
-                {id: 'island', src: 'assets/images/index/island.jpg'},
                 {id: 'bird', src: 'assets/images/bird.png'},
                 {id: 'smoke', src: 'assets/images/smoke.png'},
 
                 /* SOUNDS */
-                {id: 'sound', src: 'assets/sounds/snd_0160.mp3'}
+                {id: 'ocean', src: 'assets/sounds/ocean.wav'},
+                {id: 'seaqull', src: 'assets/sounds/seaqull.wav'}
             ]);
         },
 

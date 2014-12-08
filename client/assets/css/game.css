@@ -406,6 +406,23 @@ body.enable-dynamic-cursor.tree-cursor {
         top: 30px;
         right: 20px;
     }
+
+    .volume-icon {
+        position: absolute;
+        top: 37px;
+        right: 150px;
+    }
+        .volume-icon:hover {
+            opacity: 0.4;
+        }
+        .mute {
+            display: none;
+        }
+
+        .volume {
+
+        }
+
     .air-polution {
         position: absolute;
         top: 120px;
