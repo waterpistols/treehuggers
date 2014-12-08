@@ -72,15 +72,14 @@ TH.Question = (function() {
                     xhrFields: { withCredentials: true },
                     success: function(data) {
                         if(data['correct']) {
-                            console.log('a');
                             TH.players.players.red.incrementTrees();
                             $('.success-message').show();
                             $('#nextQuestion').show();
                             $('#sendResponse').hide();
                         } else {
-                            console.log('b');
                             TH.players.players.red.country.decrementZoneHealth();
                             $('.error-message').show();
+                            $('#response').attr('disabled', 'disabled');
                             $('#sendResponse').hide();
                             $('#nextQuestion').show();
                         }
