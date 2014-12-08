@@ -50,7 +50,6 @@ TH.Country = (function() {
             if (this.zones[i].hasNoHealth()) {
                 results.push(this.zones[i]);
             }
-
         }
         return results;
     };
