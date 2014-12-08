@@ -102,6 +102,12 @@ class DB {
 
     $result = $this->dbHandler->query($this->query)->fetchAll();
 
+    if (!isset($fields['id'])) {
+      unset($_COOKIE['TH-Token']);
+      setcookie('TH-Token', '', time() - 3600);
+
+    }
+
     foreach ($result as $field) {
       $dbFields[] = $field['Field'];
     }
@@ -110,6 +116,8 @@ class DB {
       if (!in_array($field, $dbFields)) {
         unset($keys[$key]);
         unset($fields[$field]);
+
+        return;
       }
     }   
 
