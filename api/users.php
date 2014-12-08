@@ -304,11 +304,11 @@ $app->post('/help', function() use($app, $db) {
   	$result      = $db->getSessionByToken($cookieValue);
   	
   	$helpingUser = $db->getById('users', $result['user_id']);
-
+  	$helpingUser['trees']--;
   	$db->update(array(
 			'table'  => 'users_data',
 			'fields' => array(
-				'trees' => $helpingUser['trees'] - 1,
+				'trees' => $helpingUser['trees'],
 				'id'   => $helpingUser['user_data_id']
 			)
 		));
@@ -327,7 +327,7 @@ $app->post('/help', function() use($app, $db) {
 		));		
   }
 
-  $app->response->setBody(json_encode(array('success' => true)), FALSE);
+  $app->response->setBody(json_encode(array('trees' => $helpingUser['trees'])), FALSE);
 
 });
 // Update
