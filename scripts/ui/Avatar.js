@@ -31,7 +31,7 @@ TH.Avatar = (function() {
                 rank: _getRank(data.points)
             };
 
-            if (data.name.search('undefind') === -1) {
+            if (value.name.search('undefined') === -1) {
                 this.$element.find('.name .update-target').text(value.name);
             }
             if (typeof value.image !== 'undefined') {
