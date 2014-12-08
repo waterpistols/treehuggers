@@ -410,6 +410,7 @@ body.enable-dynamic-cursor.tree-cursor {
     .volume-icon {
         position: absolute;
         top: 37px;
+        opacity: 0.7;
         right: 150px;
     }
         .volume-icon:hover {

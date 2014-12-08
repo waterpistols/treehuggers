@@ -70,6 +70,9 @@ TH.Player = (function() {
     function _attachEvents() {
         var self = this;
         this.helpShape.addEventListener('click', function() {
+            if (TH.players.players.red.trees <= 0) {
+                return false;
+            }
             self.helpShape.gotoAndStop(2);
             self.helpPlayer();
 
@@ -89,6 +92,7 @@ TH.Player = (function() {
         var payload = {
             user_id: this.id
         };
+
         this.showHelpLock = true;
 
         $.ajax({
