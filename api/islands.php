@@ -142,7 +142,8 @@ $app->get('/islands-polling', function() use ($app, $db) {
                     $neighbours[$key]['position'] = 'west';
                 }
               }
-           }}
+           }
+        }
 
 
       // getting help notification
@@ -151,7 +152,6 @@ $app->get('/islands-polling', function() use ($app, $db) {
       if ($help) {
         $neighbours[$key]['askForHelp'] = true;
       }
-  		
   		
   	}
 

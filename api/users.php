@@ -4,13 +4,6 @@
 $app->get('/users', function () use ($app, $db) {
 	
 	$result = $db->getAll('users');	
-	echo "<html><head><title>Slim Application Error</title><style>body{margin:0;padding:30px;font:12px/1.5 Helvetica,Arial,Verdana,sans-serif;}h1{margin:0;font-size:48px;font-weight:normal;line-height:48px;}strong{display:inline-block;width:65px;}</style></head><body><h1>Slim Application Error</h1><p>The application could not run because of the following error:</p><h2>Details</h2><div><strong>Type:</strong> ErrorException</div><div><strong>Code:</strong> 8</div><div><strong>Message:</strong> Undefined index: id</div><div><strong>File:</strong> /vagrant/public/local.dev/api/libraries/database.php</div><div><strong>Line:</strong> 124</div><h2>Trace</h2><pre><div>#0 /vagrant/public/local.dev/api/libraries/database.php(124): Slim\Slim::handleErrors(8, 'Undefined index...', '/vagrant/public...', 124, Array)
-<div>#1 /vagrant/public/local.dev/api/users.php(240): DB->update(Array)
-<div>#2 [internal function]: {closure}()
-<div>#3 /vagrant/public/local.dev/api/vendor/slim/slim/Slim/Route.php(462): call_user_func_array(Object(Closure), Array)
-<div>#4 /vagrant/public/local.dev/api/vendor/slim/slim/Slim/Slim.php(1326): Slim\Route->dispatch()
-<div>#5 /vagrant/public/local.dev/api/vendor/slim/slim/Slim/Middleware/Flash.php(85): Slim\Slim->call()
-<div>#6 /vagrant/public/local.dev/api/vendor/slim/slim/Slim/Middleware";
 	$app->response->setBody(json_encode($result));
 
 });
