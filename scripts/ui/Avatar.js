@@ -34,7 +34,7 @@ TH.Avatar = (function() {
             if (value.name.search('undefined') === -1) {
                 this.$element.find('.name .update-target').text(value.name);
             }
-            if (typeof value.image !== 'undefined') {
+            if (typeof value.points !== 'undefined') {
                 this.$element.find('.points .update-target').text(value.points);
             }
             if (typeof value.image !== 'undefined') {
