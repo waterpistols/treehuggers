@@ -114,7 +114,7 @@ $app->post('/login', function() use ($app, $db) {
 
 			$requestBody['fields'] = array(
 				'user_id'   => $result['id'],
-				'trees'     => 8,
+				'trees'     => 10,
 				'pollution' => 100,
 				'asks'      => 3
 			);
