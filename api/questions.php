@@ -182,16 +182,16 @@ $app->post('/plant', function() use ($app, $db) {
 
 	$payload = json_decode($app->request->getBody(), TRUE);
 	$zoneId  = $payload['zoneId'];
-
+    
 	// set zone to fully planted
 	$userZone = $db->getZonesByUserId($result['user_id'], $zoneId);
 	$userZone['degrading_state'] = 3;
-
-	$db->update(array(
+    unset($userZone['title']);
+	$var = $db->update(array(
 		'table'  => 'users_zones',
 		'fields' => $userZone
 	));
-
+    
 	// decrease the number of trees by 4
 	$userData = $db->getUserDataByUserId($result['user_id']);
 	$userData['trees'] -= 4;

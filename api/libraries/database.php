@@ -97,7 +97,8 @@ class DB {
 		extract($params);
     
     $keys = array_keys($fields);
-
+    
+    
     $this->query = 'SHOW COLUMNS FROM `' . $table . '` ';
 
     $result = $this->dbHandler->query($this->query)->fetchAll();
@@ -117,10 +118,9 @@ class DB {
         unset($keys[$key]);
         unset($fields[$field]);
 
-        return;
       }
     }   
-
+    
 		$this->query = 'UPDATE `' . $table . '` SET ';
 
 		foreach ($fields as $key => $field) {

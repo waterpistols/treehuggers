@@ -68,7 +68,7 @@ $app->get('/islands-polling', function() use ($app, $db) {
 				$neighbours[] = $db->getById('users', $islandUser['user_id']);					
   		}  		
   	}
-		  	
+    
   	$relations = $db->getUserRelationsByIsland($island['island_id'], true);
 
   	foreach ($neighbours as $key => $neighbour) {
