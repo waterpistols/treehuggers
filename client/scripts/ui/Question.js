@@ -140,6 +140,10 @@ TH.Question = (function() {
         });
 
     };
+    Question.prototype.hide = function() {
+        TH.players.players.red.updateState();
+        TH.Component.prototype.hide.apply(this, arguments);
+    };
 
     Question.prototype.stateUpdateHandler = function() {
         if(TH.global.isState('QUIZ') === true) {
