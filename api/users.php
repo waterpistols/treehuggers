@@ -305,6 +305,7 @@ $app->post('/help', function() use($app, $db) {
   	
   	$helpingUser = $db->getById('users', $result['user_id']);
   	$helpingUser['trees']--;
+  	
   	$db->update(array(
 			'table'  => 'users_data',
 			'fields' => array(

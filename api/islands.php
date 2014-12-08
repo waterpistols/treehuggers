@@ -155,6 +155,12 @@ $app->get('/islands-polling', function() use ($app, $db) {
   		
   	}
 
-  	$app->response->setBody(json_encode($neighbours), FALSE);
+    $userData = $db->getById('users', $result['user_id']);
+
+    $response = array(
+      'trees' => $userData['trees'],
+      'users' => $neighbours
+    );
+  	$app->response->setBody(json_encode($response), FALSE);
 	}
 });
