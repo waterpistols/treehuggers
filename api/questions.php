@@ -2,8 +2,7 @@
 
 // Get All
 $app->get('/questions', function () use ($app, $db) {
-
-	$payload = $app->request->params();
+	
 	// determine userId
 	$cookieValue = $_COOKIE['TH-Token'];
 
@@ -12,10 +11,9 @@ $app->get('/questions', function () use ($app, $db) {
 	$result = $db->getAllQuestions($session['user_id']);
 
 	foreach($result as $key => $question) {
-
-		if ($payload && isset($payload['random'])) {
-			$questionIds[] = $question['id'];
-		}
+			
+		$questionIds[] = $question['id'];
+		
 
 		if ($question['type'] !== 'Input') {
 			$answers = $db->getAnswersByQuestionId($question['id']);
@@ -29,18 +27,18 @@ $app->get('/questions', function () use ($app, $db) {
 	}
 
 	if ($result) {
-		if ($payload && isset($payload['random'])) {
-			$questionId = array_rand($questionIds);
-			$questionId = $questionIds[$questionId];
+		
+		$questionId = array_rand($questionIds);
+		$questionId = $questionIds[$questionId];
 
-			foreach ($result as $key => $question) {
-				if ($questionId == $question['id']) {
-					$idKey = $key;
-				}
+		foreach ($result as $key => $question) {
+			if ($questionId == $question['id']) {
+				$idKey = $key;
 			}
-
-			$result = $result[$idKey];
 		}
+
+		$result = $result[$idKey];
+		
 	}
 
 	$app->response->setBody(json_encode($result));
