@@ -47,7 +47,7 @@ TH.players = (function() {
                 if (!self.ajaxRequest) {
                     self.ajaxRequest = request();
                 }
-            }, 1000);
+            }, 5000);
 
         },
         countryMap: {
